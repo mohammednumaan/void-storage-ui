@@ -1,0 +1,104 @@
+/* INPUT and LABEL ELEMENTS STYLING */
+label {
+    font-weight: bold;
+    display: block;
+}
+
+label:after { content: " " }
+
+input{
+    width: 30vh;
+    height: 3vh;
+    border: 1px solid #323232;
+    border-radius: 7px;
+    padding-left: 10px;
+    transition: 0.25s;
+    outline: none;
+
+}
+
+input:focus{
+    border-color: #ff5a30;
+}
+
+/* FORM BACKGROUND STYLES */
+.form-background{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    z-index: -1;
+    filter: blur(200px);
+}
+
+.form-background-dot-top,
+.form-background-dot-bottom{
+    position: absolute;
+    width: 600px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #ff5a30;
+
+    top: 0;
+    left: 0;
+}
+
+.form-background-dot-bottom{
+    top: 70vh;
+    left: 130vh;
+}
+
+/* FORM CONTAINER STYLES */
+.form-container{
+    display: grid;
+    grid-template-columns: 4fr 5fr;
+    background-color: #131313;
+    border-radius: 20px;
+
+    width: 100vh;
+    height: 70vh;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.form-header-container{
+    text-align: start;
+    margin-left: 50px;
+}
+
+/* FORM CONTAINER CONTENT STYLES */
+#form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-ui{
+    padding: 20px;
+}
+
+.form-ui-image{
+    padding: 20px;
+}
+
+.form-group{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.submit-button{
+    width: 32vh;
+    height: 5vh;
+    margin-top: 10px;
+}
