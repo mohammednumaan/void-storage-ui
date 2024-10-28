@@ -1,0 +1,17 @@
+/* FILE SYSTEM SIDEBAR TREE CONTAINER STYLES */
+.file-system-tree{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.file-system-container{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.file-system-view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

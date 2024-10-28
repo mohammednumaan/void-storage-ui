@@ -1,7 +1,9 @@
+// imports
 import NavigationBar from '../NavigationBar/NavigationBar';
 import styles from './Home.module.css'
 import { Link } from "react-router-dom";
 
+// a home component
 export default function Home(){
     return (
         <>  

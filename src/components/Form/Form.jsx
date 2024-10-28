@@ -3,7 +3,7 @@ import { useState } from "react"
 import styles from "./Form.module.css"
 import { Link, useNavigate } from "react-router-dom";
 
-// form component
+// a form component
 export default function Form({formOptions}){
 
     const navigate = useNavigate();
