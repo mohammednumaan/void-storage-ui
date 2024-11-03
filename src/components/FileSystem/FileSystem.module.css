@@ -7,7 +7,7 @@
 
 .file-system-container{
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 300px 5fr;
 }
 
 .file-system-view{

@@ -28,7 +28,7 @@ export default function Form({formOptions}){
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}users/${formType.toLowerCase()}`, {
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/${formType.toLowerCase()}`, {
             method: "POST",
             body: formType.toLowerCase() === "login" ? JSON.stringify({username: formData.username, password: formData.password}): JSON.stringify(formData),
             headers: {"Content-Type": "application/json"},

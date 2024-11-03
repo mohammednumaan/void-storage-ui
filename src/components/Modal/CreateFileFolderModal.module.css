@@ -1,0 +1,49 @@
+/* FILE-FOLDER STYLING */
+.file-folder-form-container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+.file-folder-form{
+   width: 100%;
+   height: 100%;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   gap: 100px;
+}
+
+/* FILE-FOLDER FORM'S INPUT, LABEL AND BUTTON STYLING */
+#file-folder-label{
+    color:  #ff5a30;
+    font-size: 40px;
+}
+
+#file-folder-input{
+    width: 385px;
+}
+
+.file-form-btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-form-btns > button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 50%;
+    margin-top: 20px;
+}

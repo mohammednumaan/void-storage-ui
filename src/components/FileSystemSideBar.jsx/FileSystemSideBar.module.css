@@ -1,16 +1,49 @@
 /* FILE SYSTEM SIDEBAR CONTAINER STYLES */
 .folder-container{
-    width: 50vh;
     height: 85vh;
     background-color: #0e0d0d;
     border-radius: 20px;
     padding: 0;
 }
 
-.folder-header-title{
+.folder-headers{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     gap: 10px;
 }
 
+#folder-header-title{
+    color: #ff5a30;
+}
+
+/* FILE SYSTEM FOLDER LIST, ADD FILE/FOLDER BUTTON STYLES */
+.folder-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.folder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 40px;
+    background-color: #1a1a1a;
+    border-left: solid 4px #ff5a30;
+}
+
+#add-file-btn,
+#add-folder-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    width: 90%;
+
+}

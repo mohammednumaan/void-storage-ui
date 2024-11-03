@@ -13,7 +13,7 @@ export default function ProtectedRoute(){
   // if true, we render the respective component, else, we re-direct the user to the login page
   useEffect(() => {
       (async () => {
-        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}users/authenticate`, {
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/authenticate`, {
           mode: 'cors',
           credentials: 'include'
         })
@@ -31,7 +31,7 @@ export default function ProtectedRoute(){
         }
       })();
   
-  }, [username])
+  }, [])
 
   return (
     <>

@@ -29,7 +29,7 @@ function App() {
   // if true, we re-direct the user to /tree, else, we render the home page with login and register component
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}users/authenticate`, {
+      const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/authenticate`, {
         mode: 'cors',
         credentials: 'include'
       })
