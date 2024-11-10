@@ -1,9 +1,10 @@
 // imports
 import { useOutletContext } from "react-router-dom"
 import styles from "./FileSystem.module.css"
-import FileSystemSideBar from "../FileSystemSideBar.jsx/FileSystemSideBar";
+import FileSystemSideBar from "../FileSystemSideBar/FileSystemSideBar";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import { useState } from "react";
+import FolderView from "../FolderView/FolderView";
 
 // file system component
 export default function FileSystem(){
@@ -26,6 +27,10 @@ export default function FileSystem(){
 
                 <div className={styles["file-system-container"]}>
                     <FileSystemSideBar />
+
+                    <div className={styles["file-system-view"]}>
+                       <FolderView /> 
+                    </div>
                 </div>
 
             </div>

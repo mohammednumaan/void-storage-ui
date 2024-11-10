@@ -1,16 +1,19 @@
 // imports
 import { useState } from "react";
 import styles from "./CreateFileFolderModal.module.css";
+import { useParams } from "react-router-dom";
 
 // a dynamic form component to upload files and create new folders 
 export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm}){
+
+    const {folderId} = useParams();
 
     // destructuring the formConfigObject to render the form accordingly
     const {formType} = formConfigObject;
 
     // a file state to store the uploaded file
     const [file, setFile] = useState(null);
-    const [folder, setFolder] = useState({parentFolder: "root", folderName: ""});
+    const [folder, setFolder] = useState({parentFolder: folderId || "root", folderName: ""});
 
     // a simple function to handle input change
     // for the file-input field
@@ -24,7 +27,8 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
         e.preventDefault()
         const formData = new FormData();
         formData.append("file", file);
-
+        formData.append("parentFolder", folderId || "root");
+        
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files`, {
             method: "POST",
             body: formData,

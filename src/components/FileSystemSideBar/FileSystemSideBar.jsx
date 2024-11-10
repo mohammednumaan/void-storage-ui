@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import styles from './FileSystemSideBar.module.css'
 import FileFolderModal from '../Modal/CreateFileFolderModal';
+import { Link } from 'react-router-dom';
 
 // a file system sidebar component
 export default function FileSystemSideBar(){
@@ -52,13 +53,9 @@ export default function FileSystemSideBar(){
                 </div>
                 
                 <div className={styles["folder-list"]}>
-                    {folders.length !== 0 && (
-                        folders.map((folder) => (
-                            <div className={styles["folder"]} key={folder.id}> 
-                                <h2>{folder.folderName}</h2>
-                            </div>
-                        ))
-                    )}
+                    <div className={styles["folder"]}> 
+                        <h2><Link to={`/tree`}>Root</Link></h2>
+                    </div>
                 </div>
 
                 {fileForm && <FileFolderModal formConfigObject={{formType: "File"}} setFileForm={setFileForm} />}

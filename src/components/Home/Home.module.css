@@ -33,6 +33,19 @@
 }
 
 /* HOME CONTAINER CONTENTS STYLING */
+.get-started{
+    height: 100%;
+}
+
+.get-started-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
 .get-started-header{
     display: flex;
     gap: 4px;

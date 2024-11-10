@@ -48,7 +48,9 @@ function App() {
         <Route path='/register' element={<Form formOptions={registerFormOptions} />} />
         <Route path='/login' element={<Form formOptions={loginFormOptions} />} />
         <Route element={<ProtectedRoute />}>
-          <Route path='/tree' element={<FileSystem />} />
+          <Route path='/tree' element={<FileSystem />}>
+            <Route path=':folderId' element={<FileSystem />}></Route>
+          </Route>
         </Route>
       </Routes>
     </>
