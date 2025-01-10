@@ -1,12 +1,12 @@
 // imports
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import NavigationBar from "./NavigationBar/NavigationBar";
 
 // protected route component
 export default function ProtectedRoute(){
 
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   
   // once the component is mounted, we check if the user's session is still authenticated (logged in)
@@ -20,14 +20,14 @@ export default function ProtectedRoute(){
 
         const data = await response.json();
         if (data.authenticated){
-          setUsername(data.username);
+          console.log(data);
+          setIsAuth(true);
           setLoading(false);
         } 
         
         else{
-          setUsername("")
+          setIsAuth(false)
           setLoading(true);
-          navigate('/register');
         }
       })();
   
@@ -35,7 +35,14 @@ export default function ProtectedRoute(){
 
   return (
     <>
-      {loading ? <h1>Loading...</h1> : <Outlet context={username} />}
+      {!isAuth && !loading ? <Navigate to={'/register'} /> : 
+      
+        <> 
+          <div>
+            <NavigationBar />
+          </div>
+          <Outlet />
+        </>}
     </>
   )
 }

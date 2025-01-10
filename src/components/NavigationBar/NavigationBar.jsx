@@ -13,8 +13,8 @@ export default function NavigationBar(){
                 </div>
 
                 <div className={styles["navbar-links"]}>
-                <Link to='/register'>Register</Link>
-                <Link to='/login'>Login</Link>
+                <Link to='/'><img src="/public/account_icon.svg" alt="account button icon" title="Account" /></Link>
+                <Link to='/'><img src="/public/logout_icon.svg" alt="logout button icon" title="Logout" /></Link>
                 </div>
             </div>
         </>
