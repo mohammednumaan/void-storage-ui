@@ -2,6 +2,7 @@
 import { Link, useParams } from "react-router-dom"
 import styles from "./FolderView.module.css"
 import { format } from "date-fns";
+import { useEffect } from "react";
 
 // a simple function to convert the file size
 // to a human readable format for display purposes
@@ -21,30 +22,32 @@ const getFileSize = (bytes) => {
 }
 
 // a folder/file view component
-export default function FolderView({folders, files, setFolders, selectedFile, setSelectedFile}){
+export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile}){
 
-    // 
     const {folderId, fileId} = useParams();
 
-    // useEffect(() => {
-    //     async function getFileDetails(){
+    useEffect(() => {
+        async function getFileDetails(){
 
-    //             const response = await fetch(`http://localhost:3000/file-system/files/file/${folderId}/${fileId}`, {
-    //                 mode: 'cors',
-    //                 credentials: 'include'
-    //             })
+                const response = await fetch(`http://localhost:3000/file-system/files/file/${folderId}/${fileId}`, {
+                    mode: 'cors',
+                    credentials: 'include'
+                })
     
-    //             const data = await response.json();
-    //             if (response.ok){
-    //                 setSelectedFile(data.file);
+                const data = await response.json();
+                console.log(data)
+                if (response.ok){
+                    setFolders([]);
+                    setFiles([]);
+                    setSelectedFile(data.file);
 
-    //             } else{
-    //                 console.log('err');
-    //             }
+                } else{
+                    console.log('err');
+                }
 
-    //     }
-    //     if (fileId) getFileDetails();
-    // }, [fileId])
+        }
+        if (fileId) getFileDetails();
+    }, [fileId])
     
     // a simple async function to handle folder deletes
     const handleFolderDelete = async (event, folderName, folderId) => {
@@ -81,6 +84,13 @@ export default function FolderView({folders, files, setFolders, selectedFile, se
 
             </div>
             <hr />
+
+            {selectedFile && (
+            <div>
+                {console.log('hi')}
+                {selectedFile.fileName}
+            </div>
+        )}
             {folders.length !== 0 && folders.map(folder => (
                 <Link key={folder.id} className={styles["folder-container"]} to={`/tree/${folderId || 'root'}/${folder.id}`}>
                     <div className={styles["folder"]}>
@@ -104,8 +114,8 @@ export default function FolderView({folders, files, setFolders, selectedFile, se
                 </Link>
             ))}
 
-        {/* {files.length !== 0 && files.map(file => (
-                <Link key={file.id} className={styles["file-container"]} to={`/tree/file/${file.folder.folderName}/${file.fileName}`}>
+        {files.length !== 0 && files.map(file => (
+                <Link key={file.id} className={styles["file-container"]} to={`/tree/file/${file.folder.id}/${file.id}`}>
                     <div className={styles["file"]}>
 
                         <div className={styles["file-left"]}>
@@ -130,11 +140,6 @@ export default function FolderView({folders, files, setFolders, selectedFile, se
                 </Link>
             ))}
 
-        {selectedFile && (
-            <div>
-                {selectedFile.fileName}
-            </div>
-        )} */}
         {((folders.length == 0 && files.length == 0) && !selectedFile) && <h3 className={styles["no-file-folders-message"]}>Create Folders Or Upload a File Here To View This Folder's Contents.</h3>}
         </>
     )

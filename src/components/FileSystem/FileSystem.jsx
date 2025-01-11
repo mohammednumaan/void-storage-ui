@@ -48,26 +48,26 @@ export default function FileSystem(){
     // a simple useEffect to fetch the files located
     // in the older with id as folderId
 
-    // useEffect(() => {
-    //     async function getFiles(){
-    //         const response = await fetch(`http://localhost:3000/file-system/files/${folderId || 'root'}`, {
-    //             mode: 'cors',
-    //             credentials: 'include'
-    //         });
+    useEffect(() => {
+        async function getFiles(){
+            const response = await fetch(`http://localhost:3000/file-system/files/${folderId || 'root'}`, {
+                mode: 'cors',
+                credentials: 'include'
+            });
 
-    //         const data = await response.json();
-    //         if (response.ok){
-    //             setFiles([...data.files]);
-    //             setSelectedFile(null);
+            const data = await response.json();
+            if (response.ok){
+                setFiles([...data.files]);
+                setSelectedFile(null);
 
-    //         } else{
-    //             console.log('err')
-    //         }
-    //     }
+            } else{
+                console.log('err')
+            }
+        }
 
-    //     if (!fileId) getFiles();
+        if (!fileId) getFiles();
 
-    // }, [JSON.stringify(files), folderId])
+    }, [JSON.stringify(files), folderId])
 
 
         return (
@@ -77,7 +77,7 @@ export default function FileSystem(){
                     <FileSystemSideBar setFolders={setFolders} />
 
                     <div className={styles["file-system-view"]}>
-                       <FolderView folders={folders} setFolders={setFolders} files={files} selectedFile={selectedFile} setSelectedFile={setSelectedFile}/> 
+                       <FolderView folders={folders} setFolders={setFolders} files={files} setFiles={setFiles} selectedFile={selectedFile} setSelectedFile={setSelectedFile}/> 
                     </div>
                 </div>
 
