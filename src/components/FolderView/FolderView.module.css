@@ -1,6 +1,8 @@
 /* FOLDER CONTAINER STYLES */
 .folder-container,
-.file-container{
+.file-container,
+.file-view-details,
+.file-view{
     width: 97%;
     height: 50px;
     border: 2px solid #1a1a1a;
@@ -8,10 +10,17 @@
     padding: 5px 10px;
     color: #ff5a30;
     transition: 0.5s;
-
-
     background-color: #0e0d0d;
     
+}
+
+.file-view-container{
+    width: 100%;
+    height: 85vh;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 /* FOLDER DETAILS (header) STYLES */
@@ -61,6 +70,7 @@ hr{
 }
 
 .folder-right,
+.file-right,
 .file-right{
     display: flex;
     justify-content: space-evenly;
@@ -69,6 +79,7 @@ hr{
 }
 
 .folder-right-options,
+.file-right-options,
 .file-right-options{
     display: flex;
     justify-content: center;
@@ -86,5 +97,10 @@ hr{
     color: #494848;
     position: relative;
     top: 35%;
+}
+
+/* FILE VIEW STYLES */
+.file-view{
+    height: 68%;
 }
 

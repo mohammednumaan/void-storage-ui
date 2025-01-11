@@ -50,7 +50,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     }, [fileId])
     
     // a simple async function to handle folder deletes
-    const handleFolderDelete = async (event, folderName, folderId) => {
+    const handleFolderDelete = async (event, folderId) => {
         event.preventDefault();
         event.stopPropagation()
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders`, {
@@ -64,6 +64,29 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         if (response.ok){
             const updatedFolders = folders.filter(folder => folder.id !== folderId)
             setFolders(prev => ([...updatedFolders]));
+        }
+        else{
+            console.log('err')
+        }
+
+    }
+
+    // a simple async function to handle file deletes
+    const handleFileDelete = async (event, fileId) => {
+        event.preventDefault();
+        event.stopPropagation()
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            mode: 'cors',   
+            body: JSON.stringify({fileId}),
+            credentials: 'include'
+        })
+
+        if (response.ok){
+            const updatedFiles = files.filter(file => file.id !== fileId)
+            console.log(updatedFiles)
+            setFiles(prev => ([...updatedFiles]));
         }
         else{
             console.log('err')
@@ -86,11 +109,42 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
             <hr />
 
             {selectedFile && (
-            <div>
-                {console.log('hi')}
-                {selectedFile.fileName}
-            </div>
-        )}
+                <div className={styles["file-view-container"]}>
+
+                    <div className={styles["file-view-details"]} title="File Details">
+                        <div className={styles["file"]}>
+
+                            <div className={styles["file-left"]}>
+                                <img alt="file icon" src="/public/file_icon.svg"></img>
+                                <p>{selectedFile.fileName}</p>
+                            </div>
+
+                            <div className={styles["file-right"]}>
+
+                                <div className={styles["file-right-size"]}>
+                                    <p id={styles["file-size"]}>{getFileSize(selectedFile.fileSize)}</p>
+                                </div>
+                                <p>{format(selectedFile.createdAt, 'dd/MM/yyyy')}</p>
+
+                                <div className={styles["file-right-options"]}>
+                                    <img alt="file delete icon" src="/public/folder_delete_icon.svg"></img>
+                                    <img alt="file edit icon" src="/public/folder_edit_icon.svg"></img>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className={styles["file-view"]}>
+                    </div>
+                    <div className={styles["file-view-options"]}>
+                        <button>Download File</button>
+                        <button>View File</button>
+
+                    </div>
+
+                </div>
+            )}
             {folders.length !== 0 && folders.map(folder => (
                 <Link key={folder.id} className={styles["folder-container"]} to={`/tree/${folderId || 'root'}/${folder.id}`}>
                     <div className={styles["folder"]}>
@@ -105,7 +159,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                             <p>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
 
                             <div className={styles["folder-right-options"]}>
-                                <img alt="folder delete icon" src="/public/folder_delete_icon.svg" title="Delete Folder" onClick={(e) => handleFolderDelete(e, folderId, folder.id)}></img>
+                                <img alt="folder delete icon" src="/public/folder_delete_icon.svg" title="Delete Folder" onClick={(e) => handleFolderDelete(e, folder.id)}></img>
                                 <img alt="folder edit icon" src="/public/folder_edit_icon.svg" title="Edit Folder"></img>
                             </div>
 
@@ -115,7 +169,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
             ))}
 
         {files.length !== 0 && files.map(file => (
-                <Link key={file.id} className={styles["file-container"]} to={`/tree/file/${file.folder.id}/${file.id}`}>
+                <Link key={file.id} className={styles["file-container"]} to={`/tree/file/${file.folderId}/${file.id}`}>
                     <div className={styles["file"]}>
 
                         <div className={styles["file-left"]}>
@@ -131,7 +185,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                             <p>{format(file.createdAt, 'dd/MM/yyyy')}</p>
 
                             <div className={styles["file-right-options"]}>
-                                <img alt="file delete icon" src="/public/folder_delete_icon.svg" onClick={(e) => handleFolderDelete(e, file.folderName, file.id)}></img>
+                                <img alt="file delete icon" src="/public/folder_delete_icon.svg" onClick={(e) => handleFileDelete(e, file.id)}></img>
                                 <img alt="file edit icon" src="/public/folder_edit_icon.svg"></img>
                             </div>
 

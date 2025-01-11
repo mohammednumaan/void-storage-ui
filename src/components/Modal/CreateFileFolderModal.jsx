@@ -4,7 +4,7 @@ import styles from "./CreateFileFolderModal.module.css";
 import { useParams } from "react-router-dom";
 
 // a dynamic form component to upload files and create new folders 
-export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm, setFolders}){
+export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm, setFileFolders}){
 
     const {folderId} = useParams();
 
@@ -37,6 +37,8 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
         })
 
         const data = await response.json();
+        console.log("uploaded", data)
+        setFileFolders(files => [...files, data.uploadedFile])
         setFileForm(false)
     }
 
@@ -62,7 +64,7 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
 
         const data = await response.json();
         setFolderForm(false);
-        setFolders(folders => [...folders, data.createdFolder])
+        setFileFolders(folders => [...folders, data.createdFolder])
     } 
 
     return (

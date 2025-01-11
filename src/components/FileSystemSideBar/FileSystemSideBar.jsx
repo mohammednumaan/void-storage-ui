@@ -5,7 +5,7 @@ import FileFolderModal from '../Modal/CreateFileFolderModal';
 import { Link } from 'react-router-dom';
 
 // a file system sidebar component
-export default function FileSystemSideBar({setFolders}){
+export default function FileSystemSideBar({setFolders, setFiles}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
@@ -34,8 +34,8 @@ export default function FileSystemSideBar({setFolders}){
                     </div>
                 </div>
 
-                {fileForm && <FileFolderModal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFolders={setFolders} />}
-                {folderForm && <FileFolderModal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFolders={setFolders} />}  
+                {fileForm && <FileFolderModal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFileFolders={setFiles} />}
+                {folderForm && <FileFolderModal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFileFolders={setFolders} />}  
             </div>
         </>
     )

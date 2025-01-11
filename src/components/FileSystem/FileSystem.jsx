@@ -69,12 +69,11 @@ export default function FileSystem(){
 
     }, [JSON.stringify(files), folderId])
 
-
-        return (
+    return (
         <>
             <div className={styles["file-system-tree"]}>
                 <div className={styles["file-system-container"]}>
-                    <FileSystemSideBar setFolders={setFolders} />
+                    <FileSystemSideBar setFiles={setFiles} setFolders={setFolders} />
 
                     <div className={styles["file-system-view"]}>
                        <FolderView folders={folders} setFolders={setFolders} files={files} setFiles={setFiles} selectedFile={selectedFile} setSelectedFile={setSelectedFile}/> 
