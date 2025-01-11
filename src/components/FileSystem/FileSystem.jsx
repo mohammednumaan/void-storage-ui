@@ -28,7 +28,7 @@ export default function FileSystem(){
     // in the folder with id as folderId
     useEffect(() => {
         async function getFolders(){
-            const response = await fetch(`http://localhost:3000/file-system/folders/${folderId || 'root'}`, {
+            const response = await fetch(`http://localhost:3000/file-system/folders/${folderId || "root"}`, {
                 mode: 'cors',
                 credentials: 'include'
             });

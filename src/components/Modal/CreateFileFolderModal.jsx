@@ -13,7 +13,7 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
 
     // a file state to store the uploaded file
     const [file, setFile] = useState(null);
-    const [folder, setFolder] = useState({parentFolder: folderId || "root", folderName: ""});
+    const [folder, setFolder] = useState({parentFolderId: folderId || 'root', folderName: ""});
 
     // a simple function to handle input change
     // for the file-input field

@@ -82,7 +82,7 @@ export default function FolderView({folders, files, setFolders, selectedFile, se
             </div>
             <hr />
             {folders.length !== 0 && folders.map(folder => (
-                <Link key={folder.id} className={styles["folder-container"]} to={`/tree/${folderId || 'root'}/${folder.folderName}`}>
+                <Link key={folder.id} className={styles["folder-container"]} to={`/tree/${folderId || 'root'}/${folder.id}`}>
                     <div className={styles["folder"]}>
 
                         <div className={styles["folder-left"]}>
