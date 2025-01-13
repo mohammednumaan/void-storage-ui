@@ -140,7 +140,13 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         else{
             console.log('err')
         }
-    }       
+    }      
+    
+    // a simple function to close the edit input
+    const closeEditInput = () => {
+        setEditable(false);
+        setEditName("");
+    }
 
     // a simple function to handle input change
     // for renaming a file/folder
@@ -214,7 +220,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
 
                                 <div className={styles["edit-options"]}>
                                     <img id={styles["confirm-rename-btn"]} src="/public/tick_icon.svg" alt="rename confirm button" onClick={(e) => handleFolderEdit(e, folder.id)} />
-                                    <img id={styles["confirm-rename-btn"]} src="/public/close_icon.svg" alt="rename confirm button" />
+                                    <img id={styles["confirm-rename-btn"]} src="/public/close_icon.svg" alt="rename cancel button" onClick={closeEditInput} />
                                 </div>    
                                                      
                             </div>
@@ -248,7 +254,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
 
                                 <div className={styles["edit-options"]}>
                                     <img id={styles["confirm-rename-btn"]} src="/public/tick_icon.svg" alt="rename confirm button" onClick={(e) => handleFileEdit(e, file.id)} />
-                                    <img id={styles["confirm-rename-btn"]} src="/public/close_icon.svg" alt="rename confirm button" />
+                                    <img id={styles["confirm-rename-btn"]} src="/public/close_icon.svg" alt="rename cancel button" onClick={closeEditInput} />
                                 </div>    
                                                      
                             </div>
