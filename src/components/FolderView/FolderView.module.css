@@ -57,6 +57,7 @@ hr{
 
 .folder-container:hover,
 .file-container:hover{
+
     background-color: #1a1a1a;
 }
 
@@ -97,6 +98,28 @@ hr{
     color: #494848;
     position: relative;
     top: 35%;
+}
+
+#edit-input{
+    border: none;
+    font-size: 18px;
+
+    background-color: transparent;
+    color: #ff5a30;
+    width: 200px;
+}
+
+.edit-input-container,
+.edit-options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: fit-content;
+}
+
+#edit-options{
+    gap: 10px;
 }
 
 /* FILE VIEW STYLES */
