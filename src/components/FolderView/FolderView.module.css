@@ -37,7 +37,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+    /* gap: 100px; */
 }
 
 hr{
@@ -74,12 +74,23 @@ hr{
 .file-right,
 .file-right{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    gap: 100px;
+    width: 20em;;
 }
 
-.folder-right-options,
+.folder-information{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 90%;
+}
+
+#folder-right-created{
+    margin-right: 60px;
+}
+
+
 .file-right-options,
 .file-right-options{
     display: flex;
@@ -88,9 +99,52 @@ hr{
     gap: 10px;
 }
 
+.folder-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menu{
+    list-style: none;
+    padding: 0.2em 0em;
+    background-color: #0e0d0d;
+    border: 1px solid #1a1a1a;
+    border-radius: 0.5em;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+
+    position: absolute;
+    text-align: center;
+    top: 16em;
+    width: 10%;
+    height: 12%;
+    transform: translateX(-50%);
+}
+
+.menu-item-btn{
+    display: flex;
+    width: 100%;
+    border-radius: 0px;
+    background-color: #0e0d0d;
+    border-radius: 5px;
+}
+
+.menu-item-btn:hover{
+    border: none;
+    background-color: #494848;
+}
+
+li{
+    margin-top: 12px;
+}
+
+
+
 #folder-right-size,
 #file-right-size{
     text-align: center;
+    margin-left: -70px;
 
 }
 
@@ -122,8 +176,20 @@ hr{
     gap: 10px;
 }
 
+.file-size{
+    width: 10em;
+    margin-right: -80px;
+}
+
 /* FILE VIEW STYLES */
 .file-view{
     height: 68%;
 }
 
+
+@media (max-width: 1100px) {
+    .folder-container,
+    .file-container{
+        font-size: 15px;
+    }
+}

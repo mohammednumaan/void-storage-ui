@@ -7,7 +7,7 @@
 
 .file-system-container{
     display: grid;
-    grid-template-columns: 300px 5fr;
+    grid-template-columns: 1fr 5fr;
 }
 
 .file-system-view{
@@ -15,5 +15,14 @@
     align-items: center;
     flex-direction: column;
     gap: 16px;
-    padding: 16px;
+    padding-left: 20px;
+    flex: 1 1 auto;
+}
+
+
+@media (max-width: 700px) {
+    .file-system-container{
+        display: flex;
+        flex: 1 1 auto;
+    }
 }

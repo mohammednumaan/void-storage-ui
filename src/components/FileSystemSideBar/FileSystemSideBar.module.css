@@ -2,8 +2,9 @@
 .folder-container{
     height: 85vh;
     background-color: #0e0d0d;
+    width: 90%;
     border-radius: 20px;
-    padding: 0;
+    padding: 10px;
 }
 
 .folder-headers{
@@ -12,10 +13,12 @@
     align-items: center;
     flex-direction: column;
     gap: 10px;
+    
 }
 
 #folder-header-title{
     color: #ff5a30;
+    font-size: 40px;
 }
 
 /* FILE SYSTEM FOLDER LIST, ADD FILE/FOLDER BUTTON STYLES */
@@ -46,4 +49,13 @@
     height: 40px;
     width: 90%;
 
+}
+
+@media (max-width: 1280px) {
+    #folder-header-title{
+        font-size: 30px;
+    }
+    .folder-headers{
+        font-size: 12px;
+    }
 }
