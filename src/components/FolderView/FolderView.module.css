@@ -26,18 +26,13 @@
 /* FOLDER DETAILS (header) STYLES */
 .folder-details-header,
 .file-details.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 97%;
+    width: 100%;
     color: #494848;
 }
 
 .folder-details-right{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 100px;
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr 1.2fr;
 }
 
 hr{
@@ -49,9 +44,8 @@ hr{
 /* FOLDER STYLES */
 .folder, 
 .file{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 3fr 4.2fr;
 }
 
 
@@ -63,7 +57,7 @@ hr{
 .folder-left,
 .file-left{
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     align-items: center;
     gap: 20px;
 
@@ -71,23 +65,15 @@ hr{
 
 .folder-right,
 .file-right{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2vw;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1.1fr;
 }
 
-.folder-information{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 100px;
+
+#folder-options{
+    padding: 20px;
+    margin: auto;
 }
-
-    #folder-right-created{
-        margin-right: 4.5em;
-    }
-
 
 .file-right-options,
 .file-right-options{
@@ -136,11 +122,13 @@ hr{
     
 
 }
-
-
 .menu-item-btn:hover{
-    border: none;
-    background-color: #494848;
+    /* background-color: #494848; */
+}
+
+.menu-item-btn:focus,
+.menu-item-btn:focus-visible{
+    outline: none;  
 }
 
 li{
@@ -149,16 +137,16 @@ li{
 
 
 
-#folder-right-size,
+/* #folder-right-size,
 #file-right-size{
     text-align: center;
     margin-right: 3vw;
 
-}
+} */
 
-#file-right-size{
+/* #file-right-size{
     margin-right: -80vw;
-}
+} */
 
 .no-file-folders-message{
     color: #494848;
@@ -184,9 +172,6 @@ li{
     height: fit-content;
 }
 
-#edit-options{
-    gap: 10px;
-}
 
 .file-size{
     width: 10em;

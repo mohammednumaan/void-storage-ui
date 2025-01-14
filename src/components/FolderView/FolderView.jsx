@@ -199,9 +199,9 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     return (
         <>
             <div className={styles["folder-details-header"]}>
-                <p>Folder/File Name</p>
 
                 <div className={styles["folder-details-right"]}>
+                    <p style={{textAlign: "left"}}>Folder/File Name</p>
                     <p>Size</p> 
                     <p>Created At</p>
                     <p>Options</p>
@@ -269,11 +269,9 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
 
                         <div className={styles["folder-right"]}>
 
-                                <div className={styles["folder-information"]}>
-                                    <p id={styles["folder-right-size"]}>-</p>
-                                    <p id={styles["folder-right-created"]}>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
-                                </div>
-                                <img ref={(el) => menuRef.current[idx] = el} onClick={(e) => handleMenuClick(e, folder.id)} title="More Options" src="/public/more_options_icon.svg" alt="more options icon" style={{padding: "20px"}}></img>
+                                <p id={styles["folder-right-size"]}>-</p>
+                                <p id={styles["folder-right-created"]}>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
+                                <img id={styles["folder-options"]}ref={(el) => menuRef.current[idx] = el} onClick={(e) => handleMenuClick(e, folder.id)} title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
                                 <div className={styles["folder-menu"]} style={{top: "10em"}}>
                                     <ul className={`${styles.menu} ${showMenu === folder.id ? styles.open : ''}`} style={{top: height}}>
                                     <li>
