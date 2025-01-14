@@ -16,13 +16,11 @@
     flex-direction: column;
     gap: 16px;
     padding-left: 20px;
-    flex: 1 1 auto;
 }
 
-
-@media (max-width: 700px) {
+@media (max-width: 1099px) {
     .file-system-container{
-        display: flex;
-        flex: 1 1 auto;
+        grid-template-columns: 1fr;
     }
 }
+

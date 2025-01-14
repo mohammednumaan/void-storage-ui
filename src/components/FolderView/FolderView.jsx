@@ -269,7 +269,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
 
                         <div className={styles["folder-right"]}>
 
-                                <p id={styles["folder-right-size"]}>-</p>
+                                <p id={styles["folder-right-size"]}>250 Bytes</p>
                                 <p id={styles["folder-right-created"]}>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
                                 <img id={styles["folder-options"]}ref={(el) => menuRef.current[idx] = el} onClick={(e) => handleMenuClick(e, folder.id)} title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
                                 <div className={styles["folder-menu"]} style={{top: "10em"}}>
@@ -298,7 +298,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                 <Link key={file.id} className={styles["file-container"]} onDoubleClick={() => navigate(`/tree/file/${file.folderId}/${file.id}`)}>
                     <div className={styles["file"]}>
 
-                        <div className={styles["file-left"]}>
+                        <div className={styles["file-left"]} style={{minWidth: 0}}>
                             <img alt="file icon" src="/public/file_icon.svg"></img>
                             {editable == file.id ? 
 
@@ -311,14 +311,12 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                                 </div>    
                                                      
                             </div>
-                            : <p style={{textAlign: "left" ,overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis", width: "16rem"}}>{file.fileName}</p>}
+                            : <p style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis",}}>{file.fileName}</p>}
                         </div>
 
                         <div className={styles["file-right"]}>
 
-                            <div className={styles["file-right-size"]}>
-                                <p className={styles["file-size"]}>{getFileSize(file.fileSize)}</p>
-                            </div>
+                            <p>{getFileSize(file.fileSize)}</p>
                             <p>{format(file.createdAt, 'dd/MM/yyyy')}</p>
 
                             <div className={styles["file-right-options"]}>
