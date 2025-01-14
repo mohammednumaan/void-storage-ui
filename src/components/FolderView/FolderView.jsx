@@ -28,7 +28,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     const {folderId, fileId} = useParams();
     const [editName, setEditName] = useState("")
     const [editable, setEditable] = useState(null)
-    const [showMenu, setShowMenu] = useState(true)
+    const [showMenu, setShowMenu] = useState(false)
 
     // a simple useEffect to retrieve file information when a file is clicked
     useEffect(() => {
@@ -235,34 +235,24 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                                     <p id={styles["folder-right-created"]}>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
 
                                 </div>
-                                <img style={{padding: "20px"}} title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
-                                {showMenu && 
-                                <>
-                            
-
-                                    <div className={styles["folder-menu"]}>
-                                        <ul className={styles["menu"]}>
-                                            <li>
-                                                <button className={styles["menu-item-btn"]}>
-                                                    <img alt="folder delete icon" src="/public/folder_delete_icon.svg" title="Delete Folder" onClick={(e) => handleFolderDelete(e, folder.id)} />
-                                                    Delete Folder
-
-                                                </button>
-
-                                            </li>
-                                            <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
-                                            <li>
-                                                <button className={styles["menu-item-btn"]}>
-                                                    <img alt="folder edit icon" src="/public/folder_edit_icon.svg" title="Edit Folder" onClick={(e) => setEditable(folder.id)} />
-                                                    Rename Folder
-                                                </button>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                </>
-                            }
-
+                                <img onClick={() => setShowMenu(!showMenu)}title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
+                                <div className={styles["folder-menu"]}>
+                                    <ul className={`${styles.menu} ${showMenu ? styles.open : ''}`}>
+                                    <li>
+                                        <button className={styles["menu-item-btn"]} onClick={(e) => handleFolderDelete(e, folder.id)}>
+                                        <img alt="folder delete icon" src="/public/folder_delete_icon.svg" title="Delete Folder" />
+                                        Delete Folder
+                                        </button>
+                                    </li>
+                                    <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
+                                    <li>
+                                        <button className={styles["menu-item-btn"]} onClick={() => setEditable(folder.id)}>
+                                        <img alt="folder edit icon" src="/public/folder_edit_icon.svg" title="Edit Folder" />
+                                        Rename Folder
+                                        </button>
+                                    </li>
+                                    </ul>
+                                </div>
                         </div>
                     </div>
                 </Link>

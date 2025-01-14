@@ -76,7 +76,6 @@ hr{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 20em;;
 }
 
 .folder-information{
@@ -86,9 +85,9 @@ hr{
     gap: 90%;
 }
 
-#folder-right-created{
-    margin-right: 60px;
-}
+    #folder-right-created{
+        margin-right: 60px;
+    }
 
 
 .file-right-options,
@@ -106,21 +105,29 @@ hr{
     flex-direction: column;
 }
 
-.menu{
+.menu {
     list-style: none;
     padding: 0.2em 0em;
     background-color: #0e0d0d;
     border: 1px solid #1a1a1a;
     border-radius: 0.5em;
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-
     position: absolute;
     text-align: center;
     top: 16em;
-    width: 10%;
+    right: 3em;
     height: 12%;
-    transform: translateX(-50%);
-}
+    opacity: 0;
+    transform: translateY(-20%);
+    pointer-events: none;
+    transition: all 150ms ease-in-out;
+  }
+  
+  .menu.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
 
 .menu-item-btn{
     display: flex;
@@ -128,7 +135,10 @@ hr{
     border-radius: 0px;
     background-color: #0e0d0d;
     border-radius: 5px;
+    
+
 }
+
 
 .menu-item-btn:hover{
     border: none;
