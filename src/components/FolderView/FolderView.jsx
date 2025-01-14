@@ -2,7 +2,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import styles from "./FolderView.module.css"
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // a simple function to convert the file size
 // to a human readable format for display purposes
@@ -32,6 +32,8 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
 
     const [showMenu, setShowMenu] = useState("")
     const [height, setHeight] = useState(null);
+
+    const menuRef = useRef([]);
 
     // a simple useEffect to retrieve file information when a file is clicked
     useEffect(() => {
@@ -105,6 +107,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     // a simple async function to handle folder edits
     const handleFolderEdit = async (event, folderId) => {
         event.preventDefault();
+        
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},  
@@ -170,11 +173,28 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         // the old menu and open the menu for the new folder
         if(id !== showMenu){
             setShowMenu(id)
-            setHeight(`${top + height + 10}px`)
+            setHeight(`${top + height - 16}px`)
         } else{
             setShowMenu(null)
         }
     }
+
+    // a simple useEffect to close the menu if a 
+    // click anywhere outside the menu is detected when the menu is open
+    useEffect(() => {
+        const handleClick = (e) => {
+
+            const clickedOutsideMenu = menuRef.current.every(
+                (menu) => {
+                    return menu && !menu.contains(e.target)
+                }
+            );
+            if (clickedOutsideMenu) setShowMenu(null);
+        }
+
+        document.addEventListener('click', handleClick);
+        return () => document.removeEventListener('click', handleClick)
+    }, [menuRef])
 
     return (
         <>
@@ -227,7 +247,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
 
                 </div>
             )}
-            {folders.length !== 0 && folders.map(folder => (
+            {folders.length !== 0 && folders.map((folder, idx) => (
                 <Link key={folder.id} className={styles["folder-container"]} onDoubleClick={() => navigate(`/tree/${folderId || 'root'}/${folder.id}`)}  >
                     <div className={styles["folder"] }>
 
@@ -253,8 +273,8 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                                     <p id={styles["folder-right-size"]}>-</p>
                                     <p id={styles["folder-right-created"]}>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
                                 </div>
-                                <img onClick={(e) => handleMenuClick(e, folder.id)}title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
-                                <div className={styles["folder-menu"]}>
+                                <img ref={(el) => menuRef.current[idx] = el} onClick={(e) => handleMenuClick(e, folder.id)} title="More Options" src="/public/more_options_icon.svg" alt="more options icon" style={{padding: "20px"}}></img>
+                                <div className={styles["folder-menu"]} style={{top: "10em"}}>
                                     <ul className={`${styles.menu} ${showMenu === folder.id ? styles.open : ''}`} style={{top: height}}>
                                     <li>
                                         <button className={styles["menu-item-btn"]} onClick={(e) => handleFolderDelete(e, folder.id)}>
