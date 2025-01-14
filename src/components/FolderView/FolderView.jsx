@@ -158,7 +158,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         setEditName(event.target.value)
     }    
 
-    const handleMenuClick = (event, folderId) => {
+    const handleMenuClick = (event, id) => {
 
         // retrieve the current folder container
         // and its dimensional properties
@@ -168,12 +168,11 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         // check if the click is on the same folder
         // if true, we close the menu else, we close
         // the old menu and open the menu for the new folder
-        if(folderId !== showMenu){
-            setShowMenu(folderId)
+        if(id !== showMenu){
+            setShowMenu(id)
             setHeight(`${top + height + 10}px`)
         } else{
             setShowMenu(null)
-            setHeight("")
         }
     }
 
@@ -182,8 +181,8 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
             <div className={styles["folder-details-header"]}>
                 <p>Folder/File Name</p>
 
-                <p style={{marginRight: "-20%"}}>Size</p>
                 <div className={styles["folder-details-right"]}>
+                    <p>Size</p> 
                     <p>Created At</p>
                     <p>Options</p>
                 </div>
@@ -255,8 +254,8 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                                     <p id={styles["folder-right-created"]}>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
                                 </div>
                                 <img onClick={(e) => handleMenuClick(e, folder.id)}title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
-                                <div className={styles["folder-menu"]} style={{top: "20em"}}>
-                                    <ul className={`${styles.menu} ${showMenu === folder.id ? styles.open : ''}`} style={{top: !height ? '' : height}}>
+                                <div className={styles["folder-menu"]}>
+                                    <ul className={`${styles.menu} ${showMenu === folder.id ? styles.open : ''}`} style={{top: height}}>
                                     <li>
                                         <button className={styles["menu-item-btn"]} onClick={(e) => handleFolderDelete(e, folder.id)}>
                                         <img alt="folder delete icon" src="/public/folder_delete_icon.svg" title="Delete Folder" />
