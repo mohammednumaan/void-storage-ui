@@ -26,9 +26,12 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
 
     const navigate = useNavigate();
     const {folderId, fileId} = useParams();
-    const [editName, setEditName] = useState("")
+
+    const [editName, setEditName] = useState("");
     const [editable, setEditable] = useState(null)
-    const [showMenu, setShowMenu] = useState(false)
+
+    const [showMenu, setShowMenu] = useState("")
+    const [height, setHeight] = useState(null);
 
     // a simple useEffect to retrieve file information when a file is clicked
     useEffect(() => {
@@ -155,15 +158,32 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         setEditName(event.target.value)
     }    
 
+    const handleMenuClick = (event, folderId) => {
 
+        // retrieve the current folder container
+        // and its dimensional properties
+        const container = event.currentTarget;
+        const { top, height } = container.getBoundingClientRect();
+
+        // check if the click is on the same folder
+        // if true, we close the menu else, we close
+        // the old menu and open the menu for the new folder
+        if(folderId !== showMenu){
+            setShowMenu(folderId)
+            setHeight(`${top + height + 10}px`)
+        } else{
+            setShowMenu(null)
+            setHeight("")
+        }
+    }
 
     return (
         <>
             <div className={styles["folder-details-header"]}>
                 <p>Folder/File Name</p>
 
+                <p style={{marginRight: "-20%"}}>Size</p>
                 <div className={styles["folder-details-right"]}>
-                    <p>Size</p>
                     <p>Created At</p>
                     <p>Options</p>
                 </div>
@@ -233,11 +253,10 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                                 <div className={styles["folder-information"]}>
                                     <p id={styles["folder-right-size"]}>-</p>
                                     <p id={styles["folder-right-created"]}>{format(folder.createdAt, 'dd/MM/yyyy')}</p>
-
                                 </div>
-                                <img onClick={() => setShowMenu(!showMenu)}title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
-                                <div className={styles["folder-menu"]}>
-                                    <ul className={`${styles.menu} ${showMenu ? styles.open : ''}`}>
+                                <img onClick={(e) => handleMenuClick(e, folder.id)}title="More Options" src="/public/more_options_icon.svg" alt="more options icon"></img>
+                                <div className={styles["folder-menu"]} style={{top: "20em"}}>
+                                    <ul className={`${styles.menu} ${showMenu === folder.id ? styles.open : ''}`} style={{top: !height ? '' : height}}>
                                     <li>
                                         <button className={styles["menu-item-btn"]} onClick={(e) => handleFolderDelete(e, folder.id)}>
                                         <img alt="folder delete icon" src="/public/folder_delete_icon.svg" title="Delete Folder" />

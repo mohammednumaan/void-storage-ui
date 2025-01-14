@@ -37,7 +37,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* gap: 100px; */
+    gap: 100px;
 }
 
 hr{
@@ -71,18 +71,18 @@ hr{
 }
 
 .folder-right,
-.file-right,
 .file-right{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 2vw;
 }
 
 .folder-information{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 90%;
+    gap: 100px;
 }
 
     #folder-right-created{
@@ -95,7 +95,7 @@ hr{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 100px;
 }
 
 .folder-menu{
@@ -114,19 +114,16 @@ hr{
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
     position: absolute;
     text-align: center;
-    top: 16em;
     right: 3em;
     height: 12%;
     opacity: 0;
-    transform: translateY(-20%);
     pointer-events: none;
-    transition: all 150ms ease-in-out;
+    transition: opacity 150ms ease-in-out;
   }
   
   .menu.open {
     opacity: 1;
     pointer-events: all;
-    transform: translateY(0);
   }
 
 .menu-item-btn{
@@ -154,8 +151,12 @@ li{
 #folder-right-size,
 #file-right-size{
     text-align: center;
-    margin-left: -70px;
+    margin-right: 7vw;
 
+}
+
+#file-right-size{
+    margin-right: 9vw;
 }
 
 .no-file-folders-message{
