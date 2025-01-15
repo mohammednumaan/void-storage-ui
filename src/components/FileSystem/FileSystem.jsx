@@ -104,7 +104,7 @@ export default function FileSystem(){
 
                 {isMobile && 
                     <div className={styles["mobile-sidebar"]}>
-                        <MobileSideBar />
+                        <MobileSideBar setFolders={setFolders} setFiles={setFiles} />
                     </div>
                 }
             </div>

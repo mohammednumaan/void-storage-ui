@@ -8,18 +8,20 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
     z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .file-folder-form{
-   width: 100%;
-   height: 100%;
 
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   gap: 100px;
+    width: 20em;
+    border: 2px solid #1a1a1a;
+    border-radius: 20px;
+    background-color: #0e0d0d;
+    padding: 50px;
 }
 
 /* FILE-FOLDER FORM'S INPUT, LABEL AND BUTTON STYLING */
@@ -29,7 +31,8 @@
 }
 
 #file-folder-input{
-    width: 385px;
+    min-width: 95%;
+    flex: 1 1 auto;
 }
 
 .file-form-btns{
@@ -44,6 +47,33 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    width: 50%;
     margin-top: 20px;
+    flex: 1;
+}
+
+
+@media (max-width: 470px) {
+
+    .file-folder-form{
+        width: 60%;
+        padding: 20px;
+        margin: 0 10px;
+    }
+    
+    #file-folder-input{
+        width: 90%;
+    }
+    #file-folder-label {
+        font-size: 30px;
+    }
+    
+    .file-form-btns {
+        flex-direction: column;
+        gap: 0px;
+    }
+    
+    .file-form-btns > button {
+        width: 100%;
+    }
+
 }
