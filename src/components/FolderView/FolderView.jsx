@@ -183,9 +183,10 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     // click anywhere outside the menu is detected when the menu is open
     useEffect(() => {
         const handleClick = (e) => {
-
+            console.log(menuRef)
             const clickedOutsideMenu = menuRef.current.every(
                 (menu) => {
+                    if (menu == null) return true;
                     return menu && !menu.contains(e.target)
                 }
             );
