@@ -3,11 +3,13 @@
     display: flex;
     flex-direction: column;
     gap: 60px;
+    height: 87.5vh;
 }
 
 .file-system-container{
     display: grid;
     grid-template-columns: 1fr 5fr;
+    flex: 1 1 auto;
 }
 
 .file-system-view{
