@@ -1,0 +1,41 @@
+/* FILE FOLDER CONTAINER STYLES */
+.file-folder-container{
+    width: 97%;
+    height: 50px;
+    border: 2px solid #1a1a1a;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: #ff5a30;
+    transition: 0.5s;
+    background-color: #0e0d0d;
+}
+
+.file-folder-container:hover{
+    background-color: #1a1a1a;
+}
+
+/* FILE FOLDER STYLES */
+.file-folder{
+    display: grid;
+    grid-template-columns: 3fr 4.2fr;
+
+}
+
+.file-folder-left{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    
+
+}
+
+.file-folder-right{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1.1fr;
+}
+
+/* FILE FOLDER OPTIONS STYLES */
+.file-folder-options{
+    padding: 20px;
+    margin: auto;
+}

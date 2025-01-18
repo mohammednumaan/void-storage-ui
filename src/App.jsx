@@ -1,5 +1,5 @@
 // imports
-import { Route, Routes, useNavigate, useSearchParams } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate, useSearchParams } from 'react-router-dom'
 import './App.css'
 import Form from './components/Form/Form'
 import Home from './components/Home/Home'
@@ -7,7 +7,8 @@ import FileSystem from './components/FileSystem/FileSystem'
 import ProtectedRoute from './components/ProtectedRoute'
 import FolderView from './components/FolderView/FolderView'
 import NavigationBar from './components/NavigationBar/NavigationBar'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import ErrorPage from './components/ErrorPage'
 
 
 // configuration objects that are passed as props to the form 
@@ -26,7 +27,8 @@ const registerFormOptions = {
 // const Memoi = memo(ProtectedRoute)
 function App() {
 
-  const navigate = useNavigate  ();
+  const navigate = useNavigate();
+  const [isAuth, setIsAuth] = useState(false)
 
   // once the component is mounted, we check if the user's session is still authenticated (logged in)
   // if true, we re-direct the user to /tree, else, we render the home page with login and register component
@@ -39,28 +41,27 @@ function App() {
 
       const data = await response.json();
       if (data.authenticated){
+        setIsAuth(true)
         navigate('/tree');
+      } else{
+        setIsAuth(false)
       }
     })();
-  },[])
-
+  },[isAuth])
+  console.log(isAuth)
   return (
     <>
-      {/* <div>
-        <NavigationBar />
-      </div> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Form formOptions={registerFormOptions} />} />
         <Route path='/login' element={<Form formOptions={loginFormOptions} />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path='/tree' element={<FileSystem />}>
-            
-            
-            <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
-            <Route path='file/:folderId/:fileId' element={<FolderView />}></Route>
 
-          </Route>
+        <Route element={<ProtectedRoute isAuth={isAuth} />}>
+            <Route path='/tree' element={<FileSystem />} >
+              <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
+              <Route path='file/:folderId/:fileId' element={<FolderView />}></Route>
+            </Route>
+         
         </Route>
       </Routes>
     </>

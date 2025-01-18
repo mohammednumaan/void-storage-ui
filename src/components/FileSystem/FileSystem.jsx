@@ -1,11 +1,11 @@
 // imports
 import { useParams } from "react-router-dom"
-import styles from "./FileSystem.module.css"
+import { useEffect } from "react";
 import { useState } from "react";
 import FolderView from "../FolderView/FolderView";
-import { useEffect } from "react";
-import FileSystemSideBar from "../FileSystemSideBar/FileSystemSideBar";
-import MobileSideBar from "../MobileSideBar/MobileSideBar";
+import MobileMenu from "../MobileMenu/MobileMenu";
+import Sidebar from "../Sidebar/Sidebar";
+import styles from "./FileSystem.module.css"
 
 
 // file system component
@@ -20,25 +20,50 @@ export default function FileSystem(){
     // the selected(clicked) file
     const [selectedFile, setSelectedFile] = useState();
 
+    // a rootFolderId state to store the current user's root folder's id
+    // to help display the home/root sub-folders
+    const [rootFolderId, setRootFolderId] = useState(null);
+
     // a folderId and fileId parameter from the
     // url path to dynamically fetch and render appropriate
     // files and folder
-    const {folderId, fileId} = useParams();
+    let {folderId, fileId} = useParams();
 
     // a isMobile state to detect changes in screen size
     // and render components accordingly
     const [isMobile, setIsMobile] = useState(false);
+
     
-    // a simple useEffect to fetch the sub-folders located
-    // in the folder with id as folderId
+    // a simple useEffect to fetch the root folder's id for the current user
+    useEffect(() => {
+        async function getRootFolder(){
+            const response = await fetch(`http://localhost:3000/file-system/folders/root`, {
+                mode: 'cors',
+                credentials: 'include'
+            });
+            
+            const data = await response.json();
+            if (response.ok){
+                setRootFolderId(data.rootFolderId)
+            } else{
+                console.log('err')
+            }
+        }
+
+        getRootFolder();
+    }, [rootFolderId])
+
+    // a simple useEffct that fetches all sub-folders of a particular folder
     useEffect(() => {
         async function getFolders(){
-            const response = await fetch(`http://localhost:3000/file-system/folders/${folderId || "root"}`, {
+            const response = await fetch(`http://localhost:3000/file-system/folders/${folderId || rootFolderId}`, {
                 mode: 'cors',
                 credentials: 'include'
             });
 
+            
             const data = await response.json();
+
             if (response.ok){
                 setFolders([...data.folders]);
                 setSelectedFile(null);
@@ -47,15 +72,13 @@ export default function FileSystem(){
             }
         }
 
-        if (!fileId) getFolders();
-    }, [JSON.stringify(folders), folderId])
+        if (!fileId && rootFolderId) getFolders();
+    }, [JSON.stringify(folders), folderId, rootFolderId])
     
-    // a simple useEffect to fetch the files located
-    // in the older with id as folderId
-
+    // a simple useEffect to fetch all the files of a particular folder
     useEffect(() => {
         async function getFiles(){
-            const response = await fetch(`http://localhost:3000/file-system/files/${folderId || 'root'}`, {
+            const response = await fetch(`http://localhost:3000/file-system/files/${folderId || rootFolderId}`, {
                 mode: 'cors',
                 credentials: 'include'
             });
@@ -70,11 +93,12 @@ export default function FileSystem(){
             }
         }
 
-        if (!fileId) getFiles();
+        if (!fileId && rootFolderId) getFiles();
 
     }, [JSON.stringify(files), folderId])
 
-    // a simple useEffect to track the screen size
+    // a simple useEffect to track the screen size to dynamically
+    // render components based on screen size
     useEffect(() => {
 
         const handleResize = () => {
@@ -91,22 +115,20 @@ export default function FileSystem(){
 
     }, [])
 
+
     return (
         <>
             <div className={styles["file-system-tree"]}>
                 <div className={styles["file-system-container"]}>
 
-                    {!isMobile && <FileSystemSideBar setFiles={setFiles} setFolders={setFolders} />}
+                    {!isMobile && <Sidebar setFiles={setFiles} setFolders={setFolders} rootFolderId={rootFolderId}/>}
+                    
                     <div className={styles["file-system-view"]}>
                        <FolderView folders={folders} setFolders={setFolders} files={files} setFiles={setFiles} selectedFile={selectedFile} setSelectedFile={setSelectedFile}/> 
                     </div>
                 </div>
 
-                {isMobile && 
-                    <div className={styles["mobile-sidebar"]}>
-                        <MobileSideBar setFolders={setFolders} setFiles={setFiles} />
-                    </div>
-                }
+                {isMobile && <MobileMenu setFolders={setFolders} setFiles={setFiles} rootFolderId={rootFolderId} />}
             </div>
         </>
     )

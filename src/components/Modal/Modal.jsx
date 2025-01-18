@@ -1,19 +1,20 @@
 // imports
 import { useState } from "react";
-import styles from "./CreateFileFolderModal.module.css";
+import styles from "./Modal.module.css";
 import { useParams } from "react-router-dom";
 
 // a dynamic form component to upload files and create new folders 
-export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm, setFileFolders}){
+export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm, setFileFolders, rootFolderId}){
 
-    const {folderId} = useParams();
+    // extracts the folderId from the route URL
+    const {folderId} = useParams()
 
     // destructuring the formConfigObject to render the form accordingly
     const {formType} = formConfigObject;
 
     // a file state to store the uploaded file
     const [file, setFile] = useState(null);
-    const [folder, setFolder] = useState({parentFolderId: folderId || 'root', folderName: ""});
+    const [folder, setFolder] = useState({parentFolderId: folderId || rootFolderId, newFolderName: ""});
 
     // a simple function to handle input change
     // for the file-input field
@@ -27,8 +28,7 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
         e.preventDefault()
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("parentFolder", folderId || "root");
-        
+        formData.append("parentFolderId", folder.parentFolderId);
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files`, {
             method: "POST",
             body: formData,
@@ -76,7 +76,7 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
 
                         <label htmlFor="file-folder-input" id={styles["file-folder-label"]}>{formType === "File" ? 'Upload File' : 'Create Folder'}</label>
                         <input onChange={formType === "File" ? handleFileInput : handleFolderInput} 
-                            type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'folderName'} />
+                            type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'newFolderName'} />
                         
                         <div className={styles["file-form-btns"]}>
                             <button type="submit">{formType === "File" ? 'Upload File' : 'Create Folder'}</button>

@@ -1,11 +1,10 @@
+// imports
 import { useState } from "react";
-import FileFolderModal from "../Modal/CreateFileFolderModal";
-import styles from "./MobileSideBar.module.css"
+import Modal from "../Modal/Modal";
+import styles from "./MobileMenu.module.css"
 import { Link } from "react-router-dom";
-// onClick={/* () => setFolderForm(true)*/}
-// onClick={() => setFileForm(true)}
 
-export default function MobileSideBar({setFolders, setFiles}){
+export default function MobileMenu({setFolders, setFiles, rootFolderId}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
@@ -14,7 +13,7 @@ export default function MobileSideBar({setFolders, setFiles}){
     return (
 
         <>
-            <div className={styles["mobile-sidebar-container"]}>
+            <div className={styles["mobile-menu-container"]}>
           
                     <button id={styles['add-folder-btn']} onClick={() => setFolderForm(true)}>
                         <img alt='create new file icon' src='/public/new_folder_icon.svg' title='Create Folder' />
@@ -31,8 +30,8 @@ export default function MobileSideBar({setFolders, setFiles}){
                     </button>
             </div>
 
-            {fileForm && <FileFolderModal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFileFolders={setFiles} />}
-            {folderForm && <FileFolderModal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFileFolders={setFolders} />}  
+            {fileForm && <Modal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFileFolders={setFiles} rootFolderId={rootFolderId} />}
+            {folderForm && <Modal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFileFolders={setFolders} rootFolderId={rootFolderId} />}  
         </>
     )
 }
