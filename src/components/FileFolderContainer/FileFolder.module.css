@@ -19,8 +19,8 @@
 /* FILE FOLDER STYLES */
 .file-folder{
     display: grid;
-    grid-template-columns: 3fr 4.2fr;
-    padding: 5px;    
+    grid-template-columns: minmax(0, 3fr) 4.2fr;
+    padding: 5px;
 }
 
 .file-folder-left{
@@ -69,11 +69,5 @@
     .file-icon{
         width: 12px;
         height: 12px;
-    }
-}
-
-@media (max-width: 450px){
-    .file-folder-name{
-        max-width: 80px;
     }
 }
