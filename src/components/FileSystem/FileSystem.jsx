@@ -85,7 +85,7 @@ export default function FileSystem(){
 
             const data = await response.json();
             if (response.ok){
-                setFiles([...data.files]);
+                setFiles([...data.allFiles]);
                 setSelectedFile(null);
 
             } else{
@@ -95,7 +95,7 @@ export default function FileSystem(){
 
         if (!fileId && rootFolderId) getFiles();
 
-    }, [JSON.stringify(files), folderId])
+    }, [JSON.stringify(files), folderId, rootFolderId])
 
     // a simple useEffect to track the screen size to dynamically
     // render components based on screen size
@@ -124,7 +124,16 @@ export default function FileSystem(){
                     {!isMobile && <Sidebar setFiles={setFiles} setFolders={setFolders} rootFolderId={rootFolderId}/>}
                     
                     <div className={styles["file-system-view"]}>
-                       <FolderView folders={folders} setFolders={setFolders} files={files} setFiles={setFiles} selectedFile={selectedFile} setSelectedFile={setSelectedFile}/> 
+                       <FolderView 
+                            folders={folders} 
+                            setFolders={setFolders} 
+                            files={files} 
+                            setFiles={setFiles} 
+                            
+                            selectedFile={selectedFile} 
+                            setSelectedFile={setSelectedFile}
+                            rootFolderId={rootFolderId}
+                        /> 
                     </div>
                 </div>
 

@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 
 import styles from "./FileFolder.module.css"
@@ -11,7 +11,7 @@ import styles from "./FileFolder.module.css"
 // a simple function to convert the file size
 // to a human readable format for display purposes
 const getFileSize = (bytes) => {
-    let sizes = [' Bytes', ' KB', ' MB', ' GB',
+    let sizes = ['B', ' KB', ' MB', ' GB',
         ' TB', ' PB', ' EB', ' ZB', ' YB'];
 
     for (let i = 1; i < sizes.length; i++){
@@ -25,16 +25,18 @@ const getFileSize = (bytes) => {
         
 }
 // a dynamic component that renders both files and folders
-export default function FileFolderContainer({dataType, data, menuRef, dataCollection, setDataCollection, idx}){
+export default function FileFolderContainer({dataType, data, menuRef, dataCollection, setDataCollection, showMenu, setSearch,   setShowMenu, rootFolderId}){
 
-    // extract the folder and file id from the url
-    const {folderId, fileId} = useParams;
+    // navigate hook to navigate between components
+    const navigate = useNavigate();
+
+    // extract folder and file id from the url
+    const {folderId, fileId} = useParams();
 
     // states to handle rename/edit operations
     const [editName, setEditName] = useState("");
     const [editable, setEditable] = useState(null);
 
-    const [showMenu, setShowMenu] = useState("")
     const [height, setHeight] = useState(null);
 
 
@@ -96,15 +98,15 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
      
     return (
         <>
-            <Link key={data.id} 
+            <Link  
                 className={styles["file-folder-container"]} 
-                onDoubleClick={() => navigate(`/tree/${folderId}/${data.id}`)} 
+                onDoubleClick={() => navigate(`/tree/${folderId || rootFolderId}/${data.id}`)} 
              >
                 <div className={styles["file-folder"] }>
 
                     <div className={styles["file-folder-left"]}>
-                        {dataType === "Folder" ? <img src="/public/folder_open_icon.svg" alt="folder icon" />
-                            : <img src="/public/file_icon.svg" alt="file icon" />
+                        {dataType === "Folder" ? <img className={styles["folder-icon"]} src="/public/folder_open_icon.svg" alt="folder icon" />
+                            : <img src="/public/file_icon.svg" className={styles["file-icon"]} alt="file icon" />
                         }       
 
                         {editable == data.id ? (
@@ -129,15 +131,25 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
                             </div>
 
                         ) : (
-                         <p style={{textOverflow: "ellipsis"}}>{dataType ==="Folder" ? data.folderName : data.fileName}</p>
+                         <small className={styles["file-folder-name"]}>
+                            {dataType === "File" && (
+                                <span className={styles["file-extension"]}>
+                                    {`[${data.fileName.split('.')[data.fileName.split('.').length - 1]}]`}
+                                </span>
+                            )}
+                            <span>
+                                {dataType ==="Folder" ? data.folderName : data.fileName}
+                            </span>
+                         </small>
+
                         )}
                     </div>
 
                     <div className={styles["file-folder-right"]}>
 
-                            <p className={styles["file-folder-size"]}>{dataType === "Folder" ? '-' : getFileSize(data.fileSize)}</p>
-                            <p className={styles["file-folder-created"]}>{format(data.createdAt, 'dd/MM/yyyy')}</p>
-                            <img className={styles["file-folder-options"]} ref={(el) => menuRef.current[idx] = el} 
+                            <small className={styles["file-folder-size"]}>{dataType === "Folder" ? '-' : getFileSize(data.fileSize)}</small>
+                            <small className={styles["file-folder-created"]}>{format(data.createdAt, 'MMM d, yyyy')}</small>
+                            <img className={styles["file-folder-options"]} ref={(el) => menuRef.current.push(el)} 
                                 onClick={(e) => handleMenuClick(e, data.id)} 
                                 title="More Options" 
                                 src="/public/more_options_icon.svg" 
@@ -148,6 +160,7 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
                                 dataType={dataType} 
                                 dataId={data.id} 
                                 setEditable={setEditable} 
+                                setSearch={setSearch}
                                 showMenu={showMenu} 
                                 dataCollection={dataCollection}
                                 setDataCollection={setDataCollection}

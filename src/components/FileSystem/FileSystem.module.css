@@ -4,6 +4,7 @@
     flex-direction: column;
     gap: 60px;
     height: 87.5vh;
+    margin-right:auto ;
 }
 
 .file-system-container{
@@ -17,7 +18,6 @@
     align-items: center;
     flex-direction: column;
     gap: 16px;
-    padding-left: 20px;
 }
 
 /* MEDIA QUERIES FOR THE FILE SYSTEM CONTAINER */

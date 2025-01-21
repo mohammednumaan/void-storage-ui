@@ -49,3 +49,10 @@ hr{
     gap: 20px;
     height: fit-content;
 }
+
+/* MEDIA QUERIES FOR THE FILE/FOLDER HEADER CONTAINER */
+@media (max-width: 550px) {
+    .file-folder-header{
+        font-size: small;
+    }
+}

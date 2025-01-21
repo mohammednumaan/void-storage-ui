@@ -1,34 +1,17 @@
 // imports
-import { Link, useNavigate, useParams } from "react-router-dom"
 import styles from "./FolderView.module.css"
-import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import SearchFolder from "../SelectFolder/SelectFolder";
-import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
 
-// a simple function to convert the file size
-// to a human readable format for display purposes
-const getFileSize = (bytes) => {
-    let sizes = [' Bytes', ' KB', ' MB', ' GB',
-        ' TB', ' PB', ' EB', ' ZB', ' YB'];
-
-    for (let i = 1; i < sizes.length; i++){
-        if (bytes < Math.pow(1024, i)){
-            return (Math.round((bytes / Math.pow(
-                1024, i - 1)) * 100) / 100) + sizes[i - 1];
-        }
-
-    }
-    return bytes;
-        
-}
 
 // a folder/file view component
-export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile}){
+export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile, rootFolderId}){
 
    
     const menuRef = useRef([]);
+    const [showMenu, setShowMenu] = useState("")
+
     const [search, setSearch] = useState(false);
 
     // a simple useEffect to close the menu if a 
@@ -54,9 +37,9 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
             <div className={styles["file-folder-header"]}>
 
                 <div className={styles["file-folder-header-right"]}>
-                    <p style={{textAlign: "left"}}>Folder/File Name</p>
+                    <p style={{textAlign: "left"}}>Name</p>
                     <p>Size</p> 
-                    <p>Created At</p>
+                    <p>Created</p>
                     <p>Options</p>
                 </div>
 
@@ -101,14 +84,18 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                 </div>
             )} */}
             <div className={styles["folder-list"]}>
-                {folders.length !== 0 && folders.map((folder, idx) => (
+                {folders.length !== 0 && folders.map((folder) => (
                     <FileFolderContainer 
+                        key={folder.id}
                         dataType={"Folder"}     
+                        setSearch={setSearch}
                         data={folder}
                         menuRef={menuRef}
                         dataCollection={folders}
                         setDataCollection={setFolders}
-                        idx={idx}
+                        showMenu={showMenu}
+                        setShowMenu={setShowMenu}
+                        rootFolderId={rootFolderId}
                     />
                 ))}
             </div>
@@ -116,12 +103,17 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
             <div className={styles["file-list"]}>
                 {files.length !== 0 && files.map((file, idx) => (
                     <FileFolderContainer 
+                        key={file.id}
                         dataType={"File"}     
                         data={file}
+                        setSearch={setSearch}
+
                         menuRef={menuRef}
                         dataCollection={files}
                         setDataCollection={setFiles}
-                        idx={idx}
+                        showMenu={showMenu}
+                        setShowMenu={setShowMenu}
+                        
                     />
                 ))}
             </div>
@@ -129,7 +121,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                 
             {((folders.length == 0 && files.length == 0) && !selectedFile) && <h3 className={styles["no-file-folders-message"]}>Create Folders Or Upload a File Here To View This Folder's Contents.</h3>}
             {search &&
-                <SearchFolder setSearch={setSearch} folders={folders} currentFolderId={search} />
+                <SearchFolder setSearch={setSearch} currentFolderId={search} />
             }
         </>
     )

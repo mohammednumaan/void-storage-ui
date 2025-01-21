@@ -2,18 +2,19 @@
 import styles from "./DropdownMenu.module.css"
 
 // a custom dropdown meny that dynamically renders based on the dataType passed in
-export default function DropdownMenu({dataType, dataId, showMenu, setEditable, dataCollection, setDataCollection, height}){
+export default function DropdownMenu({dataType, dataId, showMenu, setSearch, setEditable, dataCollection, setDataCollection, height}){
 
     // a dynamic async function to handle file (or) folder deletion on click
     // based on the dataType passed into the component
     const handleDataDeletion = async (event, dataId) => {
         event.preventDefault();
-        event.stopPropagation()
+        event.stopPropagation();
+        console.log(dataId)
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? 'folders' : 'files'}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
             mode: 'cors',   
-            body: JSON.stringify({dataId}),
+            body: dataType === 'Folder' ? JSON.stringify({folderId: dataId}) : JSON.stringify({fileId: dataId}),
             credentials: 'include'
         })
 
