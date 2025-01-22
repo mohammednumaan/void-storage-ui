@@ -1,9 +1,11 @@
 // imports
+import { useParams } from "react-router-dom";
 import styles from "./DropdownMenu.module.css"
 
 // a custom dropdown meny that dynamically renders based on the dataType passed in
-export default function DropdownMenu({dataType, dataId, showMenu, setSearch, setEditable, dataCollection, setDataCollection, height}){
+export default function DropdownMenu({dataType, dataId, showMenu, setSearchData, setEditable, dataCollection, setDataCollection, height, rootFolderId}){
 
+    const {folderId} = useParams()
     // a dynamic async function to handle file (or) folder deletion on click
     // based on the dataType passed into the component
     const handleDataDeletion = async (event, dataId) => {
@@ -23,11 +25,12 @@ export default function DropdownMenu({dataType, dataId, showMenu, setSearch, set
             setDataCollection((_) => [...updatedData]);
         }
         else{
-            console.log('err')
+            console.log(response)
         }
 
     }
 
+    console.log("hi", rootFolderId, folderId)
     return (
         <div className={styles["dropdown-menu"]} style={{top: "10em"}}>
             <ul className={`${styles.menu} ${showMenu === dataId? styles.open : ''}`} style={{top: height}}>
@@ -48,7 +51,7 @@ export default function DropdownMenu({dataType, dataId, showMenu, setSearch, set
                 </li>
                 <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
                 <li>
-                    <button className={styles["menu-item-btn"]} onClick={() => setSearch(dataId)}>
+                    <button className={styles["menu-item-btn"]} onClick={() => setSearchData({type: dataType, id: dataId, folder: folderId || rootFolderId})}>
                         <img alt="movie icon" src="/public/move_icon.svg" title={`Move ${dataType}`} />
                         Move {dataType}
                     </button>

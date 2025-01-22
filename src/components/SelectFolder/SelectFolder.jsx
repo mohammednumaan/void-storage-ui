@@ -1,16 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SelectFolder.module.css"
 import { format } from "date-fns";
 
-export default function SelectFolder({setSearch, fileFolderId}){
+export default function SelectFolder({setSearchData, searchData}){
 
     const [selectedFolderId, setSelectedFolderId] = useState(null);
+    const [availableFolders, setAvailableFolders] = useState([]);
+
+    useEffect(() => {
+        async function getAvailableFolders(){
+            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/available/${searchData.folder}`, {
+                credentials: 'include',
+                mode: 'cors'
+            });
+            const data = await response.json();
+            if (response.ok){
+                setAvailableFolders([...data.availableFolders])
+            }
+
+        }
+        console.log(selectedFolderId, availableFolders)
+        if (searchData.id && searchData.folder) getAvailableFolders(); 
+
+    }, [JSON.stringify(availableFolders)], searchData.folder)
+
+
     const handleFolderSelection = async () => {
-        // e.preventDefault();
-        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/move`, {
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${searchData.type === "Folder" ? 'folders' : 'files'}/move`, {
             method: "PUT",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({selectedFolderId, fileId: fileFolderId}),
+            body: JSON.stringify({selectedFolderId, moveData: searchData.id}),
             credentials: 'include',
             mode: 'cors'
         })
@@ -25,7 +44,7 @@ export default function SelectFolder({setSearch, fileFolderId}){
     const handleFolderClick = (folderId) => {
         setSelectedFolderId(folderId);
     }
-
+    console.log("HELLO", searchData)
     return (
         <>
             <div className={styles["search-folder-container"]}>
@@ -45,7 +64,7 @@ export default function SelectFolder({setSearch, fileFolderId}){
                     </div>
                     <hr />
 
-                    {folders.map(folder => (
+                    {availableFolders.map(folder => (
                         <div key={folder.id} 
                             className={`${styles["folder"]} ${selectedFolderId === folder.id ? styles["active"] : styles["inactive"]}`} 
                             onClick={() => handleFolderClick(folder.id)} 

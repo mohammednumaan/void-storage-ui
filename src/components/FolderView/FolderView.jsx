@@ -3,6 +3,7 @@ import styles from "./FolderView.module.css"
 import { useEffect, useRef, useState } from "react";
 import SearchFolder from "../SelectFolder/SelectFolder";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
+import SelectFolder from "../SelectFolder/SelectFolder";
 
 
 // a folder/file view component
@@ -12,7 +13,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     const menuRef = useRef([]);
     const [showMenu, setShowMenu] = useState("")
 
-    const [search, setSearch] = useState(false);
+    const [searchData, setSearchData] = useState({type: "", id: null, folder: ""});
 
     // a simple useEffect to close the menu if a 
     // click anywhere outside the menu is detected when the menu is open
@@ -31,6 +32,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         document.addEventListener('click', handleClick);
         return () => document.removeEventListener('click', handleClick)
     }, [menuRef])
+
 
     return (
         <>
@@ -88,7 +90,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                     <FileFolderContainer 
                         key={folder.id}
                         dataType={"Folder"}     
-                        setSearch={setSearch}
+                        setSearchData={setSearchData}
                         data={folder}
                         menuRef={menuRef}
                         dataCollection={folders}
@@ -106,22 +108,29 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                         key={file.id}
                         dataType={"File"}     
                         data={file}
-                        setSearch={setSearch}
+                        setSearchData={setSearchData}
 
                         menuRef={menuRef}
                         dataCollection={files}
                         setDataCollection={setFiles}
                         showMenu={showMenu}
                         setShowMenu={setShowMenu}
+                        rootFolderId={rootFolderId}
+
                         
                     />
                 ))}
             </div>
 
                 
-            {((folders.length == 0 && files.length == 0) && !selectedFile) && <h3 className={styles["no-file-folders-message"]}>Create Folders Or Upload a File Here To View This Folder's Contents.</h3>}
-            {search &&
-                <SearchFolder setSearch={setSearch} currentFolderId={search} />
+            {((folders.length == 0 && files.length == 0) && !selectedFile) && 
+                <h3 className={styles["no-file-folders-message"]}>
+                    Create Folders Or Upload a File Here To View This Folder's Contents.
+                </h3>
+            }
+
+            {searchData.id &&
+                <SelectFolder setSearchData={setSearchData} searchData={searchData} />
             }
         </>
     )

@@ -25,7 +25,7 @@ const getFileSize = (bytes) => {
         
 }
 // a dynamic component that renders both files and folders
-export default function FileFolderContainer({dataType, data, menuRef, dataCollection, setDataCollection, showMenu, setSearch,   setShowMenu, rootFolderId}){
+export default function FileFolderContainer({dataType, data, menuRef, dataCollection, setDataCollection, showMenu, setSearchData, setShowMenu, rootFolderId}){
 
     // navigate hook to navigate between components
     const navigate = useNavigate();
@@ -94,7 +94,6 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
             setShowMenu(null)
         }
     }
-
      
     return (
         <>
@@ -160,10 +159,11 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
                                 dataType={dataType} 
                                 dataId={data.id} 
                                 setEditable={setEditable} 
-                                setSearch={setSearch}
+                                setSearchData={setSearchData}
                                 showMenu={showMenu} 
                                 dataCollection={dataCollection}
                                 setDataCollection={setDataCollection}
+                                rootFolderId={rootFolderId}
                                 height={height} 
                             />
                     </div>
