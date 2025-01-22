@@ -48,7 +48,6 @@ function App() {
       }
     })();
   },[isAuth])
-  console.log(isAuth)
   return (
     <>
       <Routes>
@@ -56,7 +55,7 @@ function App() {
         <Route path='/register' element={<Form formOptions={registerFormOptions} />} />
         <Route path='/login' element={<Form formOptions={loginFormOptions} />} />
 
-        <Route element={<ProtectedRoute isAuth={isAuth} />}>
+        <Route element={<ProtectedRoute isAuth={isAuth} setIsAuth={setIsAuth} />}>
             <Route path='/tree' element={<FileSystem />} >
               <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
               <Route path='file/:folderId/:fileId' element={<FolderView />}></Route>

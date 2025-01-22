@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styles from "./DropdownMenu.module.css"
 
 // a custom dropdown meny that dynamically renders based on the dataType passed in
-export default function DropdownMenu({dataType, dataId, showMenu, setSearchData, setEditable, dataCollection, setDataCollection, height, rootFolderId}){
+export default function DropdownMenu({dataType, dataId, showMenu, setSearchData, dataCollection, setRenameForm, setDataCollection, height, rootFolderId}){
 
     const {folderId} = useParams()
     // a dynamic async function to handle file (or) folder deletion on click
@@ -44,7 +44,7 @@ export default function DropdownMenu({dataType, dataId, showMenu, setSearchData,
                 </li>
                 <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
                 <li>
-                    <button className={styles["menu-item-btn"]} onClick={() => setEditable(dataId)}>
+                    <button className={styles["menu-item-btn"]} onClick={() => setRenameForm(true)}>
                     <img alt="rename icon" src="/public/folder_edit_icon.svg" title={`Delete ${dataType}`} />
                         Rename {dataType}
                     </button>

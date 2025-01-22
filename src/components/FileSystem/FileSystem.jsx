@@ -1,5 +1,5 @@
 // imports
-import { useParams } from "react-router-dom"
+import { useOutletContext, useParams } from "react-router-dom"
 import { useEffect } from "react";
 import { useState } from "react";
 import FolderView from "../FolderView/FolderView";
@@ -12,6 +12,7 @@ import styles from "./FileSystem.module.css"
 export default function FileSystem(){
 
     // a folders and files state that stores a list of
+    const {isAuth} = useOutletContext();
     // folders and files created by the user
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
@@ -117,7 +118,7 @@ export default function FileSystem(){
 
 
     return (
-        <>
+        <>  
             <div className={styles["file-system-tree"]}>
                 <div className={styles["file-system-container"]}>
 
