@@ -1,13 +1,28 @@
 /* FOLDER AND FILE LIST STYLES */
 .folder-list,
 .file-list{
-    width: 97%;
+    width: 98%;
     display: grid;
+}
+
+/* BREADCRUMBS STYLES */
+.breadcrumbs{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
+}
+
+.breadcrumb-segment{
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 /* FILE/FOLDER HEADER STYLES */
 .file-folder-header{
-    width: 100%; 
+    width: 98%; 
     color: #494848;
 }
 

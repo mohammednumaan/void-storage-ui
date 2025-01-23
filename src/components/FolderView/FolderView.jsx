@@ -4,12 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import SearchFolder from "../SelectFolder/SelectFolder";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
 import SelectFolder from "../SelectFolder/SelectFolder";
+import { Link, useParams } from "react-router-dom";
 
 
 // a folder/file view component
 export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile, rootFolderId}){
 
-   
+    // extract the folderId from the route url
+    const {folderId} = useParams();
+
+    // a state to manage breadcrumb navigation
+    const [breadcrumbs, setBreadcrumbs] = useState([])
+    
     const menuRef = useRef([]);
     const [showMenu, setShowMenu] = useState("")
 
@@ -32,12 +38,22 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         document.addEventListener('click', handleClick);
         return () => document.removeEventListener('click', handleClick)
     }, [menuRef])
-
-
+    
     return (
-        <>
-            <div className={styles["file-folder-header"]}>
+        <>  
 
+            <nav className={styles["breadcrumbs"]}>
+                {breadcrumbs.length !== 0 && breadcrumbs.map(breadcrumb => (
+                    <small className={styles["breadcrumb-segment"]}>
+                        <Link to={breadcrumb.folderName === "root" ? `/tree` :  `/tree/${folderId || rootFolderId}/${breadcrumb.id}`}>
+                            {breadcrumb.folderName}
+                        </Link>                      
+                        <img alt="chevron right icon" src="/public/chevron_right_icon.svg" />
+                    </small>
+                ))}
+            </nav>
+            
+            <div className={styles["file-folder-header"]}>
                 <div className={styles["file-folder-header-right"]}>
                     <p style={{textAlign: "left"}}>Name</p>
                     <p>Size</p> 
@@ -89,7 +105,9 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                 {folders.length !== 0 && folders.map((folder) => (
                     <FileFolderContainer 
                         key={folder.id}
-                        dataType={"Folder"}     
+                        dataType={"Folder"}  
+                        breadcrumbs={breadcrumbs}
+                        setBreadcrumbs={setBreadcrumbs}   
                         setSearchData={setSearchData}
                         data={folder}
                         menuRef={menuRef}
@@ -122,7 +140,6 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                 ))}
             </div>
 
-                
             {((folders.length == 0 && files.length == 0) && !selectedFile) && 
                 <h3 className={styles["no-file-folders-message"]}>
                     Create Folders Or Upload a File Here To View This Folder's Contents.

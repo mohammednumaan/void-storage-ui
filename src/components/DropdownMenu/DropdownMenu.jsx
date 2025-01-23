@@ -30,7 +30,6 @@ export default function DropdownMenu({dataType, dataId, showMenu, setSearchData,
 
     }
 
-    console.log("hi", rootFolderId, folderId)
     return (
         <div className={styles["dropdown-menu"]} style={{top: "10em"}}>
             <ul className={`${styles.menu} ${showMenu === dataId? styles.open : ''}`} style={{top: height}}>
@@ -39,21 +38,21 @@ export default function DropdownMenu({dataType, dataId, showMenu, setSearchData,
                         onClick={(e) => handleDataDeletion(e, dataId)}>
                         
                         <img alt="delete icon" src="/public/folder_delete_icon.svg" title={`Delete ${dataType}`} />
-                        Delete {dataType}
+                        Delete
                     </button>
                 </li>
                 <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
                 <li>
                     <button className={styles["menu-item-btn"]} onClick={() => setRenameForm(true)}>
                     <img alt="rename icon" src="/public/folder_edit_icon.svg" title={`Delete ${dataType}`} />
-                        Rename {dataType}
+                        Edit
                     </button>
                 </li>
                 <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
                 <li>
                     <button className={styles["menu-item-btn"]} onClick={() => setSearchData({type: dataType, id: dataId, folder: folderId || rootFolderId})}>
                         <img alt="movie icon" src="/public/move_icon.svg" title={`Move ${dataType}`} />
-                        Move {dataType}
+                        Move
                     </button>
                 </li>
             </ul>

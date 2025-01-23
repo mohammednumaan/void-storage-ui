@@ -1,7 +1,7 @@
 //  imports
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -26,10 +26,11 @@ const getFileSize = (bytes) => {
         
 }
 // a dynamic component that renders both files and folders
-export default function FileFolderContainer({dataType, data, menuRef, dataCollection, setDataCollection, showMenu, setSearchData, setShowMenu, rootFolderId}){
+export default function FileFolderContainer({dataType, data, menuRef, dataCollection, setDataCollection, breadcrumbs, setBreadcrumbs, showMenu, setSearchData, setShowMenu, rootFolderId}){
 
     // navigate hook to navigate between components
     const navigate = useNavigate();
+
 
     // extract folder and file id from the url
     const {folderId, fileId} = useParams();
@@ -55,12 +56,35 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
             setShowMenu(null)
         }
     }
+    
+    const handleDoubleClick = (data) => {
+        // const updatedBreadcrumbs = breadcrumbs;
+        // updatedBreadcrumbs.push(data);
+        // setBreadcrumbs([...updatedBreadcrumbs]);
+        navigate(`/tree/${folderId || rootFolderId}/${data.id}`)
+    }
+
+    useEffect(() => {
+        async function getFolderPathSegements(){
+            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${folderId || rootFolderId}`, {
+                credentials: 'include',
+                mode: 'cors'
+            });
+            const data = await response.json();
+            if (response.ok){
+                setBreadcrumbs([...data.folderSegments])
+            }
+
+        }
+        if (dataType === "Folder") getFolderPathSegements(); 
+
+    }, [folderId])
      
     return (
         <>
             <Link  
                 className={styles["file-folder-container"]} 
-                onDoubleClick={() => navigate(`/tree/${folderId || rootFolderId}/${data.id}`)} 
+                onDoubleClick={() => handleDoubleClick(data)} 
              >
                 <div className={styles["file-folder"] }>
 
@@ -107,7 +131,7 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
                     </div>
                 </div>
             </Link>
-            {renameForm && <RenameModal dataId={data.id} dataCollection={dataCollection} setDataCollection={setDataCollection} dataType={dataType} setRenameForm={setRenameForm} rootFolderId={rootFolderId} />}
+            {renameForm && <RenameModal dataId={data.id} dataCollection={dataCollection} setDataCollection={setDataCollection   } dataType={dataType} setRenameForm={setRenameForm} rootFolderId={rootFolderId} />}
         </>
 
     )
