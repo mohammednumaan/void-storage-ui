@@ -7,7 +7,7 @@ import FileSystem from './components/FileSystem/FileSystem'
 import ProtectedRoute from './components/ProtectedRoute'
 import FolderView from './components/FolderView/FolderView'
 import NavigationBar from './components/NavigationBar/NavigationBar'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import ErrorPage from './components/ErrorPage'
 
 
@@ -23,8 +23,12 @@ const registerFormOptions = {
   linkTo: "login",
 }
 
+// here, i memoize the protected route component to prevent
+// unncessary re-render causes by useNavigate hook
+const MemoizedProtectedRoute = memo(ProtectedRoute)
+
+
 // app component
-// const Memoi = memo(ProtectedRoute)
 function App() {
 
   const navigate = useNavigate();
@@ -34,6 +38,7 @@ function App() {
   // if true, we re-direct the user to /tree, else, we render the home page with login and register component
   useEffect(() => {
     (async () => {
+      console.log("App")
       const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/authenticate`, {
         mode: 'cors',
         credentials: 'include'
@@ -55,7 +60,7 @@ function App() {
         <Route path='/register' element={<Form formOptions={registerFormOptions} />} />
         <Route path='/login' element={<Form formOptions={loginFormOptions} />} />
 
-        <Route element={<ProtectedRoute isAuth={isAuth} setIsAuth={setIsAuth} />}>
+        <Route element={<MemoizedProtectedRoute isAuth={isAuth} setIsAuth={setIsAuth} />}>
             <Route path='/tree' element={<FileSystem />} >
               <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
               <Route path='file/:folderId/:fileId' element={<FolderView />}></Route>

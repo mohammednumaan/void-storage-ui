@@ -1,11 +1,9 @@
 // imports
 import styles from "./FolderView.module.css"
-import { useEffect, useRef, useState } from "react";
-import SearchFolder from "../SelectFolder/SelectFolder";
+import { memo, useEffect, useRef, useState } from "react";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
 import SelectFolder from "../SelectFolder/SelectFolder";
 import { Link, useParams } from "react-router-dom";
-
 
 // a folder/file view component
 export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile, rootFolderId}){
@@ -24,6 +22,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     // a simple useEffect to close the menu if a 
     // click anywhere outside the menu is detected when the menu is open
     useEffect(() => {
+
         const handleClick = (e) => {
             console.log(menuRef)
             const clickedOutsideMenu = menuRef.current.every(
@@ -38,7 +37,22 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         document.addEventListener('click', handleClick);
         return () => document.removeEventListener('click', handleClick)
     }, [menuRef])
-    
+
+    useEffect(() => {
+        async function getFolderPathSegements(){
+            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${folderId || rootFolderId}`, {
+                credentials: 'include',
+                mode: 'cors'
+            });
+            const data = await response.json();
+            if (response.ok){
+                setBreadcrumbs([...data.folderSegments])
+            }
+            
+        }
+        if (folderId || rootFolderId) getFolderPathSegements(); 
+        
+    }, [folderId])
     return (
         <>  
 
@@ -105,9 +119,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                 {folders.length !== 0 && folders.map((folder) => (
                     <FileFolderContainer 
                         key={folder.id}
-                        dataType={"Folder"}  
-                        breadcrumbs={breadcrumbs}
-                        setBreadcrumbs={setBreadcrumbs}   
+                        dataType={"Folder"}   
                         setSearchData={setSearchData}
                         data={folder}
                         menuRef={menuRef}
@@ -127,7 +139,6 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                         dataType={"File"}     
                         data={file}
                         setSearchData={setSearchData}
-
                         menuRef={menuRef}
                         dataCollection={files}
                         setDataCollection={setFiles}

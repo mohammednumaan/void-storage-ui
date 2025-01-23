@@ -14,6 +14,10 @@
     margin-right: auto;
 }
 
+.breadcrumbs .breadcrumb-segment:last-child >a{
+    color: gray;
+}
+
 .breadcrumb-segment{
     display: flex;
     align-items: center;

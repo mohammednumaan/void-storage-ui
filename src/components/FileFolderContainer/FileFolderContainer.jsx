@@ -1,7 +1,5 @@
 //  imports
-
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -26,7 +24,17 @@ const getFileSize = (bytes) => {
         
 }
 // a dynamic component that renders both files and folders
-export default function FileFolderContainer({dataType, data, menuRef, dataCollection, setDataCollection, breadcrumbs, setBreadcrumbs, showMenu, setSearchData, setShowMenu, rootFolderId}){
+export default function FileFolderContainer({
+    dataType, 
+    data, 
+    menuRef, 
+    dataCollection, 
+    setDataCollection, 
+    showMenu, 
+    setSearchData, 
+    setShowMenu, 
+    rootFolderId}
+){
 
     // navigate hook to navigate between components
     const navigate = useNavigate();
@@ -64,21 +72,7 @@ export default function FileFolderContainer({dataType, data, menuRef, dataCollec
         navigate(`/tree/${folderId || rootFolderId}/${data.id}`)
     }
 
-    useEffect(() => {
-        async function getFolderPathSegements(){
-            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${folderId || rootFolderId}`, {
-                credentials: 'include',
-                mode: 'cors'
-            });
-            const data = await response.json();
-            if (response.ok){
-                setBreadcrumbs([...data.folderSegments])
-            }
-
-        }
-        if (dataType === "Folder") getFolderPathSegements(); 
-
-    }, [folderId])
+   console.log("INNER")
      
     return (
         <>

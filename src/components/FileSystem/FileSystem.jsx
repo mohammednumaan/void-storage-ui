@@ -1,5 +1,5 @@
 // imports
-import { useOutletContext, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useEffect } from "react";
 import { useState } from "react";
 import FolderView from "../FolderView/FolderView";
@@ -7,12 +7,10 @@ import MobileMenu from "../MobileMenu/MobileMenu";
 import Sidebar from "../Sidebar/Sidebar";
 import styles from "./FileSystem.module.css"
 
-
 // file system component
 export default function FileSystem(){
 
     // a folders and files state that stores a list of
-    const {isAuth} = useOutletContext();
     // folders and files created by the user
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
@@ -46,13 +44,15 @@ export default function FileSystem(){
             const data = await response.json();
             if (response.ok){
                 setRootFolderId(data.rootFolderId)
+                console.log("hi")
+
             } else{
                 console.log('err')
             }
         }
 
         getRootFolder();
-    }, [rootFolderId])
+    }, [])
 
     // a simple useEffct that fetches all sub-folders of a particular folder
     useEffect(() => {
@@ -61,10 +61,10 @@ export default function FileSystem(){
                 mode: 'cors',
                 credentials: 'include'
             });
-
+            
             
             const data = await response.json();
-
+            
             if (response.ok){
                 setFolders([...data.folders]);
                 setSelectedFile(null);
@@ -74,7 +74,7 @@ export default function FileSystem(){
         }
 
         if (!fileId && rootFolderId) getFolders();
-    }, [JSON.stringify(folders), folderId, rootFolderId])
+    }, [folderId, rootFolderId])
     
     // a simple useEffect to fetch all the files of a particular folder
     useEffect(() => {
@@ -96,7 +96,7 @@ export default function FileSystem(){
 
         if (!fileId && rootFolderId) getFiles();
 
-    }, [JSON.stringify(files), folderId, rootFolderId])
+    }, [folderId, rootFolderId])
 
     // a simple useEffect to track the screen size to dynamically
     // render components based on screen size
