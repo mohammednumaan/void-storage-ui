@@ -52,15 +52,15 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         }
         if (folderId || rootFolderId) getFolderPathSegements(); 
         
-    }, [folderId])
+    }, [folderId, rootFolderId])
     return (
         <>  
 
             <nav className={styles["breadcrumbs"]}>
                 {breadcrumbs.length !== 0 && breadcrumbs.map(breadcrumb => (
                     <small className={styles["breadcrumb-segment"]}>
-                        <Link to={breadcrumb.folderName === "root" ? `/tree` :  `/tree/${folderId || rootFolderId}/${breadcrumb.id}`}>
-                            {breadcrumb.folderName}
+                        <Link to={breadcrumb.name === "root" ? `/tree` :  `/tree/${folderId || rootFolderId}/${breadcrumb.id}`}>
+                            {breadcrumb.name}
                         </Link>                      
                         <img alt="chevron right icon" src="/public/chevron_right_icon.svg" />
                     </small>
@@ -158,7 +158,13 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
             }
 
             {searchData.id &&
-                <SelectFolder setSearchData={setSearchData} searchData={searchData} />
+                <>
+                    
+                    <SelectFolder setSearchData={setSearchData} searchData={searchData} rootFolderId={rootFolderId}>
+                        
+                    </SelectFolder>
+                </>
+
             }
         </>
     )

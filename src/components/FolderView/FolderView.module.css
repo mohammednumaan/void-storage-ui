@@ -8,10 +8,12 @@
 /* BREADCRUMBS STYLES */
 .breadcrumbs{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     margin-right: auto;
+    padding-left: 4px;
+    transition: all 500ms ease-in-out;
 }
 
 .breadcrumbs .breadcrumb-segment:last-child >a{
