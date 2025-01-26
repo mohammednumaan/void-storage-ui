@@ -74,7 +74,6 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
 
         const data = await response.json();
         if (data.ok){
-            setSelectedFolderId(null);
         }
 
     }

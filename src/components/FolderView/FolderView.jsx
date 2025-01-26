@@ -6,7 +6,7 @@ import SelectFolder from "../SelectFolder/SelectFolder";
 import { Link, useParams } from "react-router-dom";
 
 // a folder/file view component
-export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile, rootFolderId, setLoading}){
+export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading}){
 
     // extract the folderId from the route url
     const {folderId} = useParams();
@@ -14,29 +14,8 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
     // a state to manage breadcrumb navigation
     const [breadcrumbs, setBreadcrumbs] = useState([])
     
-    const menuRef = useRef([]);
-    const [showMenu, setShowMenu] = useState("")
-
     const [searchData, setSearchData] = useState({type: "", id: null, folder: ""});
 
-    // a simple useEffect to close the menu if a 
-    // click anywhere outside the menu is detected when the menu is open
-    useEffect(() => {
-
-        const handleClick = (e) => {
-            console.log(menuRef)
-            const clickedOutsideMenu = menuRef.current.every(
-                (menu) => {
-                    if (menu == null) return true;
-                    return menu && !menu.contains(e.target)
-                }
-            );
-            if (clickedOutsideMenu) setShowMenu(null);
-        }
-
-        document.addEventListener('click', handleClick);
-        return () => document.removeEventListener('click', handleClick)
-    }, [menuRef])
 
     useEffect(() => {
         async function getFolderPathSegements(){
@@ -53,6 +32,51 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
         if (folderId || rootFolderId) getFolderPathSegements(); 
         
     }, [folderId, rootFolderId])
+
+    const handleDeletion = async (event, dataType, dataId) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setLoading(true)
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? 'folders' : 'files'}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            mode: 'cors',   
+            body: dataType === 'Folder' ? JSON.stringify({folderId: dataId}) : JSON.stringify({fileId: dataId}),
+            credentials: 'include'
+        })
+
+        if (response.ok){
+            const updatedData = (dataType === "Folder" ? folders : files).filter(data => data.id !== dataId);
+            (dataType === "Folder") ? setFolders((_) => [...updatedData]) : setFiles((_) => [...updatedData]);
+        }
+        else{
+            console.log(response)
+        }
+        setLoading(false)
+    }
+
+    const handleRename = async (event, dataType, dataId) => {
+        event.preventDefault();
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? 'folders' : 'files'}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},  
+            mode: 'cors',   
+            body: (dataType === "Folder") 
+                ? JSON.stringify({newFolderName: renameInput, folderId: dataId})
+                : JSON.stringify({newFileName: renameInput, fileId: dataId, folderId: folderId || rootFolderId, parentFolderId: folderId || rootFolderId}),
+            credentials: 'include'
+        })
+
+        if (response.ok){
+            const updatedData = (dataType === "Folder" ? folders : files).filter(data => data.name === renameInput);
+            (dataType === "Folder") ? setFolders((_) => [...updatedData]) : setFiles((_) => [...updatedData]);
+        }
+        else{
+            console.log('err')
+        }
+    }
+
+
     return (
         <>  
 
@@ -78,57 +102,15 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
             </div>
             <hr />
 
-            {/* {selectedFile && (
-                <div className={styles["file-view-container"]}>
-
-                    <div className={styles["file-view-details"]} title="File Details">
-                        <div className={styles["file"]}>
-
-                            <div className={styles["file-left"]}>
-                                <img alt="file icon" src="/public/file_icon.svg"></img>
-                                <p>{selectedFile.fileName}</p>
-                            </div>
-
-                            <div className={styles["file-right"]}>
-
-                                <div className={styles["file-right-size"]}>
-                                    <p id={styles["file-size"]}>{getFileSize(selectedFile.fileSize)}</p>
-                                </div>
-                                <p>{format(selectedFile.createdAt, 'dd/MM/yyyy')}</p>
-
-                                <div className={styles["file-right-options"]}>
-                                    <img title="Confirm Rename" alt="file delete icon" src="/public/folder_delete_icon.svg"></img>
-                                    <img title="Cancel Rename" alt="file edit icon" src="/public/folder_edit_icon.svg"></img>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div className={styles["file-view"]}>
-                    </div>
-                    <div className={styles["file-view-options"]}>
-                        <button>Download File</button>
-                        <button>View File</button>
-
-                    </div>
-
-                </div>
-            )} */}
             <div className={styles["folder-list"]}>
                 {folders.length !== 0 && folders.map((folder) => (
                     <FileFolderContainer 
                         key={folder.id}
-                        dataType={"Folder"}   
+                        fileFolderData={{dataType: "Folder", data: folder}}
+                        handleDeletion={handleDeletion}
+                        handleRename={handleRename}
                         setSearchData={setSearchData}
-                        data={folder}
-                        menuRef={menuRef}
-                        dataCollection={folders}
-                        setDataCollection={setFolders}
-                        showMenu={showMenu}
-                        setShowMenu={setShowMenu}
                         rootFolderId={rootFolderId}
-                        setLoading={setLoading}
                     />
                 ))}
             </div>
@@ -137,23 +119,16 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                 {files.length !== 0 && files.map((file, idx) => (
                     <FileFolderContainer 
                         key={file.id}
-                        dataType={"File"}     
-                        data={file}
+                        fileFolderData={{dataType: "File", data: file}}
+                        handleDeletion={handleDeletion}
+                        handleRename={handleRename}
                         setSearchData={setSearchData}
-                        menuRef={menuRef}
-                        dataCollection={files}
-                        setDataCollection={setFiles}
-                        showMenu={showMenu}
-                        setShowMenu={setShowMenu}
-                        rootFolderId={rootFolderId}
-                        setLoading={setLoading}
-
-                        
+                        rootFolderId={rootFolderId}     
                     />
                 ))}
             </div>
 
-            {((folders.length == 0 && files.length == 0) && !selectedFile) && 
+            {((folders.length == 0 && files.length == 0)) && 
                 <h3 className={styles["no-file-folders-message"]}>
                     Create Folders Or Upload a File Here To View This Folder's Contents.
                 </h3>

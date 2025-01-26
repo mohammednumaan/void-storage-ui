@@ -17,10 +17,6 @@ export default function FileSystem(){
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // a selected file state to display the contents/details of
-    // the selected(clicked) file
-    const [selectedFile, setSelectedFile] = useState();
-
     // a rootFolderId state to store the current user's root folder's id
     // to help display the home/root sub-folders
     const [rootFolderId, setRootFolderId] = useState(null);
@@ -69,7 +65,6 @@ export default function FileSystem(){
             
             if (response.ok){
                 setFolders([...data.folders]);
-                setSelectedFile(null);
             } else{
                 console.log('err')
             }
@@ -89,7 +84,6 @@ export default function FileSystem(){
             const data = await response.json();
             if (response.ok){
                 setFiles([...data.allFiles]);
-                setSelectedFile(null);
 
             } else{
                 console.log('err')
@@ -103,7 +97,6 @@ export default function FileSystem(){
     // a simple useEffect to track the screen size to dynamically
     // render components based on screen size
     useEffect(() => {
-
         const handleResize = () => {
             if (window.innerWidth < 1100){
                 setIsMobile(true);
@@ -134,8 +127,6 @@ export default function FileSystem(){
                             setFolders={setFolders} 
                             files={files} 
                             setFiles={setFiles} 
-                            selectedFile={selectedFile} 
-                            setSelectedFile={setSelectedFile}
                             rootFolderId={rootFolderId}
                             setLoading={setLoading}
                         /> 
