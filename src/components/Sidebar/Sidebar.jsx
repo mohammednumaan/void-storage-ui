@@ -1,16 +1,16 @@
 // imports
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
-import Modal from '../Modal/Modal';
 import styles from './Sidebar.module.css'
+import FileFolderModal from '../Modal/Modal';
 
 // a file system sidebar component
-export default function Sidebar({setFolders, setFiles, rootFolderId}){
+export default function Sidebar({setFolders, setFiles, rootFolderId, setLoading}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
     const [folderForm, setFolderForm] = useState(false); 
- 
+    console.log(setLoading)
     return (
         <>
             <div className={styles["folder-container"]}>
@@ -34,8 +34,8 @@ export default function Sidebar({setFolders, setFiles, rootFolderId}){
                     </div>
                 </div>
 
-                {fileForm && <Modal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFileFolders={setFiles} rootFolderId={rootFolderId} />}
-                {folderForm && <Modal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFileFolders={setFolders} rootFolderId={rootFolderId} />}  
+                {fileForm && <FileFolderModal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFileFolders={setFiles} rootFolderId={rootFolderId} setLoading={setLoading} />}
+                {folderForm && <FileFolderModal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFileFolders={setFolders} rootFolderId={rootFolderId} setLoading={setLoading} />}  
             </div>
         </>
     )

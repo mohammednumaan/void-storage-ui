@@ -1,0 +1,32 @@
+@keyframes leftAnimation {
+    0% {
+      left: -10%;
+    }
+    100% {
+      left: 110%;
+    }
+  }
+  
+  @keyframes widthAnimation {
+    0% {
+      width: 5%;
+    }
+
+    40%{
+        width: 20%;
+    }
+    100% {
+      width: 2%;
+    }
+  }
+  
+  .animated-div {
+    position: absolute;
+    top: 0px;
+    height: 5px;
+    background-color: #ff5a30;
+    z-index: 6;
+    overflow-x: hidden;
+    animation: leftAnimation 1s infinite, widthAnimation 1s infinite;
+  }
+  

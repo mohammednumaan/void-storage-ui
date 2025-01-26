@@ -6,7 +6,7 @@ import SelectFolder from "../SelectFolder/SelectFolder";
 import { Link, useParams } from "react-router-dom";
 
 // a folder/file view component
-export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile, rootFolderId}){
+export default function FolderView({folders, files, setFolders, setFiles,  selectedFile, setSelectedFile, rootFolderId, setLoading}){
 
     // extract the folderId from the route url
     const {folderId} = useParams();
@@ -128,6 +128,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                         showMenu={showMenu}
                         setShowMenu={setShowMenu}
                         rootFolderId={rootFolderId}
+                        setLoading={setLoading}
                     />
                 ))}
             </div>
@@ -145,6 +146,7 @@ export default function FolderView({folders, files, setFolders, setFiles,  selec
                         showMenu={showMenu}
                         setShowMenu={setShowMenu}
                         rootFolderId={rootFolderId}
+                        setLoading={setLoading}
 
                         
                     />

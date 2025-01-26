@@ -15,10 +15,12 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
         console.log('haa')
 
         async function getAvailableFolders(){
-            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/${rootFolderId}`, {
+            const response =    
+            
+            await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/${rootFolderId}`, {
                 credentials: 'include',
                 mode: 'cors'
-            });
+            }) 
             const data = await response.json();
             if (response.ok){
                 setAvailableFolders([...data.folders])
@@ -80,7 +82,6 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
     const handleFolderClick = (folderId) => {
         setSelectedFolderId(folderId);
     }
-    console.log('HIHIH')
     return (
         <>  
             <div className={styles["search-folder-container"]}>
@@ -101,6 +102,8 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
                     <hr />
 
                     {availableFolders.map(folder => (
+                        searchData.type === "Folder" && (folder.id === searchData.id) ? "":
+
                         <div key={folder.id} 
                             className={`${styles["folder"]} ${selectedFolderId === folder.id ? styles["active"] : styles["inactive"]}`} 
                             onClick={() => handleFolderClick(folder.id)} 

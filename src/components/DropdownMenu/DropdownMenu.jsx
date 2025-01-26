@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styles from "./DropdownMenu.module.css"
 
 // a custom dropdown meny that dynamically renders based on the dataType passed in
-export default function DropdownMenu({dataType, dataId, showMenu, setSearchData, dataCollection, setRenameForm, setDataCollection, height, rootFolderId}){
+export default function DropdownMenu({dataType, dataId, showMenu, setSearchData, dataCollection, setRenameForm, setDataCollection, height, rootFolderId, setLoading}){
 
     const {folderId} = useParams()
     // a dynamic async function to handle file (or) folder deletion on click
@@ -11,6 +11,7 @@ export default function DropdownMenu({dataType, dataId, showMenu, setSearchData,
     const handleDataDeletion = async (event, dataId) => {
         event.preventDefault();
         event.stopPropagation();
+        setLoading(true)
         console.log(dataId)
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? 'folders' : 'files'}`, {
             method: 'DELETE',
@@ -23,10 +24,12 @@ export default function DropdownMenu({dataType, dataId, showMenu, setSearchData,
         if (response.ok){
             const updatedData = dataCollection.filter(data => data.id !== dataId);
             setDataCollection((_) => [...updatedData]);
+            
         }
         else{
             console.log(response)
         }
+        setLoading(false)
 
     }
 

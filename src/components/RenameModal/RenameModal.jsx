@@ -21,7 +21,7 @@ export default function RenameModal({dataId, dataType, dataCollection, setDataCo
             mode: 'cors',   
             body: (dataType === "Folder") 
                 ? JSON.stringify({newFolderName: renameInput, folderId: dataId})
-                : JSON.stringify({newFileName: renameInput, fileId: dataId, folderId: folderId || rootFolderId}),
+                : JSON.stringify({newFileName: renameInput, fileId: dataId, folderId: folderId || rootFolderId, parentFolderId: folderId || rootFolderId}),
             credentials: 'include'
         })
 

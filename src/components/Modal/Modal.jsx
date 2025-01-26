@@ -4,7 +4,7 @@ import styles from "./Modal.module.css";
 import { useParams } from "react-router-dom";
 
 // a dynamic form component to upload files and create new folders 
-export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm, setFileFolders, rootFolderId}){
+export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm, setFileFolders, rootFolderId, setLoading}){
 
     // extracts the folderId from the route URL
     const {folderId} = useParams()
@@ -15,6 +15,7 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
     // a file state to store the uploaded file
     const [file, setFile] = useState(null);
     const [folder, setFolder] = useState({parentFolderId: folderId || rootFolderId, newFolderName: ""});
+    const [disabled, setDisabled] = useState(false);
 
     // a simple function to handle input change
     // for the file-input field
@@ -26,6 +27,9 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
     // of the 'add file' form
     const handleFileSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
+        setDisabled(true)
+
         const formData = new FormData();
         formData.append("file", file);
         formData.append("parentFolderId", folder.parentFolderId);
@@ -37,9 +41,12 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
         })
 
         const data = await response.json();
-        console.log("uploaded", data)
+        console.log("uploaded", data)       
         setFileFolders(files => [...files, data.uploadedFile])
         setFileForm(false)
+        setLoading(false)
+        setDisabled(false)
+
     }
 
     // a simple function to handle input change
@@ -54,6 +61,9 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
     // of the 'add folder' form
     const handleFolderSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
+        setDisabled(true)
+
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
@@ -65,6 +75,10 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
         const data = await response.json();
         setFolderForm(false);
         setFileFolders(folders => [...folders, data.createdFolder])
+        setLoading(false)
+        setDisabled(false)
+
+
     } 
 
     return (
@@ -79,8 +93,8 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
                             type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'newFolderName'} />
                         
                         <div className={styles["file-form-btns"]}>
-                            <button type="submit">{formType === "File" ? 'Upload File' : 'Create Folder'}</button>
-                            <button onClick={() => formType === "File" ? setFileForm(false) : setFolderForm(false)}>Close</button>
+                            <button disabled={disabled} type="submit">{formType === "File" ? 'Upload File' : 'Create Folder'}</button>
+                            <button disabled={disabled} onClick={() => formType === "File" ? setFileForm(false) : setFolderForm(false)}>Close</button>
 
                         </div>
                     </form>

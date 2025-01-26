@@ -33,8 +33,9 @@ export default function FileFolderContainer({
     showMenu, 
     setSearchData, 
     setShowMenu, 
-    rootFolderId}
-){
+    rootFolderId,
+    setLoading
+}){
 
     // navigate hook to navigate between components
     const navigate = useNavigate();
@@ -121,6 +122,7 @@ export default function FileFolderContainer({
                                 rootFolderId={rootFolderId}
                                 height={height} 
                                 setRenameForm={setRenameForm}
+                                setLoading={setLoading}
                             />
                     </div>
                 </div>

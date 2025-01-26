@@ -6,6 +6,7 @@ import FolderView from "../FolderView/FolderView";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import Sidebar from "../Sidebar/Sidebar";
 import styles from "./FileSystem.module.css"
+import Loader from "../Loader/Loader";
 
 // file system component
 export default function FileSystem(){
@@ -14,6 +15,7 @@ export default function FileSystem(){
     // folders and files created by the user
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     // a selected file state to display the contents/details of
     // the selected(clicked) file
@@ -118,11 +120,13 @@ export default function FileSystem(){
 
 
     return (
+        
         <>  
+            <Loader loading={loading} />
             <div className={styles["file-system-tree"]}>
                 <div className={styles["file-system-container"]}>
 
-                    {!isMobile && <Sidebar setFiles={setFiles} setFolders={setFolders} rootFolderId={rootFolderId}/>}
+                    {!isMobile && <Sidebar setFiles={setFiles} setFolders={setFolders} rootFolderId={rootFolderId} setLoading={setLoading}/>}
                     
                     <div className={styles["file-system-view"]}>
                        <FolderView 
@@ -130,10 +134,10 @@ export default function FileSystem(){
                             setFolders={setFolders} 
                             files={files} 
                             setFiles={setFiles} 
-                            
                             selectedFile={selectedFile} 
                             setSelectedFile={setSelectedFile}
                             rootFolderId={rootFolderId}
+                            setLoading={setLoading}
                         /> 
                     </div>
                 </div>
