@@ -4,7 +4,14 @@ import styles from "./Modal.module.css";
 import { useParams } from "react-router-dom";
 
 // a dynamic form component to upload files and create new folders 
-export default function FileFolderModal({formConfigObject, setFolderForm, setFileForm, setFileFolders, rootFolderId, setLoading}){
+export default function FileFolderModal({
+    formConfigObject, 
+    setFolderForm, 
+    setFileForm, 
+    setFileFolders, 
+    rootFolderId, 
+    setLoading
+}){
 
     // extracts the folderId from the route URL
     const {folderId} = useParams()
@@ -89,7 +96,7 @@ export default function FileFolderModal({formConfigObject, setFolderForm, setFil
                         encType={formType === "File" ? "multipart/form-data" : "application/x-www-form-urlencoded"}>
 
                         <label htmlFor="file-folder-input" id={styles["file-folder-label"]}>{formType === "File" ? 'Upload File' : 'Create Folder'}</label>
-                        <input onChange={formType === "File" ? handleFileInput : handleFolderInput} 
+                        <input disabled={disabled} onChange={formType === "File" ? handleFileInput : handleFolderInput} 
                             type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'newFolderName'} />
                         
                         <div className={styles["file-form-btns"]}>

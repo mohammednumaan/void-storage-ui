@@ -1,32 +1,32 @@
+/* ANIMATION STYLES FOR THE LOADED COMPONENT */
 @keyframes leftAnimation {
-    0% {
-      left: -10%;
-    }
-    100% {
-      left: 110%;
-    }
+  0% {
+    left: -10%;
   }
-  
-  @keyframes widthAnimation {
-    0% {
-      width: 5%;
-    }
+  100% {
+    left: 110%;
+  }
+}
 
-    40%{
-        width: 20%;
-    }
-    100% {
-      width: 2%;
-    }
+@keyframes widthAnimation {
+  0% {
+    width: 5%;
   }
-  
-  .animated-div {
-    position: absolute;
-    top: 0px;
-    height: 5px;
-    background-color: #ff5a30;
-    z-index: 6;
-    overflow-x: hidden;
-    animation: leftAnimation 1s infinite, widthAnimation 1s infinite;
+
+  40%{
+      width: 20%;
   }
-  
+  100% {
+    width: 2%;
+  }
+}
+
+.animated-div {
+  position: absolute;
+  top: 0px;
+  height: 5px;
+  background-color: #ff5a30;
+  z-index: 6;
+  overflow-x: hidden;
+  animation: leftAnimation 1s infinite, widthAnimation 1s infinite;
+}

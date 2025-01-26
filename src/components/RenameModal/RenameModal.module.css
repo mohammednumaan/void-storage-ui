@@ -51,6 +51,11 @@
     flex: 1;
 }
 
+.rename-form-btns > button:disabled{
+    pointer-events: none;
+}
+
+
 /* MEDIA QUERIES FOR THE MODAL COMPONENT */
 @media (max-width: 470px) {
 

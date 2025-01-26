@@ -1,5 +1,5 @@
-/* FILE-FOLDER STYLING */
-.file-folder-form-container{
+/* rename STYLING */
+.delete-form-container{
     position: fixed;
     width: 100%;
     height: 100%;
@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-.file-folder-form{
+.delete-form{
 
     width: 20em;
     border: 2px solid #1a1a1a;
@@ -24,25 +24,25 @@
     padding: 50px;
 }
 
-/* FILE-FOLDER FORM'S INPUT, LABEL AND BUTTON STYLING */
-#file-folder-label{
+/* delete FORM'S TITLE AND BUTTON STYLING */
+#delete-title{
     color:  #ff5a30;
     font-size: 40px;
 }
 
-#file-folder-input{
+#delete-input{
     width: 95%;
     flex: 1 1 auto;
 }
 
-.file-form-btns{
+.delete-form-btns{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.file-form-btns > button{
+.delete-form-btns > button{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,32 +51,32 @@
     flex: 1;
 }
 
-.file-form-btns > button:disabled{
+.delete-form-btns > button:disabled{
     pointer-events: none;
 }
 
 /* MEDIA QUERIES FOR THE MODAL COMPONENT */
 @media (max-width: 470px) {
 
-    .file-folder-form{
+    .delete-form{
         width: 60%;
         padding: 20px;
         margin: 0 10px;
     }
     
-    #file-folder-input{
+    #delete-input{
         width: 90%;
     }
-    #file-folder-label {
+    #delete-title {
         font-size: 30px;
     }
     
-    .file-form-btns {
+    .delete-form-btns {
         flex-direction: column;
         gap: 0px;
     }
     
-    .file-form-btns > button {
+    .delete-form-btns > button {
         width: 100%;
     }
 

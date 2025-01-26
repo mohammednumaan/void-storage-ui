@@ -5,13 +5,12 @@ import styles from "./DropdownMenu.module.css"
 // a custom dropdown meny that dynamically renders based on the dataType passed in
 export default function DropdownMenu({
     fileFolderData, 
-    handleDeletion, 
+    setIsOpenDeleteForm, 
     menuId, 
     setSearchData, 
-    setRenameForm, 
+    setIsOpenRenameForm, 
     height, 
     rootFolderId, 
-    setLoading
 }){
     const {folderId} = useParams();
     return (
@@ -19,7 +18,7 @@ export default function DropdownMenu({
             <ul className={`${styles.menu} ${menuId === fileFolderData.data.id ? styles.open : ''}`} style={{top: height}}>
                 <li>
                     <button className={styles["menu-item-btn"]} 
-                        onClick={(e) => handleDeletion(e, fileFolderData.dataType, fileFolderData.data.id)}>
+                        onClick={() => setIsOpenDeleteForm(true)}>
                         
                         <img alt="delete icon" src="/public/folder_delete_icon.svg" title={`Delete ${fileFolderData.dataType}`} />
                         Delete
@@ -27,7 +26,7 @@ export default function DropdownMenu({
                 </li>
                 <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
                 <li>
-                    <button className={styles["menu-item-btn"]} onClick={() => setRenameForm(true)}>
+                    <button className={styles["menu-item-btn"]} onClick={() => setIsOpenRenameForm(true)}>
                     <img alt="rename icon" src="/public/folder_edit_icon.svg" title={`Delete ${fileFolderData.dataType}`} />
                         Edit
                     </button>

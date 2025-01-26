@@ -1,8 +1,9 @@
-
-
-import styles from "./Loader.module.css"
+// imports
 import React from "react";
+import styles from "./Loader.module.css"
 
+// a simple "indeterminate" loader component that runs 
+// at the top of the screen
 export default function Loader({ loading }) {
   return (
     <div

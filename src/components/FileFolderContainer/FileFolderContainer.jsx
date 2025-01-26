@@ -6,6 +6,7 @@ import { format } from "date-fns";
 
 import styles from "./FileFolder.module.css"
 import RenameModal from "../RenameModal/RenameModal";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 // a simple function to convert the file size
 // to a human readable format for display purposes
@@ -28,9 +29,10 @@ export default function FileFolderContainer({
     fileFolderData, 
     handleDeletion,
     handleRename,
+    renameForm,
+    deleteForm,
     setSearchData, 
     rootFolderId,
-    setLoading
 }){
 
     // navigate hook to navigate between components
@@ -41,7 +43,6 @@ export default function FileFolderContainer({
     const {folderId, fileId} = useParams();
 
 
-    const [renameForm , setRenameForm] = useState(false);
     const [height, setHeight] = useState(null);
 
     const menuRef = useRef([]);
@@ -122,23 +123,30 @@ export default function FileFolderContainer({
                          
                             <DropdownMenu 
                                 fileFolderData={fileFolderData}
-                                handleDeletion={handleDeletion}
+                                setIsOpenDeleteForm={deleteForm.setIsOpenDeleteForm}
                                 setSearchData={setSearchData}
                                 menuId={menuId} 
-
                                 rootFolderId={rootFolderId}
                                 height={height} 
-                                setRenameForm={setRenameForm}
-                                setLoading={setLoading}
+                                setIsOpenRenameForm={renameForm.setIsOpenRenameForm}
                             />
                     </div>
                 </div>
             </Link>
-            {renameForm && 
+            {renameForm.isOpenRenameForm && 
                 <RenameModal 
                     fileFolderData={fileFolderData}
                     handleRename={handleRename} 
-                    setRenameForm={setRenameForm} 
+                    isOpenRenameForm={renameForm.isOpenRenameForm}
+                    setIsOpenRenameForm={renameForm.setIsOpenRenameForm}
+                />
+            }
+
+            {deleteForm.isOpenDeleteForm && 
+                <DeleteModal 
+                    fileFolderData={fileFolderData}
+                    handleDelete={handleDeletion} 
+                    isOpenDeleteForm={deleteForm.setIsOpenDeleteForm}
                 />
             }
         </>

@@ -13,6 +13,10 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
 
     // a state to manage breadcrumb navigation
     const [breadcrumbs, setBreadcrumbs] = useState([])
+    const [isOpenRenameForm , setIsOpenRenameForm] = useState(false);
+    const [isOpenDeleteForm , setIsOpenDeleteForm] = useState(false);
+
+
     
     const [searchData, setSearchData] = useState({type: "", id: null, folder: ""});
 
@@ -52,28 +56,33 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
         else{
             console.log(response)
         }
+        setIsOpenDeleteForm(false)
         setLoading(false)
     }
 
-    const handleRename = async (event, dataType, dataId) => {
+    const handleRename = async (event, dataType, dataId, newName) => {
         event.preventDefault();
+        setLoading(true)
+
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? 'folders' : 'files'}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},  
             mode: 'cors',   
             body: (dataType === "Folder") 
-                ? JSON.stringify({newFolderName: renameInput, folderId: dataId})
-                : JSON.stringify({newFileName: renameInput, fileId: dataId, folderId: folderId || rootFolderId, parentFolderId: folderId || rootFolderId}),
+                ? JSON.stringify({newFolderName: newName, folderId: dataId})
+                : JSON.stringify({newFileName: newName, fileId: dataId, folderId: folderId || rootFolderId, parentFolderId: folderId || rootFolderId}),
             credentials: 'include'
         })
-
         if (response.ok){
-            const updatedData = (dataType === "Folder" ? folders : files).filter(data => data.name === renameInput);
-            (dataType === "Folder") ? setFolders((_) => [...updatedData]) : setFiles((_) => [...updatedData]);
+            const renamedData = await response.json();
+            const updatedData = (dataType === "Folder" ? folders : files).filter(data => data.id !== dataId);
+            (dataType === "Folder") ? setFolders((_) => [...updatedData, renamedData.renamedFolder]) : setFiles((_) => [...updatedData, renamedData.renamedFile]);
         }
         else{
             console.log('err')
         }
+        setIsOpenRenameForm(false)
+        setLoading(false)
     }
 
 
@@ -111,6 +120,9 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                         handleRename={handleRename}
                         setSearchData={setSearchData}
                         rootFolderId={rootFolderId}
+                        renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
+                        deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
+
                     />
                 ))}
             </div>
@@ -124,6 +136,8 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                         handleRename={handleRename}
                         setSearchData={setSearchData}
                         rootFolderId={rootFolderId}     
+                        renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
+                        deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
                     />
                 ))}
             </div>
