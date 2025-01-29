@@ -32,6 +32,7 @@ export default function FileFolderContainer({
     renameForm,
     deleteForm,
     setSearchData, 
+    handleFileSelection,
     rootFolderId,
 }){
 
@@ -81,14 +82,24 @@ export default function FileFolderContainer({
         document.addEventListener('click', handleClick);
         return () => document.removeEventListener('click', handleClick)
     }, [menuRef])
+
+    // a simple function to handle double clicks for the file/folder container
+    // to redirect the user to the correct file/folder route to view details
+    const handleDoubleClick = () => {
+        if (fileFolderData.dataType === "Folder"){
+            navigate(`/tree/${folderId || rootFolderId}/${fileFolderData.data.id}`)
+        } else{
+            handleFileSelection(fileFolderData.data)
+            navigate(`/tree/file/${folderId || rootFolderId}/${fileFolderData.data.id}`)
+        }
+    } 
     
      
     return (
         <>
             <Link  
                 className={styles["file-folder-container"]} 
-                onDoubleClick={() => navigate(`/tree/${folderId || rootFolderId}/${fileFolderData.data.id}`)
-            } 
+                onDoubleClick={handleDoubleClick} 
              >
                 <div className={styles["file-folder"] }>
 
@@ -146,7 +157,7 @@ export default function FileFolderContainer({
                 <DeleteModal 
                     fileFolderData={fileFolderData}
                     handleDelete={handleDeletion} 
-                    isOpenDeleteForm={deleteForm.setIsOpenDeleteForm}
+                    setIsOpenDeleteForm={deleteForm.setIsOpenDeleteForm}
                 />
             }
         </>

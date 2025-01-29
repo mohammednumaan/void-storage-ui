@@ -10,7 +10,6 @@ export default function Sidebar({setFolders, setFiles, rootFolderId, setLoading}
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
     const [folderForm, setFolderForm] = useState(false); 
-    console.log(setLoading)
     return (
         <>
             <div className={styles["folder-container"]}>

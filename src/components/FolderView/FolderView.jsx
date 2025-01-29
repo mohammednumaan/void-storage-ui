@@ -4,20 +4,19 @@ import { memo, useEffect, useRef, useState } from "react";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
 import SelectFolder from "../SelectFolder/SelectFolder";
 import { Link, useParams } from "react-router-dom";
+import FileDetailsView from "../FIleDetailsView/FileDetailsView";
 
 // a folder/file view component
-export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading}){
+export default function FolderView({folders, files, setFolders, setSelectedFile, selectedFile, setFiles, rootFolderId, setLoading}){
 
     // extract the folderId from the route url
-    const {folderId} = useParams();
+    const {folderId, fileId} = useParams();
 
     // a state to manage breadcrumb navigation
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const [isOpenRenameForm , setIsOpenRenameForm] = useState(false);
     const [isOpenDeleteForm , setIsOpenDeleteForm] = useState(false);
 
-
-    
     const [searchData, setSearchData] = useState({type: "", id: null, folder: ""});
 
 
@@ -36,6 +35,23 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
         if (folderId || rootFolderId) getFolderPathSegements(); 
         
     }, [folderId, rootFolderId])
+
+    useEffect(() => {
+        async function getFileInformation(){
+            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/${fileId}`, {
+                method: 'GET',
+                credentials: 'include',
+                mode: 'cors'
+            })
+
+            const data = await response.json();
+            if (response.ok){
+                setSelectedFile(data.file)
+            }
+        }
+
+        if (fileId) getFileInformation();
+    }, [fileId])
 
     const handleDeletion = async (event, dataType, dataId) => {
         event.preventDefault();
@@ -85,6 +101,12 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
         setLoading(false)
     }
 
+    const handleFileSelection = (file) => {
+        setFiles([])
+        setFolders([])
+        setSelectedFile(file)
+    }
+
 
     return (
         <>  
@@ -111,6 +133,10 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             </div>
             <hr />
 
+            {selectedFile && (
+                <FileDetailsView file={selectedFile} />
+            )}
+
             <div className={styles["folder-list"]}>
                 {folders.length !== 0 && folders.map((folder) => (
                     <FileFolderContainer 
@@ -119,6 +145,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                         handleDeletion={handleDeletion}
                         handleRename={handleRename}
                         setSearchData={setSearchData}
+                        handleFileSelection={handleFileSelection}
                         rootFolderId={rootFolderId}
                         renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
                         deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
@@ -135,6 +162,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                         handleDeletion={handleDeletion}
                         handleRename={handleRename}
                         setSearchData={setSearchData}
+                        handleFileSelection={handleFileSelection}
                         rootFolderId={rootFolderId}     
                         renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
                         deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
@@ -142,7 +170,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                 ))}
             </div>
 
-            {((folders.length == 0 && files.length == 0)) && 
+            {((folders.length == 0 && files.length == 0 && !selectedFile)) && 
                 <h3 className={styles["no-file-folders-message"]}>
                     Create Folders Or Upload a File Here To View This Folder's Contents.
                 </h3>
@@ -152,7 +180,6 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                 <>
                     
                     <SelectFolder setSearchData={setSearchData} searchData={searchData} rootFolderId={rootFolderId}>
-                        
                     </SelectFolder>
                 </>
 
