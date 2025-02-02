@@ -16,7 +16,6 @@ export default function FileSystem(){
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
 
 
     // a rootFolderId state to store the current user's root folder's id
@@ -67,7 +66,6 @@ export default function FileSystem(){
             
             if (response.ok){
                 setFolders([...data.folders]);
-                setSelectedFile(null)
             } else{
                 console.log('err')
             }
@@ -87,7 +85,6 @@ export default function FileSystem(){
             const data = await response.json();
             if (response.ok){
                 setFiles([...data.allFiles]);
-                setSelectedFile(null)
 
 
             } else{
@@ -134,8 +131,6 @@ export default function FileSystem(){
                             setFiles={setFiles} 
                             rootFolderId={rootFolderId}
                             setLoading={setLoading}
-                            selectedFile={selectedFile}
-                            setSelectedFile={setSelectedFile}
                         /> 
                     </div>
                 </div>

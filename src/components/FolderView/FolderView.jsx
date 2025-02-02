@@ -4,10 +4,9 @@ import { memo, useEffect, useRef, useState } from "react";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
 import SelectFolder from "../SelectFolder/SelectFolder";
 import { Link, useParams } from "react-router-dom";
-import FileDetailsView from "../FIleDetailsView/FileDetailsView";
 
 // a folder/file view component
-export default function FolderView({folders, files, setFolders, setSelectedFile, selectedFile, setFiles, rootFolderId, setLoading}){
+export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading}){
 
     // extract the folderId from the route url
     const {folderId, fileId} = useParams();
@@ -36,22 +35,22 @@ export default function FolderView({folders, files, setFolders, setSelectedFile,
         
     }, [folderId, rootFolderId])
 
-    useEffect(() => {
-        async function getFileInformation(){
-            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/${fileId}`, {
-                method: 'GET',
-                credentials: 'include',
-                mode: 'cors'
-            })
+    // useEffect(() => {
+    //     async function getFileInformation(){
+    //         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/${fileId}`, {
+    //             method: 'GET',
+    //             credentials: 'include',
+    //             mode: 'cors'
+    //         })
 
-            const data = await response.json();
-            if (response.ok){
-                setSelectedFile(data.file)
-            }
-        }
+    //         const data = await response.json();
+    //         if (response.ok){
+    //             setSelectedFile(data.file)
+    //         }
+    //     }
 
-        if (fileId) getFileInformation();
-    }, [fileId])
+    //     if (fileId) getFileInformation();
+    // }, [fileId])
 
     const handleDeletion = async (event, dataType, dataId) => {
         event.preventDefault();
@@ -133,9 +132,6 @@ export default function FolderView({folders, files, setFolders, setSelectedFile,
             </div>
             <hr />
 
-            {selectedFile && (
-                <FileDetailsView file={selectedFile} />
-            )}
 
             <div className={styles["folder-list"]}>
                 {folders.length !== 0 && folders.map((folder) => (
@@ -145,7 +141,6 @@ export default function FolderView({folders, files, setFolders, setSelectedFile,
                         handleDeletion={handleDeletion}
                         handleRename={handleRename}
                         setSearchData={setSearchData}
-                        handleFileSelection={handleFileSelection}
                         rootFolderId={rootFolderId}
                         renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
                         deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
@@ -162,7 +157,6 @@ export default function FolderView({folders, files, setFolders, setSelectedFile,
                         handleDeletion={handleDeletion}
                         handleRename={handleRename}
                         setSearchData={setSearchData}
-                        handleFileSelection={handleFileSelection}
                         rootFolderId={rootFolderId}     
                         renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
                         deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
@@ -170,7 +164,7 @@ export default function FolderView({folders, files, setFolders, setSelectedFile,
                 ))}
             </div>
 
-            {((folders.length == 0 && files.length == 0 && !selectedFile)) && 
+            {((folders.length == 0 && files.length == 0)) && 
                 <h3 className={styles["no-file-folders-message"]}>
                     Create Folders Or Upload a File Here To View This Folder's Contents.
                 </h3>

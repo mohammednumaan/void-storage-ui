@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import styles from "./FileFolder.module.css"
 import RenameModal from "../RenameModal/RenameModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import FileDetails from "../FileDetails/FileDetails";
 
 // a simple function to convert the file size
 // to a human readable format for display purposes
@@ -32,7 +33,6 @@ export default function FileFolderContainer({
     renameForm,
     deleteForm,
     setSearchData, 
-    handleFileSelection,
     rootFolderId,
 }){
 
@@ -42,12 +42,12 @@ export default function FileFolderContainer({
 
     // extract folder and file id from the url
     const {folderId, fileId} = useParams();
-
-
     const [height, setHeight] = useState(null);
 
     const menuRef = useRef([]);
     const [menuId, setMenuId] = useState("")
+
+    const [isOpenDetails, setIsOpenDetails] = useState({fileId: null});
 
     const handleMenuClick = (event, id) => {
         // retrieve the current folder container
@@ -88,9 +88,6 @@ export default function FileFolderContainer({
     const handleDoubleClick = () => {
         if (fileFolderData.dataType === "Folder"){
             navigate(`/tree/${folderId || rootFolderId}/${fileFolderData.data.id}`)
-        } else{
-            handleFileSelection(fileFolderData.data)
-            navigate(`/tree/file/${folderId || rootFolderId}/${fileFolderData.data.id}`)
         }
     } 
     
@@ -140,16 +137,18 @@ export default function FileFolderContainer({
                                 rootFolderId={rootFolderId}
                                 height={height} 
                                 setIsOpenRenameForm={renameForm.setIsOpenRenameForm}
+                                setIsOpenDetails={setIsOpenDetails}
                             />
                     </div>
                 </div>
             </Link>
+
             {renameForm.isOpenRenameForm && 
                 <RenameModal 
-                    fileFolderData={fileFolderData}
-                    handleRename={handleRename} 
-                    isOpenRenameForm={renameForm.isOpenRenameForm}
-                    setIsOpenRenameForm={renameForm.setIsOpenRenameForm}
+                fileFolderData={fileFolderData}
+                handleRename={handleRename} 
+                isOpenRenameForm={renameForm.isOpenRenameForm}
+                setIsOpenRenameForm={renameForm.setIsOpenRenameForm}
                 />
             }
 
@@ -158,8 +157,9 @@ export default function FileFolderContainer({
                     fileFolderData={fileFolderData}
                     handleDelete={handleDeletion} 
                     setIsOpenDeleteForm={deleteForm.setIsOpenDeleteForm}
-                />
+                    />
             }
+            {isOpenDetails.fileId && <FileDetails selectedFile={isOpenDetails} setIsOpenDetails={setIsOpenDetails} getFileSize={getFileSize} />}
         </>
 
     )

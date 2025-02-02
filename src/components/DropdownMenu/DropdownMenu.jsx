@@ -9,6 +9,7 @@ export default function DropdownMenu({
     menuId, 
     setSearchData, 
     setIsOpenRenameForm, 
+    setIsOpenDetails, 
     height, 
     rootFolderId, 
 }){
@@ -36,10 +37,24 @@ export default function DropdownMenu({
                     <button className={styles["menu-item-btn"]} 
                         onClick={() => setSearchData({type: fileFolderData.dataType, id: fileFolderData.data.id, folder: folderId || rootFolderId})}
                     >
-                    <img alt="movie icon" src="/public/move_icon.svg" title={`Move ${fileFolderData.dataType}`} />
+                    <img alt="move icon" src="/public/move_icon.svg" title={`Move ${fileFolderData.dataType}`} />
                         Move
                     </button>
                 </li>
+
+                {fileFolderData.dataType === "File" && (
+                    <>
+                        <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
+                        <li>
+                            <button className={styles["menu-item-btn"]} 
+                                onClick={() => setIsOpenDetails({fileId: fileFolderData.data.id})}
+                            >
+                            <img alt="info icon" src="/public/info_icon.svg" title={"View File Details"} />
+                                Details
+                            </button>
+                        </li>
+                    </>
+                )}
             </ul>
         </div>
     )
