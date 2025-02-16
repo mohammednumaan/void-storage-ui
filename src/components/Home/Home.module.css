@@ -1,64 +1,29 @@
-/* HOME BACKGROUND STYLING */
-.home-background{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    
+/* FILE SYSTEM SIDEBAR TREE CONTAINER STYLES */
+.file-system-tree{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000000;
-    z-index: -1;
-    filter: blur(200px);
+    flex-direction: column;
+    gap: 60px;
+    height: 87.5vh;
+    margin-right:auto ;
 }
 
-.home-background-dot-top,
-.home-background-dot-bottom{
-    position: absolute;
-    width: 600px;
-    height: 160px;
-    border-radius: 50%;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,90,48,1) 51%, rgba(233,128,102,1) 100%);
-    
-    top: 16em;
-    left: 16em;
+.file-system-container{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    flex: 1 1 auto;
 }
 
-.home-background-dot-bottom{
-    top: 60vh;
-    left: 100vh;
-}
-
-/* HOME CONTAINER CONTENTS STYLING */
-.get-started{
-    height: 100%;
-}
-
-.get-started-container{
-    height: 100%;
-    width: 100%;
+.file-system-view{
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    
-}
-.get-started-header{
-    display: flex;
-    gap: 4px;
-    font-weight: bolder;
+    gap: 16px;
 }
 
-.get-started-links{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+/* MEDIA QUERIES FOR THE FILE SYSTEM CONTAINER */
+@media (max-width: 1099px) {
+    .file-system-container{
+        grid-template-columns: 1fr;
+    }
 }
 
-#header-text-two{
-    color: #ff5a30;
-}

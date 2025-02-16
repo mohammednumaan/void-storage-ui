@@ -1,14 +1,12 @@
 // imports
-import { Navigate, Route, Routes, useNavigate, useSearchParams } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
-import Form from './components/Form/Form'
-import Home from './components/Home/Home'
-import FileSystem from './components/FileSystem/FileSystem'
 import ProtectedRoute from './components/ProtectedRoute'
 import FolderView from './components/FolderView/FolderView'
-import NavigationBar from './components/NavigationBar/NavigationBar'
 import { memo, useEffect, useState } from 'react'
-import ErrorPage from './components/ErrorPage'
+import LandingPage from './components/LandingPage/LandingPage'
+import Home from './components/Home/Home'
+import SignupLoginForm from './components/Forms/SignupLoginForm'
 
 
 // configuration objects that are passed as props to the form 
@@ -56,12 +54,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Form formOptions={registerFormOptions} />} />
-        <Route path='/login' element={<Form formOptions={loginFormOptions} />} />
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/register' element={<SignupLoginForm formOptions={registerFormOptions} />} />
+        <Route path='/login' element={<SignupLoginForm formOptions={loginFormOptions} />} />
 
         <Route element={<MemoizedProtectedRoute isAuth={isAuth} setIsAuth={setIsAuth} />}>
-            <Route path='/tree' element={<FileSystem />} >
+            <Route path='/tree' element={<Home />} >
               <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
               <Route path='file/:folderId/:fileId' element={<FolderView />}></Route>
             </Route>

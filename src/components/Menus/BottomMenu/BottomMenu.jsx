@@ -1,10 +1,10 @@
 // imports
 import { useState } from "react";
-import Modal from "../Modal/Modal";
-import styles from "./MobileMenu.module.css"
+import styles from "./BottomMenu.module.css"
 import { Link } from "react-router-dom";
+import CreateUploadModal from "../../Modals/CreateUploadModal/CreateUploadModal";
 
-export default function MobileMenu({setFolders, setFiles, rootFolderId}){
+export default function BottomMenu({setFolders, setFiles, rootFolderId}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
@@ -30,8 +30,19 @@ export default function MobileMenu({setFolders, setFiles, rootFolderId}){
                     </button>
             </div>
 
-            {fileForm && <Modal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFileFolders={setFiles} rootFolderId={rootFolderId} />}
-            {folderForm && <Modal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFileFolders={setFolders} rootFolderId={rootFolderId} />}  
+            {fileForm && <CreateUploadModal 
+                formConfigObject={{formType: "File"}} 
+                setFileForm={setFileForm}   
+                setFileFolders={setFiles} 
+                rootFolderId={rootFolderId} 
+            />}
+            {folderForm && 
+                <CreateUploadModal 
+                    formConfigObject={{formType: "Folder"}} 
+                    setFolderForm={setFolderForm} 
+                    setFileFolders={setFolders} 
+                    rootFolderId={rootFolderId} 
+            />}  
         </>
     )
 }

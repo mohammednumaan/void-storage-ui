@@ -1,11 +1,11 @@
 // imports
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
-import styles from './Sidebar.module.css'
-import FileFolderModal from '../Modal/Modal';
+import styles from './HomeSidebar.module.css'
+import CreateUploadModal from '../../Modals/CreateUploadModal/CreateUploadModal';
 
 // a file system sidebar component
-export default function Sidebar({setFolders, setFiles, rootFolderId, setLoading}){
+export default function HomeSidebar({setFolders, setFiles, rootFolderId, setLoading}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
@@ -33,8 +33,22 @@ export default function Sidebar({setFolders, setFiles, rootFolderId, setLoading}
                     </div>
                 </div>
 
-                {fileForm && <FileFolderModal formConfigObject={{formType: "File"}} setFileForm={setFileForm} setFileFolders={setFiles} rootFolderId={rootFolderId} setLoading={setLoading} />}
-                {folderForm && <FileFolderModal formConfigObject={{formType: "Folder"}} setFolderForm={setFolderForm} setFileFolders={setFolders} rootFolderId={rootFolderId} setLoading={setLoading} />}  
+                {fileForm && <CreateUploadModal 
+                    formConfigObject={{formType: "File"}} 
+                    setFileForm={setFileForm} 
+                    setFileFolders={setFiles} 
+                    rootFolderId={rootFolderId} 
+                    setLoading={setLoading} 
+                />}
+
+                {folderForm && 
+                    <CreateUploadModal 
+                    formConfigObject={{formType: "Folder"}} 
+                    setFolderForm={setFolderForm} 
+                    setFileFolders={setFolders} 
+                    rootFolderId={rootFolderId} 
+                    setLoading={setLoading} 
+                />}  
             </div>
         </>
     )

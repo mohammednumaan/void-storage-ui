@@ -1,13 +1,11 @@
 //  imports
 import { useEffect, useRef, useState } from "react";
-import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 
 import styles from "./FileFolder.module.css"
-import RenameModal from "../RenameModal/RenameModal";
-import DeleteModal from "../DeleteModal/DeleteModal";
-import FileDetails from "../FileDetails/FileDetails";
+import FileDetailsSidebar from "../Sidebars/FileDetailsSidebar/FileDetailsSidebar";
+import DropdownMenu from "../Menus/DropdownMenu/DropdownMenu";
 
 // a simple function to convert the file size
 // to a human readable format for display purposes
@@ -27,11 +25,11 @@ const getFileSize = (bytes) => {
 }
 // a dynamic component that renders both files and folders
 export default function FileFolderContainer({
+    rootFolderId,
     fileFolderData, 
     setRenameForm,
     setDeleteForm,
-    setSearchData, 
-    rootFolderId,
+    setMoveFolderData, 
 }){
 
     // navigate hook to navigate between components
@@ -88,8 +86,8 @@ export default function FileFolderContainer({
             navigate(`/tree/${folderId || rootFolderId}/${fileFolderData.data.id}`)
         }
     } 
+
     
-     
     return (
         <>
             <Link  
@@ -134,7 +132,7 @@ export default function FileFolderContainer({
 
                                 setDeleteForm={setDeleteForm}
                                 setRenameForm={setRenameForm}
-                                setSearchData={setSearchData}
+                                setMoveFolderData={setMoveFolderData}
                                 
                                 rootFolderId={rootFolderId}
                                 setIsOpenDetails={setIsOpenDetails}
@@ -144,7 +142,7 @@ export default function FileFolderContainer({
             </Link>
 
             {isOpenDetails.fileId && 
-                <FileDetails 
+                <FileDetailsSidebar
                     selectedFile={isOpenDetails} 
                     setIsOpenDetails={setIsOpenDetails} 
                     getFileSize={getFileSize} 

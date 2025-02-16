@@ -2,7 +2,7 @@
 import { useState } from "react"
 import styles from "./RenameModal.module.css"
 
-export default function RenameModal({fileFolderData, handleRename, setIsOpenRenameForm}){
+export default function RenameModal({fileFolderData, handleRename, setRenameForm}){
 
     const [renameInput, setRenameInput] = useState("");
     const [disabled, setDisabled] = useState(false);
@@ -30,7 +30,7 @@ export default function RenameModal({fileFolderData, handleRename, setIsOpenRena
                         
                         <div className={styles["rename-form-btns"]}>
                             <button disabled={disabled} type="submit">Rename</button>
-                            <button disabled={disabled} onClick={() => setIsOpenRenameForm(false)}>Close</button>
+                            <button disabled={disabled} onClick={() => setRenameForm({isOpen: false, fileFolder: null})}>Close</button>
                         </div>
                     </form>
                 </div>

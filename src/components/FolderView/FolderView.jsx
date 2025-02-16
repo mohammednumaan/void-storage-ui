@@ -2,9 +2,10 @@
 import styles from "./FolderView.module.css"
 import { useEffect, useState } from "react";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
-import SelectFolder from "../SelectFolder/SelectFolder";
 import { Link, useParams } from "react-router-dom";
-import DeleteModal from "../DeleteModal/DeleteModal";
+import DeleteModal from "../Modals/DeleteModal/DeleteModal";
+import MoveFolder from "../MoveFolder/MoveFolder";
+import RenameModal from "../Modals/RenameModal/RenameModal";
 
 // a folder/file view component
 export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading}){
@@ -16,7 +17,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const [renameForm , setRenameForm] = useState({isOpen: false, fileFolder: null});
     const [deleteForm , setDeleteForm] = useState({isOpen: false, fileFolder: null});
-    const [searchData, setSearchData] = useState({type: "", id: null, folder: ""});
+    const [moveFolderData, setMoveFolderData] = useState({type: "", id: null, folder: ""});
 
     // a simple useEffect to get the current folder's path
     useEffect(() => {
@@ -35,7 +36,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
         
     }, [folderId, rootFolderId])
 
-    const handleDeletion = async (event, dataType, dataId) => {
+    const handleDelete = async (event, dataType, dataId) => {
         event.preventDefault();
         setLoading(true)
 
@@ -114,10 +115,10 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     <FileFolderContainer 
                         key={folder.id}
                         fileFolderData={{dataType: "Folder", data: folder}}
-                        setSearchData={setSearchData}
                         rootFolderId={rootFolderId}
                         setRenameForm={setRenameForm}
                         setDeleteForm={setDeleteForm}
+                        setMoveFolderData={setMoveFolderData}
                     />
                 ))}
             </div>
@@ -127,19 +128,20 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     <FileFolderContainer 
                         key={file.id}
                         fileFolderData={{dataType: "File", data: file}}                        
-                        setSearchData={setSearchData}
                         rootFolderId={rootFolderId}   
                         setRenameForm={setRenameForm}
                         setDeleteForm={setDeleteForm}
+                        setMoveFolderData={setMoveFolderData}
                     />
                 ))}
             </div>
 
 
-            {searchData.id &&   
-                <SelectFolder 
-                    setSearchData={setSearchData} 
-                    searchData={searchData} 
+            {moveFolderData.id &&   
+                <MoveFolder 
+                    setLoading={setLoading}
+                    moveFolderData={moveFolderData} 
+                    setMoveFolderData={setMoveFolderData} 
                     rootFolderId={rootFolderId}
                 />
             }
@@ -147,11 +149,20 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             {(deleteForm.isOpen && deleteForm.fileFolder.data.id) && 
                 <DeleteModal 
                     fileFolderData={deleteForm.fileFolder}
-                    handleDelete={handleDeletion}
+                    handleDelete={handleDelete}
                     setDeleteForm={setDeleteForm}
                 />
             }
 
+            {(renameForm.isOpen && renameForm.fileFolder.data.id) && 
+                <RenameModal 
+                    fileFolderData={renameForm.fileFolder}
+                    handleRename={handleRename}
+                    setRenameForm={setRenameForm}
+                />
+            }
+
+            
             {((folders.length == 0 && files.length == 0)) && 
                 <h3 className={styles["no-file-folders-message"]}>
                     Create Folders Or Upload a File Here To View This Folder's Contents.

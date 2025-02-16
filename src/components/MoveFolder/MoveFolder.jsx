@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-import styles from "./SelectFolder.module.css"
+import styles from "./MoveFolder.module.css"
 import { format } from "date-fns";
-import breadcrumbStyles from "../FolderView/FolderView.module.css"
 import { Link } from "react-router-dom";
 
 
-export default function SelectFolder({setSearchData, searchData, rootFolderId}){
-    const [selectedFolderId, setSelectedFolderId] = useState(null);
-    const [availableFolders, setAvailableFolders] = useState([]);
+export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolderId, setLoading}){
+
     const [breadcrumbs, setBreadcrumbs] = useState([]);
+    const [selectedFolderId, setSelectedFolderId] = useState(null);
+
+    const [availableFolders, setAvailableFolders] = useState([]);
     const [currentFolder, setCurrentFolder] = useState(rootFolderId)
 
-    useEffect(() => {
-        console.log('haa')
+    const [disabled, setDisabled] = useState(false);
 
+    useEffect(() => {
         async function getAvailableFolders(){
             const response =    
             
@@ -32,8 +33,6 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
     }, [])
 
     useEffect(() => {
-        console.log('h')
-
         async function getFolderPathSegements(){
             const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${currentFolder}`, {
                 credentials: 'include',
@@ -58,29 +57,28 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
         if (response.ok){
             setAvailableFolders([...data.folders])
             setCurrentFolder(folderId)
+            setSelectedFolderId(folderId);
         }
 
     }
 
-
     const handleFolderSelection = async () => {
-        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${searchData.type === "Folder" ? 'folders' : 'files'}/move`, {
+        setLoading(true)
+        setDisabled(true)
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${moveFolderData.type === "Folder" ? 'folders' : 'files'}/move`, {
             method: "PUT",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({selectedFolderId, moveData: searchData.id}),
+            body: JSON.stringify({selectedFolderId: selectedFolderId || rootFolderId, moveData: moveFolderData.id}),
             credentials: 'include',
             mode: 'cors'
         })
 
         const data = await response.json();
-        if (data.ok){
-        }
-
+        setMoveFolderData({type: "", id: null, folder: ""})
+        setLoading(false)
+        setDisabled(false)
     }
 
-    const handleFolderClick = (folderId) => {
-        setSelectedFolderId(folderId);
-    }
     return (
         <>  
             <div className={styles["search-folder-container"]}>
@@ -101,11 +99,11 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
                     <hr />
 
                     {availableFolders.map(folder => (
-                        searchData.type === "Folder" && (folder.id === searchData.id) ? "":
+                        moveFolderData.type === "Folder" && (folder.id === moveFolderData.id) ? "":
 
                         <div key={folder.id} 
                             className={`${styles["folder"]} ${selectedFolderId === folder.id ? styles["active"] : styles["inactive"]}`} 
-                            onClick={() => handleFolderClick(folder.id)} 
+                            onClick={() => setSelectedFolderId(folder.id)} 
                             onDoubleClick={() => handleDoubleClick(folder.id)}
 
                         >
@@ -130,7 +128,7 @@ export default function SelectFolder({setSearchData, searchData, rootFolderId}){
                             </small>
                         ))}
                     </nav>
-                    <button onClick={handleFolderSelection} id={styles["move-btn"]}>Move {searchData.type}</button>
+                    <button disabled={disabled} onClick={handleFolderSelection} id={styles["move-btn"]}>Select Folder</button>
                 </div>
 
             </div>

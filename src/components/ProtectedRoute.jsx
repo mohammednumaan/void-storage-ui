@@ -1,7 +1,7 @@
 // imports
 import { useEffect, useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import NavigationBar from "./NavigationBar/NavigationBar";
+import NavigationBar from "./Navigation/NavigationBar";
 import Cookies from 'js-cookie';
 
 // protected route component

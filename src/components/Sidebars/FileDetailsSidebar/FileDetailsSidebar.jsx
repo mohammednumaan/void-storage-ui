@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import styles from "./FileDetails.module.css"
+import styles from "./FileDetailsSidebar.module.css"
 import { Link, useLocation, useParams } from "react-router-dom";
 import { format } from "date-fns";
 
-export default function FileDetails({selectedFile, setIsOpenDetails, getFileSize}){
+export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getFileSize}){
     
     const [file, setFile] = useState(null);
     const location = useLocation();

@@ -9,7 +9,7 @@ export default function DropdownMenu({
     fileFolderData, 
     setDeleteForm, 
     setRenameForm, 
-    setSearchData, 
+    setMoveFolderData, 
     setIsOpenDetails, 
     rootFolderId, 
 }){
@@ -44,7 +44,7 @@ export default function DropdownMenu({
                 <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
                 <li>
                     <button className={styles["menu-item-btn"]} 
-                        onClick={() => setSearchData({type: fileFolderData.dataType, id: fileFolderData.data.id, folder: folderId || rootFolderId})}
+                        onClick={() => setMoveFolderData({type: fileFolderData.dataType, id: fileFolderData.data.id, folder: folderId || rootFolderId})}
                     >
                     <img alt="move icon" src="/public/move_icon.svg" title={`Move ${fileFolderData.dataType}`} />
                         Move

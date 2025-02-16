@@ -1,12 +1,12 @@
 // imports
 import { useState } from "react"
-import styles from "./Form.module.css"
+import styles from "./SignupLoginForm.module.css"
 import { Link, useNavigate } from "react-router-dom";
 
 // a dynamic form component that renders
 // a register form or a login form depending on the 
 // formOptions prop passed in
-export default function Form({formOptions}){
+export default function SignupLoginForm({formOptions}){
 
     const navigate = useNavigate();
 

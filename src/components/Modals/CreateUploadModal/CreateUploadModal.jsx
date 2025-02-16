@@ -1,10 +1,10 @@
 // imports
 import { useState } from "react";
-import styles from "./Modal.module.css";
+import styles from "./CreateUploadModal.module.css";
 import { useParams } from "react-router-dom";
 
 // a dynamic form component to upload files and create new folders 
-export default function FileFolderModal({
+export default function CreateUploadModal({
     formConfigObject, 
     setFolderForm, 
     setFileForm, 
