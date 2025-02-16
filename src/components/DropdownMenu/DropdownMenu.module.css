@@ -16,7 +16,7 @@
     position: absolute;
     text-align: center;
     right: 3em;
-    height: 10rem;
+    height: auto;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10%);

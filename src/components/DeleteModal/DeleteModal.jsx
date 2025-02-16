@@ -2,8 +2,9 @@
 import { useState } from "react";
 import styles from "./DeleteModal.module.css"
 
-export default function DeleteModal({fileFolderData, handleDelete, setIsOpenDeleteForm}){
+export default function DeleteModal({fileFolderData, handleDelete, setDeleteForm}){
     const [disabled, setDisabled] = useState(false);
+    console.log(fileFolderData.data.id)
     return (
         <>
             <div className={styles["delete-form-container"]}>
@@ -22,7 +23,7 @@ export default function DeleteModal({fileFolderData, handleDelete, setIsOpenDele
                         </p>
                         <div className={styles["delete-form-btns"]}>
                             <button disabled={disabled} type="submit">Delete</button>
-                            <button disabled={disabled} onClick={() => setIsOpenDeleteForm(false)}>Close</button>
+                            <button disabled={disabled} onClick={() => setDeleteForm({isOpen: false, fileFolder: null})}>Close</button>
                         </div>
                     </form>
                 </div>

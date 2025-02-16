@@ -121,7 +121,14 @@ export default function FileSystem(){
             <div className={styles["file-system-tree"]}>
                 <div className={styles["file-system-container"]}>
 
-                    {!isMobile && <Sidebar setFiles={setFiles} setFolders={setFolders} rootFolderId={rootFolderId} setLoading={setLoading}/>}
+                    {!isMobile && 
+                        <Sidebar 
+                            setFiles={setFiles} 
+                            setFolders={setFolders} 
+                            rootFolderId={rootFolderId} 
+                            setLoading={setLoading}
+                        />
+                    }
                     
                     <div className={styles["file-system-view"]}>
                        <FolderView 
@@ -135,7 +142,13 @@ export default function FileSystem(){
                     </div>
                 </div>
 
-                {isMobile && <MobileMenu setFolders={setFolders} setFiles={setFiles} rootFolderId={rootFolderId} />}
+                {isMobile && 
+                    <MobileMenu 
+                        setFolders={setFolders} 
+                        setFiles={setFiles} 
+                        rootFolderId={rootFolderId} 
+                    />
+                }
             </div>
         </>
     )

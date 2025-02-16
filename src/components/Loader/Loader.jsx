@@ -14,8 +14,6 @@ export default function Loader({ loading }) {
         zIndex: 5,
         top: "0px",
         overflowX: "hidden"
-
-
       }}
     >
       <div className={loading ? `${styles["animated-div"]}` : ""} />

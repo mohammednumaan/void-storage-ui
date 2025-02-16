@@ -1,24 +1,24 @@
 // imports
 import styles from "./FolderView.module.css"
-import { memo, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import FileFolderContainer from "../FileFolderContainer/FileFolderContainer";
 import SelectFolder from "../SelectFolder/SelectFolder";
 import { Link, useParams } from "react-router-dom";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 // a folder/file view component
 export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading}){
 
     // extract the folderId from the route url
-    const {folderId, fileId} = useParams();
+    const {folderId} = useParams();
 
     // a state to manage breadcrumb navigation
     const [breadcrumbs, setBreadcrumbs] = useState([])
-    const [isOpenRenameForm , setIsOpenRenameForm] = useState(false);
-    const [isOpenDeleteForm , setIsOpenDeleteForm] = useState(false);
-
+    const [renameForm , setRenameForm] = useState({isOpen: false, fileFolder: null});
+    const [deleteForm , setDeleteForm] = useState({isOpen: false, fileFolder: null});
     const [searchData, setSearchData] = useState({type: "", id: null, folder: ""});
 
-
+    // a simple useEffect to get the current folder's path
     useEffect(() => {
         async function getFolderPathSegements(){
             const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${folderId || rootFolderId}`, {
@@ -35,27 +35,10 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
         
     }, [folderId, rootFolderId])
 
-    // useEffect(() => {
-    //     async function getFileInformation(){
-    //         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/${fileId}`, {
-    //             method: 'GET',
-    //             credentials: 'include',
-    //             mode: 'cors'
-    //         })
-
-    //         const data = await response.json();
-    //         if (response.ok){
-    //             setSelectedFile(data.file)
-    //         }
-    //     }
-
-    //     if (fileId) getFileInformation();
-    // }, [fileId])
-
     const handleDeletion = async (event, dataType, dataId) => {
         event.preventDefault();
-        event.stopPropagation();
         setLoading(true)
+
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? 'folders' : 'files'}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
@@ -71,7 +54,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
         else{
             console.log(response)
         }
-        setIsOpenDeleteForm(false)
+        setDeleteForm({isOpen: false, fileFolder: null})
         setLoading(false)
     }
 
@@ -96,14 +79,8 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
         else{
             console.log('err')
         }
-        setIsOpenRenameForm(false)
+        setRenameForm({isOpen: false, fileFolder: null})
         setLoading(false)
-    }
-
-    const handleFileSelection = (file) => {
-        setFiles([])
-        setFolders([])
-        setSelectedFile(file)
     }
 
 
@@ -128,23 +105,19 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     <p>Created</p>
                     <p>Options</p>
                 </div>
-
             </div>
-            <hr />
 
+            <hr />
 
             <div className={styles["folder-list"]}>
                 {folders.length !== 0 && folders.map((folder) => (
                     <FileFolderContainer 
                         key={folder.id}
                         fileFolderData={{dataType: "Folder", data: folder}}
-                        handleDeletion={handleDeletion}
-                        handleRename={handleRename}
                         setSearchData={setSearchData}
                         rootFolderId={rootFolderId}
-                        renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
-                        deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
-
+                        setRenameForm={setRenameForm}
+                        setDeleteForm={setDeleteForm}
                     />
                 ))}
             </div>
@@ -153,30 +126,36 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                 {files.length !== 0 && files.map((file, idx) => (
                     <FileFolderContainer 
                         key={file.id}
-                        fileFolderData={{dataType: "File", data: file}}
-                        handleDeletion={handleDeletion}
-                        handleRename={handleRename}
+                        fileFolderData={{dataType: "File", data: file}}                        
                         setSearchData={setSearchData}
-                        rootFolderId={rootFolderId}     
-                        renameForm={{isOpenRenameForm, setIsOpenRenameForm}}
-                        deleteForm={{isOpenDeleteForm, setIsOpenDeleteForm}}
+                        rootFolderId={rootFolderId}   
+                        setRenameForm={setRenameForm}
+                        setDeleteForm={setDeleteForm}
                     />
                 ))}
             </div>
+
+
+            {searchData.id &&   
+                <SelectFolder 
+                    setSearchData={setSearchData} 
+                    searchData={searchData} 
+                    rootFolderId={rootFolderId}
+                />
+            }
+
+            {(deleteForm.isOpen && deleteForm.fileFolder.data.id) && 
+                <DeleteModal 
+                    fileFolderData={deleteForm.fileFolder}
+                    handleDelete={handleDeletion}
+                    setDeleteForm={setDeleteForm}
+                />
+            }
 
             {((folders.length == 0 && files.length == 0)) && 
                 <h3 className={styles["no-file-folders-message"]}>
                     Create Folders Or Upload a File Here To View This Folder's Contents.
                 </h3>
-            }
-
-            {searchData.id &&
-                <>
-                    
-                    <SelectFolder setSearchData={setSearchData} searchData={searchData} rootFolderId={rootFolderId}>
-                    </SelectFolder>
-                </>
-
             }
         </>
     )

@@ -4,22 +4,27 @@ import styles from "./DropdownMenu.module.css"
 
 // a custom dropdown meny that dynamically renders based on the dataType passed in
 export default function DropdownMenu({
-    fileFolderData, 
-    setIsOpenDeleteForm, 
     menuId, 
-    setSearchData, 
-    setIsOpenRenameForm, 
-    setIsOpenDetails, 
     height, 
+    fileFolderData, 
+    setDeleteForm, 
+    setRenameForm, 
+    setSearchData, 
+    setIsOpenDetails, 
     rootFolderId, 
 }){
     const {folderId} = useParams();
     return (
         <div className={styles["dropdown-menu"]} style={{top: "10em"}}>
-            <ul className={`${styles.menu} ${menuId === fileFolderData.data.id ? styles.open : ''}`} style={{top: height}}>
+            <ul className={`${styles.menu} ${menuId === fileFolderData.data.id ? styles.open : ''} 
+                    `
+                } 
+                style={{top: height}}>
                 <li>
                     <button className={styles["menu-item-btn"]} 
-                        onClick={() => setIsOpenDeleteForm(true)}>
+                        onClick={() => {
+                            setDeleteForm({isOpen: true, fileFolder: fileFolderData})
+                        }}>
                         
                         <img alt="delete icon" src="/public/folder_delete_icon.svg" title={`Delete ${fileFolderData.dataType}`} />
                         Delete
@@ -27,8 +32,12 @@ export default function DropdownMenu({
                 </li>
                 <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
                 <li>
-                    <button className={styles["menu-item-btn"]} onClick={() => setIsOpenRenameForm(true)}>
-                    <img alt="rename icon" src="/public/folder_edit_icon.svg" title={`Delete ${fileFolderData.dataType}`} />
+                    <button className={styles["menu-item-btn"]} 
+                        onClick={() => 
+                            setRenameForm({isOpen: true, fileFolder: fileFolderData})
+                        }
+                        >
+                        <img alt="rename icon" src="/public/folder_edit_icon.svg" title={`Delete ${fileFolderData.dataType}`} />
                         Edit
                     </button>
                 </li>

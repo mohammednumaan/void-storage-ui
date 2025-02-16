@@ -24,13 +24,14 @@ export default function FileDetails({selectedFile, setIsOpenDetails, getFileSize
         }
         if (selectedFile) getFileInformation();
     }, [selectedFile])
+
     return (
 
         <div className={styles["file-info-container"]}>
-            <div className={styles["file-info-sidebar"]}>
+            <div className={`${styles["file-info-sidebar"]} ${selectedFile ? styles["slide-animation"] : styles["slideout"]}`}>
 
                 <div className={styles["file-details-header"]}>
-                    <h1>{file?.fileName} </h1>
+                    <h3 className={styles["filename"]}>{file?.fileName} </h3>
                     <img onClick={() => setIsOpenDetails({fileId: null})} style={{padding: "20px", cursor: "pointer"}} alt="close icon" src="/public/close_icon.svg" title={"Close File Details"} />
                 </div>
                 <div className={styles["file-preview"]}>
@@ -38,8 +39,8 @@ export default function FileDetails({selectedFile, setIsOpenDetails, getFileSize
                 </div>
 
                 <div className={styles["file-info"]}>
+                    <h3 id={styles["file-info-header"]}>File Details</h3>
                     <ul className={styles["file-details"]}>
-                        <h3 id={styles["file-info-header"]}>File Details</h3>
                         <li className={styles["file-details-item"]}>
                             <small>Name</small>
                             <small>{file?.fileName}</small>
@@ -67,9 +68,8 @@ export default function FileDetails({selectedFile, setIsOpenDetails, getFileSize
                     </ul>
                 </div>
                 <div className={styles["file-options"]}>
-                    <button id={styles["download-btn"]}>Download File</button>
+                    <button  id={styles["download-btn"]}>Download File</button>
                     <button id={styles["share-btn"]}>Share File</button>
-
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+/* FILE INTO CONTAINER AND SIDEBAR STYLES */
 .file-info-container{
     position: fixed;
     width: 100%;
@@ -6,8 +7,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.1);
-    /* backdrop-filter: blur(2px); */
+    background-color: rgba(0,0,0,0.4);
     z-index: 2;
 
     display: flex;
@@ -18,25 +18,27 @@
 .file-info-sidebar{
     position: absolute;
     right: 0;
-    width: 30vw;
     height: 100%;
     background-color: #0e0d0d;
     color: #ff5a30;
     border-radius: 10px;
     padding: 20px;
-
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
 }
 
+/* FILE INFO SIDEBAR HEADER STYLES */
 .file-details-header{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.filename{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space-collapse:collapse;
+}
+
+/* FILE PREVIEW/DISPLAY CONTAINER STYLES */
 .file-preview{
 
     background-color: #1a1a1a;
@@ -46,11 +48,12 @@
     margin: 0 auto;
     border-radius: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 20px;
 }
 
+/* FILE INFO CONTAINER STYLES */
 .file-info{
     display: flex;
     justify-content: center;
@@ -59,8 +62,19 @@
     gap: 20px;
 }
 
+#file-info-header{
+    padding-left: 16px;
+    margin-bottom: 0;
+    color: grey;
+}
+
 .file-details{
     list-style-type: none;
+    padding-left: 16px;
+    margin-top: 0;
+    flex: 1;
+
+    
 }
 
 .file-details-item{
@@ -81,6 +95,13 @@ hr{
     width: 98%;
 }
 
+/* FILE BUTTON/OPTIONS STYLES */
+.file-options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 #folder-loc-btn{
     margin-top: 10px;
     color: #ff5a30;
@@ -91,18 +112,22 @@ hr{
     transform: scale(1.02);
 }
 
-#file-info-header{
-    margin-left: -40px;
-    color: grey;
-}
-
-.file-options{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
 
 .file-options > button{
     width: 45%;
+}
+
+/* ANIMATIONS */
+.slide-animation{
+    animation: slideIn 900ms ease-in-out;
+}
+
+@keyframes slideIn {
+    0% {
+        right: -100vw;
+    }
+
+    100% {
+        right: 0%;
+    }
 }

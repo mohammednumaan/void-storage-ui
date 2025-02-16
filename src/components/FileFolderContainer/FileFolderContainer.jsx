@@ -28,10 +28,8 @@ const getFileSize = (bytes) => {
 // a dynamic component that renders both files and folders
 export default function FileFolderContainer({
     fileFolderData, 
-    handleDeletion,
-    handleRename,
-    renameForm,
-    deleteForm,
+    setRenameForm,
+    setDeleteForm,
     setSearchData, 
     rootFolderId,
 }){
@@ -41,7 +39,7 @@ export default function FileFolderContainer({
 
 
     // extract folder and file id from the url
-    const {folderId, fileId} = useParams();
+    const {folderId} = useParams();
     const [height, setHeight] = useState(null);
 
     const menuRef = useRef([]);
@@ -130,36 +128,28 @@ export default function FileFolderContainer({
                             />
                          
                             <DropdownMenu 
-                                fileFolderData={fileFolderData}
-                                setIsOpenDeleteForm={deleteForm.setIsOpenDeleteForm}
-                                setSearchData={setSearchData}
                                 menuId={menuId} 
-                                rootFolderId={rootFolderId}
                                 height={height} 
-                                setIsOpenRenameForm={renameForm.setIsOpenRenameForm}
+                                fileFolderData={fileFolderData}
+
+                                setDeleteForm={setDeleteForm}
+                                setRenameForm={setRenameForm}
+                                setSearchData={setSearchData}
+                                
+                                rootFolderId={rootFolderId}
                                 setIsOpenDetails={setIsOpenDetails}
                             />
                     </div>
                 </div>
             </Link>
 
-            {renameForm.isOpenRenameForm && 
-                <RenameModal 
-                fileFolderData={fileFolderData}
-                handleRename={handleRename} 
-                isOpenRenameForm={renameForm.isOpenRenameForm}
-                setIsOpenRenameForm={renameForm.setIsOpenRenameForm}
+            {isOpenDetails.fileId && 
+                <FileDetails 
+                    selectedFile={isOpenDetails} 
+                    setIsOpenDetails={setIsOpenDetails} 
+                    getFileSize={getFileSize} 
                 />
             }
-
-            {deleteForm.isOpenDeleteForm && 
-                <DeleteModal 
-                    fileFolderData={fileFolderData}
-                    handleDelete={handleDeletion} 
-                    setIsOpenDeleteForm={deleteForm.setIsOpenDeleteForm}
-                    />
-            }
-            {isOpenDetails.fileId && <FileDetails selectedFile={isOpenDetails} setIsOpenDetails={setIsOpenDetails} getFileSize={getFileSize} />}
         </>
 
     )
