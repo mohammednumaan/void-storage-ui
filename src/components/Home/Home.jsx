@@ -147,6 +147,7 @@ export default function Home(){
                         setFolders={setFolders} 
                         setFiles={setFiles} 
                         rootFolderId={rootFolderId} 
+                        setLoading={setLoading}
                     />
                 }
             </div>

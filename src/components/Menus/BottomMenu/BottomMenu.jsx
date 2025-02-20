@@ -4,7 +4,7 @@ import styles from "./BottomMenu.module.css"
 import { Link } from "react-router-dom";
 import CreateUploadModal from "../../Modals/CreateUploadModal/CreateUploadModal";
 
-export default function BottomMenu({setFolders, setFiles, rootFolderId}){
+export default function BottomMenu({setFolders, setFiles, rootFolderId, setLoading}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
@@ -35,6 +35,7 @@ export default function BottomMenu({setFolders, setFiles, rootFolderId}){
                 setFileForm={setFileForm}   
                 setFileFolders={setFiles} 
                 rootFolderId={rootFolderId} 
+                setLoading={setLoading}
             />}
             {folderForm && 
                 <CreateUploadModal 
@@ -42,6 +43,7 @@ export default function BottomMenu({setFolders, setFiles, rootFolderId}){
                     setFolderForm={setFolderForm} 
                     setFileFolders={setFolders} 
                     rootFolderId={rootFolderId} 
+                    setLoading={setLoading}
             />}  
         </>
     )
