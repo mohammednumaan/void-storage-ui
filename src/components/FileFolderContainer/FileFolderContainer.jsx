@@ -141,13 +141,11 @@ export default function FileFolderContainer({
                 </div>
             </Link>
 
-            {isOpenDetails.fileId && 
-                <FileDetailsSidebar
-                    selectedFile={isOpenDetails} 
-                    setIsOpenDetails={setIsOpenDetails} 
-                    getFileSize={getFileSize} 
-                />
-            }
+            <FileDetailsSidebar
+                selectedFile={isOpenDetails} 
+                setIsOpenDetails={setIsOpenDetails} 
+                getFileSize={getFileSize} 
+            />
         </>
 
     )

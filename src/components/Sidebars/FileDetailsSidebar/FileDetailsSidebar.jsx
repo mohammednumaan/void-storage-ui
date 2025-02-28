@@ -7,6 +7,7 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
     
     const [file, setFile] = useState(null);
     const location = useLocation();
+    const [isClosed, setIsClosed] = useState(false)
 
     useEffect(() => {
         async function getFileInformation(){
@@ -25,14 +26,21 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
         if (selectedFile) getFileInformation();
     }, [selectedFile])
 
+
+    console.log(selectedFile)
     return (
 
-        <div className={styles["file-info-container"]}>
-            <div className={`${styles["file-info-sidebar"]} ${selectedFile ? styles["slide-animation"] : styles["slideout"]}`}>
+        <div className={selectedFile.fileId ? styles["file-info-container"] : styles["file-info-container-hidden"]}>
+            <div className={`${styles["file-info-sidebar"]} ${selectedFile.fileId ? styles["slidein-animation"] : ''} ${isClosed ? styles["slideout-animation"] : ''}`}>
 
                 <div className={styles["file-details-header"]}>
                     <h3 className={styles["filename"]}>{file?.fileName} </h3>
-                    <img onClick={() => setIsOpenDetails({fileId: null})} style={{padding: "20px", cursor: "pointer"}} alt="close icon" src="/public/close_icon.svg" title={"Close File Details"} />
+                    <img onClick={() => {
+                            setIsOpenDetails({fileId: null})
+                            setIsClosed(true)
+                        }} 
+                        style={{padding: "20px", cursor: "pointer"}} alt="close icon" src="/public/close_icon.svg" 
+                        title={"Close File Details"} />
                 </div>
                 <div className={styles["file-preview"]}>
                     <img style={{borderRadius: "10px"}} width={"100%"} height={"100%"} src={file?.fileUrl} alt={`${file?.fileName} image`} />
