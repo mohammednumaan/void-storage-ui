@@ -18,6 +18,7 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
             })
 
             const data = await response.json();
+            
             if (response.ok){
                 console.log(data.file)
                 setFile(data.file)
@@ -26,8 +27,30 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
         if (selectedFile) getFileInformation();
     }, [selectedFile])
 
+    useEffect(() => {
+        if (selectedFile.fileId && isClosed) setIsClosed(false);
+    }, [selectedFile.fileId, isClosed])
 
-    console.log(selectedFile)
+    const handleDownload = async () => {
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/download/${selectedFile.fileId}`, {
+            method: 'GET',
+            credentials: 'include',
+            mode: 'cors'
+        })
+
+        const data = await response.blob();
+        const url = URL.createObjectURL(data);
+        
+        // this code instantly downloads the file to the users file-system
+        const temporaryLinkEl = document.createElement('a');
+        temporaryLinkEl.href = url;
+        temporaryLinkEl.download = file?.fileName || "image";
+        document.body.appendChild(temporaryLinkEl);
+        temporaryLinkEl.click();
+        document.body.removeChild(temporaryLinkEl);
+        URL.revokeObjectURL(url);
+    }     
+
     return (
 
         <div className={selectedFile.fileId ? styles["file-info-container"] : styles["file-info-container-hidden"]}>
@@ -43,7 +66,7 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                         title={"Close File Details"} />
                 </div>
                 <div className={styles["file-preview"]}>
-                    <img style={{borderRadius: "10px"}} width={"100%"} height={"100%"} src={file?.fileUrl} alt={`${file?.fileName} image`} />
+                    <img onDown style={{borderRadius: "10px"}} width={"90%"} height={"30%"} src={file?.fileUrl} alt={`${file?.fileName} image`} />
                 </div>
 
                 <div className={styles["file-info"]}>
@@ -76,7 +99,9 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                     </ul>
                 </div>
                 <div className={styles["file-options"]}>
-                    <button  id={styles["download-btn"]}>Download File</button>
+                    <button id={styles["download-btn"]} onClick={handleDownload}>
+                        Download File
+                    </button>
                     <button id={styles["share-btn"]}>Share File</button>
                 </div>
             </div>
