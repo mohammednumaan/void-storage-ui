@@ -87,6 +87,10 @@ export default function FileFolderContainer({
         }
     } 
 
+    const handleGotoFolder = () => {
+        navigate(`/tree/`)
+    }
+
     
     return (
         <>
@@ -145,6 +149,7 @@ export default function FileFolderContainer({
                 selectedFile={isOpenDetails} 
                 setIsOpenDetails={setIsOpenDetails} 
                 getFileSize={getFileSize} 
+                gotoParentFolder={handleGotoFolder}
             />
         </>
 

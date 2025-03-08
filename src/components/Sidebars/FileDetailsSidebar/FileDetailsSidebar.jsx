@@ -66,7 +66,7 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                         title={"Close File Details"} />
                 </div>
                 <div className={styles["file-preview"]}>
-                    <img onDown style={{borderRadius: "10px"}} width={"90%"} height={"30%"} src={file?.fileUrl} alt={`${file?.fileName} image`} />
+                    <img onDown style={{borderRadius: "10px"}} src={file?.fileUrl} alt={`${file?.fileName} image`} />
                 </div>
 
                 <div className={styles["file-info"]}>
@@ -94,15 +94,25 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
 
                         <li className={styles["file-details-item"]}>
                             <small>Location</small>
-                            <Link to={location.pathname}><button id={styles["folder-loc-btn"]}><small>Go to folder</small></button></Link>
+                            <button 
+                                onClick={() => {
+                                        setIsOpenDetails({fileId: null})
+                                        setIsClosed(true)
+                                    }   
+                                }
+                                id={styles["folder-loc-btn"]}
+                            >
+                                <small>Go To Folder</small>
+                            </button>
                         </li>
                     </ul>
-                </div>
-                <div className={styles["file-options"]}>
-                    <button id={styles["download-btn"]} onClick={handleDownload}>
-                        Download File
-                    </button>
-                    <button id={styles["share-btn"]}>Share File</button>
+                    
+                    <div className={styles["file-options"]}>
+                        <button id={styles["download-btn"]} onClick={handleDownload}>
+                            Download File
+                        </button>
+                        <button id={styles["share-btn"]}>Share File</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ import styles from './HomeSidebar.module.css'
 import CreateUploadModal from '../../Modals/CreateUploadModal/CreateUploadModal';
 
 // a file system sidebar component
-export default function HomeSidebar({setFolders, setFiles, rootFolderId, setLoading}){
+export default function HomeSidebar({setFolders, setFiles, rootFolderId, setLoading, setNotification}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
@@ -39,6 +39,7 @@ export default function HomeSidebar({setFolders, setFiles, rootFolderId, setLoad
                     setFileFolders={setFiles} 
                     rootFolderId={rootFolderId} 
                     setLoading={setLoading} 
+                    setNotification={setNotification}
                 />}
 
                 {folderForm && 
@@ -48,6 +49,7 @@ export default function HomeSidebar({setFolders, setFiles, rootFolderId, setLoad
                     setFileFolders={setFolders} 
                     rootFolderId={rootFolderId} 
                     setLoading={setLoading} 
+                    setNotification={setNotification}
                 />}  
             </div>
         </>

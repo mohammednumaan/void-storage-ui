@@ -99,7 +99,7 @@ export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolde
                     <hr />
 
                     {availableFolders.map(folder => (
-                        moveFolderData.type === "Folder" && (folder.id === moveFolderData.id) ? "":
+                        moveFolderData.type === "Folder" && (folder.id === moveFolderData.id) ? "" :
 
                         <div key={folder.id} 
                             className={`${styles["folder"]} ${selectedFolderId === folder.id ? styles["active"] : styles["inactive"]}`} 

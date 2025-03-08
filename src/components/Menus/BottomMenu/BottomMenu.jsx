@@ -4,7 +4,7 @@ import styles from "./BottomMenu.module.css"
 import { Link } from "react-router-dom";
 import CreateUploadModal from "../../Modals/CreateUploadModal/CreateUploadModal";
 
-export default function BottomMenu({setFolders, setFiles, rootFolderId, setLoading}){
+export default function BottomMenu({setFolders, setFiles, rootFolderId, setLoading, setNotification}){
 
     // modal states to render the appropriate forms (file and folder creationi forms)
     const [fileForm, setFileForm] = useState(false);
@@ -14,7 +14,6 @@ export default function BottomMenu({setFolders, setFiles, rootFolderId, setLoadi
 
         <>
             <div className={styles["mobile-menu-container"]}>
-          
                     <button id={styles['add-folder-btn']} onClick={() => setFolderForm(true)}>
                         <img alt='create new file icon' src='/public/new_folder_icon.svg' title='Create Folder' />
                     </button>
@@ -36,6 +35,7 @@ export default function BottomMenu({setFolders, setFiles, rootFolderId, setLoadi
                 setFileFolders={setFiles} 
                 rootFolderId={rootFolderId} 
                 setLoading={setLoading}
+                setNotification={setNotification}
             />}
             {folderForm && 
                 <CreateUploadModal 
@@ -44,6 +44,8 @@ export default function BottomMenu({setFolders, setFiles, rootFolderId, setLoadi
                     setFileFolders={setFolders} 
                     rootFolderId={rootFolderId} 
                     setLoading={setLoading}
+                    setNotification={setNotification}
+
             />}  
         </>
     )

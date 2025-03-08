@@ -4,7 +4,6 @@ import styles from "./DeleteModal.module.css"
 
 export default function DeleteModal({fileFolderData, handleDelete, setDeleteForm}){
     const [disabled, setDisabled] = useState(false);
-    console.log(fileFolderData.data.id)
     return (
         <>
             <div className={styles["delete-form-container"]}>

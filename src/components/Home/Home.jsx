@@ -7,6 +7,7 @@ import MobileMenu from "../Menus/BottomMenu/BottomMenu";
 import styles from "./Home.module.css"
 import Loader from "../Loader/Loader";
 import HomeSidebar from "../Sidebars/HomeSidebar/HomeSidebar";
+import Notification from "../Notification/Notification";
 
 // file system component
 export default function Home(){
@@ -16,6 +17,8 @@ export default function Home(){
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [notification, setNotification] = useState(null);
+
 
 
     // a rootFolderId state to store the current user's root folder's id
@@ -100,7 +103,7 @@ export default function Home(){
     // render components based on screen size
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 1100){
+            if (window.innerWidth < 1300){
                 setIsMobile(true);
             } else{
                 setIsMobile(false);
@@ -127,6 +130,7 @@ export default function Home(){
                             setFolders={setFolders} 
                             rootFolderId={rootFolderId} 
                             setLoading={setLoading}
+                            setNotification={setNotification}
                         />
                     }
                     
@@ -138,6 +142,7 @@ export default function Home(){
                             setFiles={setFiles} 
                             rootFolderId={rootFolderId}
                             setLoading={setLoading}
+                            setNotification={setNotification}
                         /> 
                     </div>
                 </div>
@@ -148,8 +153,12 @@ export default function Home(){
                         setFiles={setFiles} 
                         rootFolderId={rootFolderId} 
                         setLoading={setLoading}
+                        setNotification={setNotification}
+
                     />
                 }
+
+                {<Notification message={notification} setNotifications={setNotification} />}
             </div>
         </>
     )

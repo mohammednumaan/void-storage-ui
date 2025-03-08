@@ -10,7 +10,8 @@ export default function CreateUploadModal({
     setFileForm, 
     setFileFolders, 
     rootFolderId, 
-    setLoading
+    setLoading,
+    setNotification
 }){
 
     // extracts the folderId from the route URL
@@ -48,7 +49,14 @@ export default function CreateUploadModal({
         })
 
         const data = await response.json();
-        console.log("uploaded", data)       
+        if (!response.ok){
+            setNotification(data.error);
+            setFileForm(false)
+            setLoading(false)
+            setDisabled(false)
+            return;     
+        }
+
         setFileFolders(files => [...files, data.uploadedFile])
         setFileForm(false)
         setLoading(false)
@@ -78,8 +86,16 @@ export default function CreateUploadModal({
             credentials: 'include',
             mode: 'cors'
         })
-
+        
         const data = await response.json();
+        if (!response.ok){
+            setNotification(data.errors[0].msg);
+            setFolderForm(false)
+            setLoading(false)
+            setDisabled(false)
+            return;     
+        }
+
         setFolderForm(false);
         setFileFolders(folders => [...folders, data.createdFolder])
         setLoading(false)

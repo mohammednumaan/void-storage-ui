@@ -8,7 +8,7 @@ import MoveFolder from "../MoveFolder/MoveFolder";
 import RenameModal from "../Modals/RenameModal/RenameModal";
 
 // a folder/file view component
-export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading}){
+export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading, setNotification}){
 
     // extract the folderId from the route url
     const {folderId} = useParams();
@@ -72,13 +72,13 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                 : JSON.stringify({newFileName: newName, fileId: dataId, folderId: folderId || rootFolderId, parentFolderId: folderId || rootFolderId}),
             credentials: 'include'
         })
+        const data = await response.json();
         if (response.ok){
-            const renamedData = await response.json();
             const updatedData = (dataType === "Folder" ? folders : files).filter(data => data.id !== dataId);
-            (dataType === "Folder") ? setFolders((_) => [...updatedData, renamedData.renamedFolder]) : setFiles((_) => [...updatedData, renamedData.renamedFile]);
+            (dataType === "Folder") ? setFolders((_) => [...updatedData, data.renamedFolder]) : setFiles((_) => [...updatedData, data.renamedFile]);
         }
         else{
-            console.log('err')
+            setNotification(data.errors[0].msg)
         }
         setRenameForm({isOpen: false, fileFolder: null})
         setLoading(false)
@@ -159,6 +159,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     fileFolderData={renameForm.fileFolder}
                     handleRename={handleRename}
                     setRenameForm={setRenameForm}
+                    setNotification={setNotification}
                 />
             }
 
@@ -168,6 +169,8 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     Create Folders Or Upload a File Here To View This Folder's Contents.
                 </h3>
             }
+
+           
         </>
     )
 

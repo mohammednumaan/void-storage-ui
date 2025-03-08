@@ -1,0 +1,53 @@
+.notification-container{
+    position: absolute;
+    top: -100px;
+
+    background-color: #ff5a30;    
+    width: 100%;
+    height: 30px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+      
+}
+
+.notification-container > p{
+    color: #0e0d0d;
+    flex: 1;
+}
+
+.slideup-animation{
+    animation: slideUp 500ms ease-out;
+    top: -100px;
+}
+
+.slidedown-animation{
+    animation: slideDown 500ms ease-in-out;
+    top: 0;
+}
+
+@keyframes slideDown {
+    0% {
+        top: -100px;
+    }
+
+    100% {
+        top: 0px;
+
+    }
+}
+
+
+@keyframes slideUp {
+    0% {
+        top: 0px;
+
+    }
+
+    100% {
+        top: -100px;
+
+    }
+}
+

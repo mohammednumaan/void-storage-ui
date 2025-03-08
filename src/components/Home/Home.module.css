@@ -21,7 +21,7 @@
 }
 
 /* MEDIA QUERIES FOR THE FILE SYSTEM CONTAINER */
-@media (max-width: 1099px) {
+@media (max-width: 1300px) {
     .file-system-container{
         grid-template-columns: 1fr;
     }
