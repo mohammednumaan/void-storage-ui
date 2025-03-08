@@ -17,9 +17,7 @@ export default function Home(){
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [notification, setNotification] = useState(null);
-
-
+    const [notification, setNotification] = useState({time: null, message: null});
 
     // a rootFolderId state to store the current user's root folder's id
     // to help display the home/root sub-folders
@@ -158,7 +156,7 @@ export default function Home(){
                     />
                 }
 
-                {<Notification message={notification} setNotifications={setNotification} />}
+                {<Notification notification={notification} setNotifications={setNotification} />}
             </div>
         </>
     )

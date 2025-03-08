@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./FileDetailsSidebar.module.css"
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
 
 export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getFileSize}){
@@ -24,7 +24,7 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                 setFile(data.file)
             }
         }
-        if (selectedFile) getFileInformation();
+        if (selectedFile.fileId) getFileInformation();
     }, [selectedFile])
 
     useEffect(() => {
@@ -66,7 +66,7 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                         title={"Close File Details"} />
                 </div>
                 <div className={styles["file-preview"]}>
-                    <img onDown style={{borderRadius: "10px"}} src={file?.fileUrl} alt={`${file?.fileName} image`} />
+                    <img style={{borderRadius: "10px"}} src={file?.fileUrl} alt={`${file?.fileName} image`} />
                 </div>
 
                 <div className={styles["file-info"]}>

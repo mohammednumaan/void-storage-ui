@@ -1,26 +1,39 @@
+/* NOTIFICATION CONTAINER STYLES */
 .notification-container{
     position: absolute;
     top: -100px;
 
     background-color: #ff5a30;    
-    width: 100%;
+    width: 99%;
     height: 30px;
     
     display: flex;
     justify-content: center;
     align-items: center;  
+
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
       
 }
 
+/* NOTIFICATION CONTENT STYLES */
 .notification-container > p{
     color: #0e0d0d;
     flex: 1;
 }
 
+
+.notification-container > img{
+    margin-right: 5px;
+}
+
+/* ANIMATION STYLES */
 .slideup-animation{
     animation: slideUp 500ms ease-out;
     top: -100px;
 }
+
 
 .slidedown-animation{
     animation: slideDown 500ms ease-in-out;

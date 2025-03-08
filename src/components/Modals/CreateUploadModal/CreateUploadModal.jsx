@@ -49,15 +49,12 @@ export default function CreateUploadModal({
         })
 
         const data = await response.json();
-        if (!response.ok){
-            setNotification(data.error);
-            setFileForm(false)
-            setLoading(false)
-            setDisabled(false)
-            return;     
+        if (response.ok){
+            setFileFolders(files => [...files, data.uploadedFile])
+        } else {
+            setNotification({message: data.error, time: Date.now()});
         }
 
-        setFileFolders(files => [...files, data.uploadedFile])
         setFileForm(false)
         setLoading(false)
         setDisabled(false)
@@ -88,19 +85,14 @@ export default function CreateUploadModal({
         })
         
         const data = await response.json();
-        if (!response.ok){
-            setNotification(data.errors[0].msg);
-            setFolderForm(false)
-            setLoading(false)
-            setDisabled(false)
-            return;     
+        if (response.ok){
+            setFileFolders(folders => [...folders, data.createdFolder])
+        } else{
+            setNotification({message: data.errors[0].msg, time: Date.now()});    
         }
-
-        setFolderForm(false);
-        setFileFolders(folders => [...folders, data.createdFolder])
+        setFolderForm(false)
         setLoading(false)
         setDisabled(false)
-
 
     } 
 
@@ -113,12 +105,11 @@ export default function CreateUploadModal({
 
                         <label htmlFor="file-folder-input" id={styles["file-folder-label"]}>{formType === "File" ? 'Upload File' : 'Create Folder'}</label>
                         <input disabled={disabled} onChange={formType === "File" ? handleFileInput : handleFolderInput} 
-                            type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'newFolderName'} />
+                            type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'newFolderName'} required />
                         
                         <div className={styles["file-form-btns"]}>
                             <button disabled={disabled} type="submit">{formType === "File" ? 'Upload File' : 'Create Folder'}</button>
                             <button disabled={disabled} onClick={() => formType === "File" ? setFileForm(false) : setFolderForm(false)}>Close</button>
-
                         </div>
                     </form>
                 </div>

@@ -99,7 +99,6 @@ export default function FileFolderContainer({
                 onDoubleClick={handleDoubleClick} 
              >
                 <div className={styles["file-folder"] }>
-
                     <div className={styles["file-folder-left"]}>
                         {fileFolderData.dataType === "Folder" ? <img className={styles["folder-icon"]} src="/public/folder_open_icon.svg" alt="folder icon" />
                             : <img src="/public/file_icon.svg" className={styles["file-icon"]} alt="file icon" />
@@ -115,9 +114,7 @@ export default function FileFolderContainer({
                                 {fileFolderData.dataType ==="Folder" ? fileFolderData.data.folderName : fileFolderData.data.fileName}
                             </span>
                          </small>
-
                     </div>
-
                     <div className={styles["file-folder-right"]}>
 
                             <small className={styles["file-folder-size"]}>{fileFolderData.dataType === "Folder" ? '-' : getFileSize(fileFolderData.data.fileSize)}</small>
@@ -128,7 +125,6 @@ export default function FileFolderContainer({
                                 src="/public/more_options_icon.svg" 
                                 alt="more options icon" 
                             />
-                         
                             <DropdownMenu 
                                 menuId={menuId} 
                                 height={height} 

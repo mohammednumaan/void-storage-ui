@@ -78,19 +78,19 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             (dataType === "Folder") ? setFolders((_) => [...updatedData, data.renamedFolder]) : setFiles((_) => [...updatedData, data.renamedFile]);
         }
         else{
-            setNotification(data.errors[0].msg)
+            setNotification({message: data.errors[0].msg, time: Date.now()})
         }
+        
         setRenameForm({isOpen: false, fileFolder: null})
         setLoading(false)
     }
-
 
     return (
         <>  
 
             <nav className={styles["breadcrumbs"]}>
                 {breadcrumbs.length !== 0 && breadcrumbs.map(breadcrumb => (
-                    <small className={styles["breadcrumb-segment"]}>
+                    <small key={breadcrumb.id} className={styles["breadcrumb-segment"]}>
                         <Link to={breadcrumb.name === "root" ? `/tree` :  `/tree/${folderId || rootFolderId}/${breadcrumb.id}`}>
                             {breadcrumb.name}
                         </Link>                      
@@ -112,8 +112,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
 
             <div className={styles["folder-list"]}>
                 {folders.length !== 0 && folders.map((folder) => (
-                    <FileFolderContainer 
-                        key={folder.id}
+                    <FileFolderContainer key={folder.id}
                         fileFolderData={{dataType: "Folder", data: folder}}
                         rootFolderId={rootFolderId}
                         setRenameForm={setRenameForm}
@@ -124,9 +123,8 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             </div>
 
             <div className={styles["file-list"]}>
-                {files.length !== 0 && files.map((file, idx) => (
-                    <FileFolderContainer 
-                        key={file.id}
+                {files.length !== 0 && files.map((file) => (
+                    <FileFolderContainer key={file.id}
                         fileFolderData={{dataType: "File", data: file}}                        
                         rootFolderId={rootFolderId}   
                         setRenameForm={setRenameForm}
