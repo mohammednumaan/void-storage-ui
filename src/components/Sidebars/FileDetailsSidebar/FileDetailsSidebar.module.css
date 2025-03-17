@@ -185,8 +185,53 @@ hr{
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .file-options{
         padding-bottom: 2vh;
     }
+
+    .file-info-sidebar{
+        right: -400%;
+         }
+
+    .file-preview{
+        width: 90vw;
+        height: auto;
+    }
+
+    .slidein-animation{
+        animation: slideIn 1s ease-in-out;
+        right: 0;
+    }
+    
+    .slideout-animation{
+        animation: slideOut 1s ease-in-out;
+        right: -400%;
+    }
+    
+    @keyframes slideIn {
+        0% {
+            right: -400%;
+        }
+    
+        100% {
+            right: 0%;
+        }
+    }
+    
+    
+    @keyframes slideOut {
+        0% {
+            right: 0%;
+        }
+    
+        100% {
+            right: -400%;
+        }
+    }
+
+    .file-options > button {
+        font-size: 14px;
+    }
+        
 }

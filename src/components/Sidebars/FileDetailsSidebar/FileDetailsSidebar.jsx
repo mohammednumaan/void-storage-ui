@@ -107,12 +107,12 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                         </li>
                     </ul>
                     
-                    <div className={styles["file-options"]}>
-                        <button id={styles["download-btn"]} onClick={handleDownload}>
-                            Download File
-                        </button>
-                        <button id={styles["share-btn"]}>Share File</button>
-                    </div>
+                </div>
+                <div className={styles["file-options"]}>
+                    <button id={styles["download-btn"]} onClick={handleDownload}>
+                        Download File
+                    </button>
+                    <button id={styles["share-btn"]}>Share File</button>
                 </div>
             </div>
         </div>
