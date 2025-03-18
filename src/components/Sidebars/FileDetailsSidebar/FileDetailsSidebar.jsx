@@ -57,12 +57,12 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
             <div className={`${styles["file-info-sidebar"]} ${selectedFile.fileId ? styles["slidein-animation"] : ''} ${isClosed ? styles["slideout-animation"] : ''}`}>
 
                 <div className={styles["file-details-header"]}>
-                    <h3 className={styles["filename"]}>{file?.fileName} </h3>
+                    <h4 className={styles["filename"]}>{file?.fileName} </h4>
                     <img onClick={() => {
                             setIsOpenDetails({fileId: null})
                             setIsClosed(true)
                         }} 
-                        style={{padding: "20px", cursor: "pointer"}} alt="close icon" src="/public/close_icon.svg" 
+                        style={{padding: "20px", cursor: "pointer", marginRight: "-10px"}} alt="close icon" src="/public/close_icon.svg" 
                         title={"Close File Details"} />
                 </div>
                 <div className={styles["file-preview"]}>
@@ -106,13 +106,12 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                             </button>
                         </li>
                     </ul>
-                    
-                </div>
-                <div className={styles["file-options"]}>
-                    <button id={styles["download-btn"]} onClick={handleDownload}>
-                        Download File
-                    </button>
-                    <button id={styles["share-btn"]}>Share File</button>
+                    <div className={styles["file-options"]}>
+                        <button id={styles["download-btn"]} onClick={handleDownload}>
+                            Download
+                        </button>
+                        <button id={styles["share-btn"]}>Share File</button>
+                    </div>
                 </div>
             </div>
         </div>

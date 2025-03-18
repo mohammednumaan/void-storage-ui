@@ -21,21 +21,29 @@
     position: fixed;
     width: 100%;
     height: 100%;
+
     top: 0;
     left: 0;
     right: -100vw;
     bottom: 0;
+    
     display: flex;
     justify-content: center;
     align-items: center;
+    
     z-index: -1;
     transition: all 800ms ease-in-out;
 }
 
 .file-info-sidebar{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
     position: absolute;
     right: -100vw;
-    height: 100%;
+    width: auto;
+    height: 100vh;
     overflow-y: scroll;
     background-color: #0e0d0d;
     color: #ff5a30;
@@ -47,14 +55,17 @@
 /* FILE INFO SIDEBAR HEADER STYLES */
 .file-details-header{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    gap: 20%;
+    padding-left: 14px;
 }
+
 
 .filename{
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space-collapse:collapse;
+    white-space: nowrap;
 }
 
 /* FILE PREVIEW/DISPLAY CONTAINER STYLES */
@@ -88,6 +99,7 @@ img {
     align-items: flex-start;
     flex-direction: column;
     gap: 20px;
+    flex: 1;
 }
 
 #file-info-header{
@@ -127,22 +139,16 @@ hr{
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    gap: 10px;
+    padding-bottom: 10px;
 }
 
 #folder-loc-btn{
     margin-top: 10px;
     color: #ff5a30;
-    transition: all 500ms ease-in-out;
 }
-
-#folder-loc-btn:hover{
-    transform: scale(1.02);
-}
-
 
 .file-options > button{
-    width: 50%;
+    width: 45%;
 }
 
 /* ANIMATIONS */
@@ -169,7 +175,7 @@ hr{
 
 @keyframes slideOut {
     0% {
-        right: 0%;
+        right: 0;
     }
 
     100% {
@@ -191,8 +197,11 @@ hr{
     }
 
     .file-info-sidebar{
+        width: 100vw;
         right: -400%;
-         }
+        padding: 10px;
+    }
+
 
     .file-preview{
         width: 90vw;
@@ -215,14 +224,14 @@ hr{
         }
     
         100% {
-            right: 0%;
+            right: 0;
         }
     }
     
     
     @keyframes slideOut {
         0% {
-            right: 0%;
+            right: 0;
         }
     
         100% {
@@ -234,4 +243,14 @@ hr{
         font-size: 14px;
     }
         
+}
+
+@media (max-height: 710px) {
+    .file-details-header{
+        margin-top: 10%;
+    }
+
+    .file-preview{
+        margin-left: 10px;
+    }
 }
