@@ -29,9 +29,12 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             const data = await response.json();
             if (response.ok){
                 setBreadcrumbs([...data.folderSegments])
+            } else{
+                console.error(data.message);
             }
             
         }
+
         if (folderId || rootFolderId) getFolderPathSegements(); 
         
     }, [folderId, rootFolderId])
@@ -53,7 +56,8 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             (dataType === "Folder") ? setFolders((_) => [...updatedData]) : setFiles((_) => [...updatedData]);
         }
         else{
-            console.log(response)
+            const errData = await response.json();
+            setNotification({message: errData.message, time: Date.now()});
         }
         setDeleteForm({isOpen: false, fileFolder: null})
         setLoading(false)
@@ -78,12 +82,15 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             (dataType === "Folder") ? setFolders((_) => [...updatedData, data.renamedFolder]) : setFiles((_) => [...updatedData, data.renamedFile]);
         }
         else{
-            setNotification({message: data.errors[0].msg, time: Date.now()})
+            setNotification({message: data.message, time: Date.now()})
         }
         
         setRenameForm({isOpen: false, fileFolder: null})
         setLoading(false)
     }
+    
+
+
 
     return (
         <>  
@@ -141,6 +148,11 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     moveFolderData={moveFolderData} 
                     setMoveFolderData={setMoveFolderData} 
                     rootFolderId={rootFolderId}
+                    files={files}
+                    folders={folders}
+                    setFolders={setFolders}
+                    setFiles={setFiles}
+                    setNotification={setNotification}
                 />
             }
 

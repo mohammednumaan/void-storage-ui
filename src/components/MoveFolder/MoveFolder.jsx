@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 
-export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolderId, setLoading}){
+export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolderId, setLoading, files, folders, setFolders, setFiles, setNotification}){
 
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [selectedFolderId, setSelectedFolderId] = useState(null);
@@ -58,8 +58,9 @@ export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolde
             setAvailableFolders([...data.folders])
             setCurrentFolder(folderId)
             setSelectedFolderId(folderId);
+        } else{
+            setNotification({message: data.message, time: Date.now()})
         }
-
     }
 
     const handleFolderSelection = async () => {
@@ -73,9 +74,21 @@ export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolde
             mode: 'cors'
         })
 
-        const data = await response.json();
+        const data = response.json();
+        if (response.ok){
+            // const data = await response.json();
+            const updatedData = (moveFolderData.type === "Folder" ? folders : files).filter(data => data.id !== moveFolderData.id);
+            (moveFolderData.type === "Folder") ? setFolders((_) => [...updatedData]) : setFiles((_) => [...updatedData]);
+        } else{
+            setNotification({message: data.message, time: Date.now()})
+        }
         setMoveFolderData({type: "", id: null, folder: ""})
         setLoading(false)
+        setDisabled(false)
+    }
+
+    const handleClose = () => {
+        setMoveFolderData({type: "", id: null, folder: ""})
         setDisabled(false)
     }
 
@@ -98,37 +111,46 @@ export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolde
                     </small>
                     <hr />
 
-                    {availableFolders.map(folder => (
-                        moveFolderData.type === "Folder" && (folder.id === moveFolderData.id) ? "" :
+                    <div className={styles["folders-view"]}>
+                        <div className={styles["folders-list"]}>
+                            {availableFolders.map(folder => (
+                                moveFolderData.type === "Folder" && (folder.id === moveFolderData.id) ? "" :
 
-                        <div key={folder.id} 
-                            className={`${styles["folder"]} ${selectedFolderId === folder.id ? styles["active"] : styles["inactive"]}`} 
-                            onClick={() => setSelectedFolderId(folder.id)} 
-                            onDoubleClick={() => handleDoubleClick(folder.id)}
+                                <div key={folder.id} 
+                                    className={`${styles["folder"]} ${selectedFolderId === folder.id ? styles["active"] : styles["inactive"]}`} 
+                                    onClick={() => setSelectedFolderId(folder.id)} 
+                                    onDoubleClick={() => handleDoubleClick(folder.id)}
 
-                        >
-                            <small className={`${styles["folder-left"]}`} >
-                                <img  src="/public/folder_open_icon.svg" alt="folder icon"></img>
-                                <p className={styles["folder-name"]} style={{textOverflow: "ellipsis"}}>{folder.folderName}</p>
-                            </small>
-                            <small className={styles["folder-size"]}>-</small>
-                            <small className={styles["folder-created"]}>{format(folder.createdAt, 'MMM d, yyyy')}</small>
+                                >
+                                    <small className={`${styles["folder-left"]}`} >
+                                        <img  src="/public/folder_open_icon.svg" alt="folder icon"></img>
+                                        <p className={styles["folder-name"]} style={{textOverflow: "ellipsis"}}>{folder.folderName}</p>
+                                    </small>
+                                    <small className={styles["folder-size"]}>-</small>
+                                    <small className={styles["folder-created"]}>{format(folder.createdAt, 'MMM d, yyyy')}</small>
+                                </div>
+
+                            ))}
                         </div>
+                        <div className={styles["folder-options"]}>
+                            <nav className={styles["breadcrumbs"]}>
+                                {breadcrumbs.length !== 0 && breadcrumbs.map(breadcrumb => (
+                                    <small key={breadcrumb.id} className={styles["breadcrumb-segment"]}>
+                                        <Link onClick={() => breadcrumb.name === "root" ? handleDoubleClick(rootFolderId) : handleDoubleClick(breadcrumb.id)}>
+                                            {breadcrumb.name}
+                                        </Link>                      
+                                        <img alt="chevron right icon" src="/public/chevron_right_icon.svg" />
+                                    </small>
+                                ))}
+                            </nav>
+                            <div className={styles["options"]}>
+                                <button disabled={disabled} onClick={handleClose} id={styles["close-btn"]}>Close</button>
+                                <button disabled={disabled} onClick={handleFolderSelection} id={styles["move-btn"]}>Select</button>
 
-                    ))}
+                            </div>
+                        </div>
+                    </div>
 
-                    {/* <div className={styles["folder-navigation"]} */}
-                    <nav className={styles["breadcrumbs"]}>
-                        {breadcrumbs.length !== 0 && breadcrumbs.map(breadcrumb => (
-                            <small className={styles["breadcrumb-segment"]}>
-                                <Link onClick={() => breadcrumb.name === "root" ? handleDoubleClick(rootFolderId) : handleDoubleClick(breadcrumb.id)}>
-                                    {breadcrumb.name}
-                                </Link>                      
-                                <img alt="chevron right icon" src="/public/chevron_right_icon.svg" />
-                            </small>
-                        ))}
-                    </nav>
-                    <button disabled={disabled} onClick={handleFolderSelection} id={styles["move-btn"]}>Select Folder</button>
                 </div>
 
             </div>
