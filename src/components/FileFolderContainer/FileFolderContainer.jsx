@@ -30,6 +30,7 @@ export default function FileFolderContainer({
     setRenameForm,
     setDeleteForm,
     setMoveFolderData, 
+    setShareForm
 }){
 
     // navigate hook to navigate between components
@@ -136,6 +137,8 @@ export default function FileFolderContainer({
                                 
                                 rootFolderId={rootFolderId}
                                 setIsOpenDetails={setIsOpenDetails}
+                                setShareForm={setShareForm}
+
                             />
                     </div>
                 </div>
@@ -146,6 +149,7 @@ export default function FileFolderContainer({
                 setIsOpenDetails={setIsOpenDetails} 
                 getFileSize={getFileSize} 
                 gotoParentFolder={handleGotoFolder}
+                setShareForm={setShareForm}
             />
         </>
 

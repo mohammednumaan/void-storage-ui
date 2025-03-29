@@ -12,6 +12,7 @@ export default function DropdownMenu({
     setMoveFolderData, 
     setIsOpenDetails, 
     rootFolderId, 
+    setShareForm,
 }){
     const {folderId} = useParams();
     return (
@@ -50,6 +51,21 @@ export default function DropdownMenu({
                         Move
                     </button>
                 </li>
+                {fileFolderData.dataType === "Folder" && (
+                    <>
+                        <hr style={{backgroundColor: "white", width: "100%", height: "1px", opacity: 0.1, marginTop: "1px"}} />
+                        <li>
+                            <button className={styles["menu-item-btn"]} 
+                                onClick={() => setShareForm({isOpen: true, fileFolder: {id: fileFolderData.data.id || rootFolderId, dataType: "Folder"}})}
+                            >
+                            <img alt="share icon" src="/public/share_icon.svg" title={`Move ${fileFolderData.dataType}`} />
+                                Share
+                            </button>
+                        </li>
+                    </>
+                    )
+                }
+
 
                 {fileFolderData.dataType === "File" && (
                     <>

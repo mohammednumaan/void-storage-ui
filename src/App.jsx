@@ -7,6 +7,9 @@ import { memo, useEffect, useState } from 'react'
 import LandingPage from './components/LandingPage/LandingPage'
 import Home from './components/Home/Home'
 import SignupLoginForm from './components/Forms/SignupLoginForm'
+import PublicView from './components/PublicView/PublicView/PublicView'
+import PublicViewHome from './components/PublicView/PublicViewHome/PublicViewHome'
+import AccessErrorPage from './components/PublicView/AccessErrorPage'
 
 
 // configuration objects that are passed as props to the form 
@@ -45,7 +48,6 @@ function App() {
       const data = await response.json();
       if (data.authenticated){
         setIsAuth(true)
-        navigate('/tree');
       } else{
         setIsAuth(false)
       }
@@ -58,6 +60,10 @@ function App() {
         <Route path='/register' element={<SignupLoginForm formOptions={registerFormOptions} />} />
         <Route path='/login' element={<SignupLoginForm formOptions={loginFormOptions} />} />
 
+        <Route path='/view/public/folder/:linkId' element={<PublicViewHome />}>
+          <Route path=':parentFolder/:folderId' element={<PublicView />} />
+        </Route>
+
         <Route element={<MemoizedProtectedRoute isAuth={isAuth} setIsAuth={setIsAuth} />}>
             <Route path='/tree' element={<Home />} >
               <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
@@ -65,6 +71,8 @@ function App() {
             </Route>
          
         </Route>
+
+        <Route path='/view/public/error' element={<AccessErrorPage />} />
       </Routes>
     </>
   )

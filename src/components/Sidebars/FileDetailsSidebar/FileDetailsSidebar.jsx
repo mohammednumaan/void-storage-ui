@@ -3,10 +3,9 @@ import styles from "./FileDetailsSidebar.module.css"
 import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
 
-export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getFileSize}){
+export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getFileSize, setShareForm}){
     
     const [file, setFile] = useState(null);
-    const location = useLocation();
     const [isClosed, setIsClosed] = useState(false)
 
     useEffect(() => {
@@ -31,7 +30,7 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
         if (selectedFile.fileId && isClosed) setIsClosed(false);
     }, [selectedFile.fileId, isClosed])
 
-    const handleDownload = async () => {
+    const handleDownload = async () => {    
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/download/${selectedFile.fileId}`, {
             method: 'GET',
             credentials: 'include',
@@ -49,7 +48,11 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
         temporaryLinkEl.click();
         document.body.removeChild(temporaryLinkEl);
         URL.revokeObjectURL(url);
-    }     
+    }  
+    
+    const handleShare = () => {
+        setShareForm({isOpen: true, fileFolder: {id: selectedFile.fileId, dataType: "File"}})
+    }
 
     return (
 
@@ -92,25 +95,25 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                             <small>{file?.createdAt && format(file?.createdAt, "MMM d, yyyy")}</small>
                         </li>
 
-                        <li className={styles["file-details-item"]}>
+                        
+                        {setShareForm && <li className={styles["file-details-item"]}>
                             <small>Location</small>
                             <button 
                                 onClick={() => {
-                                        setIsOpenDetails({fileId: null})
-                                        setIsClosed(true)
-                                    }   
-                                }
+                                    setIsOpenDetails({fileId: null})
+                                    setIsClosed(true)
+                                }}
                                 id={styles["folder-loc-btn"]}
                             >
                                 <small>Go To Folder</small>
                             </button>
-                        </li>
+                        </li>}
                     </ul>
                     <div className={styles["file-options"]}>
                         <button id={styles["download-btn"]} onClick={handleDownload}>
                             Download
                         </button>
-                        <button id={styles["share-btn"]}>Share File</button>
+                        <button disabled={!setShareForm} id={styles["share-btn"]} onClick={handleShare}>Share File</button>
                     </div>
                 </div>
             </div>

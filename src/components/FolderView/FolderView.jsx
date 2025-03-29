@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import DeleteModal from "../Modals/DeleteModal/DeleteModal";
 import MoveFolder from "../MoveFolder/MoveFolder";
 import RenameModal from "../Modals/RenameModal/RenameModal";
+import { ShareModal } from "../Modals/ShareModal/ShareModal";
 
 // a folder/file view component
 export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading, setNotification}){
@@ -17,17 +18,18 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const [renameForm , setRenameForm] = useState({isOpen: false, fileFolder: null});
     const [deleteForm , setDeleteForm] = useState({isOpen: false, fileFolder: null});
+    const [shareForm, setShareForm] = useState({isOpen: false, fileFolder: null})
     const [moveFolderData, setMoveFolderData] = useState({type: "", id: null, folder: ""});
 
     // a simple useEffect to get the current folder's path
     useEffect(() => {
         async function getFolderPathSegements(){
-            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${folderId || rootFolderId}`, {
+            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${null}/${folderId || rootFolderId}`, {
                 credentials: 'include',
                 mode: 'cors'
             });
             const data = await response.json();
-            if (response.ok){
+            if (response.ok){   
                 setBreadcrumbs([...data.folderSegments])
             } else{
                 console.error(data.message);
@@ -82,7 +84,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
             (dataType === "Folder") ? setFolders((_) => [...updatedData, data.renamedFolder]) : setFiles((_) => [...updatedData, data.renamedFile]);
         }
         else{
-            setNotification({message: data.message, time: Date.now()})
+            setNotification({message: data.errors[0].msg, time: Date.now()})
         }
         
         setRenameForm({isOpen: false, fileFolder: null})
@@ -125,6 +127,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                         setRenameForm={setRenameForm}
                         setDeleteForm={setDeleteForm}
                         setMoveFolderData={setMoveFolderData}
+                        setShareForm={setShareForm}
                     />
                 ))}
             </div>
@@ -137,6 +140,7 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                         setRenameForm={setRenameForm}
                         setDeleteForm={setDeleteForm}
                         setMoveFolderData={setMoveFolderData}
+                        setShareForm={setShareForm}
                     />
                 ))}
             </div>
@@ -172,6 +176,15 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     setNotification={setNotification}
                 />
             }
+
+            {(shareForm.isOpen && shareForm.fileFolder.id) &&
+                <ShareModal
+                    fileFolderData={shareForm.fileFolder}
+                    setShareForm={setShareForm}
+                    setNotification={setNotification}
+                />
+            }
+
 
             
             {((folders.length == 0 && files.length == 0)) && 

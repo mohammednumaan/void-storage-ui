@@ -1,0 +1,163 @@
+/* rename STYLING */
+.share-form-container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
+    /* z-index: 1; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-form{
+    width: 30em;
+    border: 2px solid #1a1a1a;
+    border-radius: 20px;
+    background-color: #0e0d0d;
+    padding: 50px;
+}
+
+/* SHARE FORM'S TITLE AND BUTTON STYLING */
+#share-title{
+    color:  #ff5a30;
+    font-size: 40px;
+}
+
+#share-input{
+    width: 95%;
+    flex: 1 1 auto;
+}
+
+.share-form-days{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff5a30;
+    flex-wrap: wrap;
+
+    width: fit-content;
+    border: 1px solid #272727;
+    height: fit-content;
+
+    background-color: #1a1a1a;
+    border-radius: 10px;
+}
+
+.share-duration-title{
+    color: grey;
+}
+
+.generated-link  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #1a1a1a;
+    height: 50px;
+    
+ 
+    border-radius: 5px;;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+.generated-link-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.generated-link-container > img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.generated-link > p{
+    padding: 0px 5px;
+}
+
+.day{
+    color: #ff5a30;
+    padding: 10px;
+    border-right: 1px solid #272727;
+    cursor: pointer;
+}
+
+.selected-day{
+    background-color: #ff5a30;
+    color: #1a1a1a;
+}
+
+.day:hover{
+    background-color: #ff5a30;
+    color: #1a1a1a;
+}
+
+.share-form-days > :last-child{
+    border-right: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.share-form-days > :first-child{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.share-form-btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.share-form-btns > button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex: 1;
+}
+
+.share-form-btns > button:disabled{
+    pointer-events: none;
+}
+
+
+/* MEDIA QUERIES FOR THE MODAL COMPONENT */
+@media (max-width: 470px) {
+
+    .share-form{
+        width: 60%;
+        padding: 20px;
+        margin: 0 10px;
+    }
+    
+    #share-input{
+        width: 90%;
+    }
+    #share-title {
+        font-size: 30px;
+    }
+    
+    .share-form-btns {
+        flex-direction: column;
+        gap: 0px;
+    }
+    
+    .share-form-btns > button {
+        width: 100%;
+    }
+
+}
