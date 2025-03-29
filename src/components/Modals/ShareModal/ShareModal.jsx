@@ -10,7 +10,6 @@ const expiryDays = [
     { duration: 7, unit: "days", text: "1 Week" }
 ];
   
-  console.log(expiryDays);
   
 export function ShareModal({fileFolderData, setShareForm, setNotification}){
     const [link, setLink] = useState(null)
@@ -18,12 +17,13 @@ export function ShareModal({fileFolderData, setShareForm, setNotification}){
     const [disabled, setDisabled] = useState(false);
 
     const handleShare = async () => {
+        
         const res = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${fileFolderData.dataType === "Folder" ? 'folders' : 'files'}/generate/`, {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({duration: duration.duration, unit: duration.unit, folderId: fileFolderData.id})
+            body: JSON.stringify({duration: duration.duration, unit: duration.unit, resourceId: fileFolderData.id})
         })
         const data = await res.json()
         console.log(data)

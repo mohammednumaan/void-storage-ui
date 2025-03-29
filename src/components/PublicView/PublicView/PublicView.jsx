@@ -47,7 +47,7 @@ export default function PublicView({resource, linkId, isOpenDetails, setIsOpenDe
 
     return (
         <>  
-        
+            
             <div className={styles["folder-list"]}>
                 {folders.length !== 0 && folders.map((folder) => (
                     <PublicFileFolderContainer key={folder.id}

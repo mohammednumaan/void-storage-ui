@@ -4,21 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import FileDetailsSidebar from "../../Sidebars/FileDetailsSidebar/FileDetailsSidebar";
 import { useState } from "react";
 
-const getFileSize = (bytes) => {
-    let sizes = ['B', ' KB', ' MB', ' GB',
-        ' TB', ' PB', ' EB', ' ZB', ' YB'];
 
-    for (let i = 1; i < sizes.length; i++){
-        if (bytes < Math.pow(1024, i)){
-            return (Math.round((bytes / Math.pow(
-                1024, i - 1)) * 100) / 100) + sizes[i - 1];
-        }
 
-    }
-    return bytes;     
-}
-
-export default function PublicFileFolderContainer({fileFolderData, parentFolder, linkId, isOpenDetails, setIsOpenDetails}){
+export default function PublicFileFolderContainer({fileFolderData, parentFolder, linkId, isOpenDetails, setIsOpenDetails, getFileSize}){
 
     const navigate = useNavigate();
 

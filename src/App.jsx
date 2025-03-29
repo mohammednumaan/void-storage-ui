@@ -60,7 +60,7 @@ function App() {
         <Route path='/register' element={<SignupLoginForm formOptions={registerFormOptions} />} />
         <Route path='/login' element={<SignupLoginForm formOptions={loginFormOptions} />} />
 
-        <Route path='/view/public/folder/:linkId' element={<PublicViewHome />}>
+        <Route path='/view/public/:type/:linkId' element={<PublicViewHome />}>
           <Route path=':parentFolder/:folderId' element={<PublicView />} />
         </Route>
 

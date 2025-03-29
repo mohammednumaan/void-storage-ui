@@ -1,0 +1,47 @@
+.shared-file{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 90vh;
+    color: #ff5a30; 
+}
+
+.shared-file > img{
+    border-radius: 20px;
+}
+
+.shared-file-info-top,
+.shared-file-info-bottom{
+    /* display: flex; */
+    gap: 20px;
+}
+
+.marked-text{
+    color: #e9bca2;
+    background: none;
+}
+
+.shared-file-background{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    z-index: -1;
+    filter: blur(100px);
+}
+
+.orange-dot{
+    position: relative;
+    top: -80px;
+    width: 50%;
+    height: 10%;
+    background-color: #ff5a30;
+}
