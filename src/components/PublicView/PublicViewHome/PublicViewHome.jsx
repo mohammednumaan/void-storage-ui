@@ -128,7 +128,20 @@ export default function PublicViewHome(){
                     </div>
                     <div className={styles["shared-file"]}>
                         <h2>{resource.fileInfo?.fileName}</h2>
-                        <img src={resource.fileInfo?.fileUrl} alt={resource.fileInfo?.fileName} width={"40%"} height={"auto"} />
+
+                        <div className={styles["file-preview"]}>
+                            {resource.fileInfo?.fileName.includes("pdf") ? (
+                                    <embed style={{ borderRadius: "10px" }} src={resource.fileInfo?.fileUrl} height={"100%"} width={"100%"} />
+                                ) : resource.fileInfo?.fileName.includes("text") || resource.fileInfo?.fileName.includes("doc") ? (
+                                    <p>Text/Document File, Download This File To View</p>
+                                ) : (
+                                <img style={{ borderRadius: "10px" }} src={resource.fileInfo?.fileUrl} alt={`${resource.fileInfo?.fileName?.fileName} image`
+                                
+                            } />
+                            )}
+                        </div>
+
+
                         <div className={styles["file-info"]}>
                             <div className={styles["shared-file-info-top"]}>
                                 <p><mark className={styles["marked-text"]}>File name:</mark> {resource.fileInfo?.fileName}</p>

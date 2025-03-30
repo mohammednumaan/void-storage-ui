@@ -71,8 +71,8 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                 <div className={styles["file-preview"]}>
                     {file?.fileType.includes("pdf") ? (
                         <embed style={{ borderRadius: "10px" }} src={file?.fileUrl} height={"100%"} width={"100%"} />
-                    ) : file?.fileType.includes("text") ? (
-                        <p>Text File, Download This File To View</p>
+                    ) : file?.fileType.includes("text") || file?.fileType.includes("msword") ? (
+                        <p>Text/Document File, Download This File To View</p>
                     ) : (
                         <img style={{ borderRadius: "10px" }} src={file?.fileUrl} alt={`${file?.fileName} image`} />
                     )}

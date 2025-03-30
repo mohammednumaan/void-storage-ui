@@ -52,7 +52,8 @@ export default function CreateUploadModal({
         if (response.ok){
             setFileFolders(files => [...files, data.uploadedFile])
         } else {
-            setNotification({message: data.error, time: Date.now()});
+            setNotification({message: data.message || data.errors[0].msg, time: Date.now()});    
+
         }
 
         setFileForm(false)
@@ -88,7 +89,7 @@ export default function CreateUploadModal({
         if (response.ok){
             setFileFolders(folders => [...folders, data.createdFolder])
         } else{
-            setNotification({message: data.errors[0].msg, time: Date.now()});    
+            setNotification({message: data.message || data.errors[0].msg, time: Date.now()});    
         }
         setFolderForm(false)
         setLoading(false)
@@ -105,7 +106,9 @@ export default function CreateUploadModal({
 
                         <label htmlFor="file-folder-input" id={styles["file-folder-label"]}>{formType === "File" ? 'Upload File' : 'Create Folder'}</label>
                         <input disabled={disabled} onChange={formType === "File" ? handleFileInput : handleFolderInput} 
-                            type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'newFolderName'} required />
+                            type={formType === "File" ? "file" : "text"} id={styles["file-folder-input"]} name={formType === "File" ? 'file' : 'newFolderName'} 
+                            accept={formType === "File" ? ".image/*,.pdf,.doc" : ''}
+                            required />
                         
                         <div className={styles["file-form-btns"]}>
                             <button disabled={disabled} type="submit">{formType === "File" ? 'Upload File' : 'Create Folder'}</button>
