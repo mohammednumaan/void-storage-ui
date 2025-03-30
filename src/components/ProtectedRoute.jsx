@@ -1,48 +1,44 @@
 // imports
 import { useEffect, useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import NavigationBar from "./Navigation/NavigationBar";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 // protected route component
-export default function ProtectedRoute({isAuth, setIsAuth}){
-  // const [isAuth, setIsAuth] = useState(false);
-  // const [rootFolderId, setRootFolderId] = useState("");
+export default function ProtectedRoute(){
+
+  const navigate = useNavigate();
+  const {folderId} = useParams();
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/authenticate`, {
-  //       mode: 'cors',
-  //       credentials: 'include'
-  //     })
+  
+  // once the component is mounted, we check if the user's session is still authenticated (logged in)
+  // if true, we render the respective component, else, we re-direct the user to the login page
+  useEffect(() => {
+      (async () => {
+        const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/authenticate`, {
+          mode: 'cors',
+          credentials: 'include'
+        })
 
-  //     const data = await response.json();
-  //     if (data.authenticated){
-  //       setIsAuth(true)
-  //     } else{
-  //       setIsAuth(false)
-  //     }
-  //   })();
-  // },[])
+        const data = await response.json();
+        if (data.authenticated){
+          setUsername(data.username);
+          setLoading(false);
+        } 
+        
+        else{
+          setUsername("")
+          setLoading(true);
+          
+          setTimeout(() => navigate('/'), 2000);
+        }
+      })();
   
-  
-  // // once the component is mounted, we check if the user's session is still authenticated (logged in)
-  // // if true, we render the respective component, else, we re-direct the user to the login page
-  // useEffect(() => {
+  }, [folderId])
 
-  //   if (!isAuth) setLoading(false);
-  //   else setLoading(true);
-    
-  // }, [isAuth, loading])
-  if (isAuth && loading){
-    return (
-      <> 
-        <Outlet context={isAuth} />
-      </>
-    )
-  } else{
-    return <Navigate to={'/register'} />
-  }
-  
+  return (
+    <div style={loading ? {height: "95vh", display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#ff5a30'} : {}}>
+      {loading ? <h1>Unauthorized, Redirecting To Home Page...</h1> : <Outlet context={username} />}
+    </div>
+  )
 }
-
 

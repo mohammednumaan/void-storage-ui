@@ -34,7 +34,6 @@ export default function Home({username, setUsername}){
     // a isMobile state to detect changes in screen size
     // and render components accordingly
     const [isMobile, setIsMobile] = useState(false);
-
     
     // a simple useEffect to fetch the root folder's id for the current user
     useEffect(() => {

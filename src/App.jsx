@@ -10,6 +10,7 @@ import SignupLoginForm from './components/Forms/SignupLoginForm'
 import PublicView from './components/PublicView/PublicView/PublicView'
 import PublicViewHome from './components/PublicView/PublicViewHome/PublicViewHome'
 import AccessErrorPage from './components/PublicView/AccessErrorPage'
+import ErrorPage from './components/ErrorPage'
 
 
 // configuration objects that are passed as props to the form 
@@ -23,12 +24,6 @@ const registerFormOptions = {
   formType: "Register",
   linkTo: "login",
 }
-
-// here, i memoize the protected route component to prevent
-// unncessary re-render causes by useNavigate hook
-const MemoizedProtectedRoute = memo(ProtectedRoute)
-
-
 // app component
 export default function App() {
 
@@ -40,7 +35,6 @@ export default function App() {
   // if true, we re-direct the user to /tree, else, we render the home page with login and register component
   useEffect(() => {
     (async () => {
-      console.log("App")
       const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/authenticate`, {
         mode: 'cors',
         credentials: 'include'
@@ -65,15 +59,17 @@ export default function App() {
           <Route path=':parentFolder/:folderId' element={<PublicView />} />
         </Route>
 
-        <Route element={<MemoizedProtectedRoute isAuth={user} setIsAuth={setUser} />}>
+        <Route element={<ProtectedRoute isAuth={user} setIsAuth={setUser} />}>
             <Route path='/tree' element={<Home username={user} setUsername={setUser}/>} >
               <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
               <Route path='file/:folderId/:fileId' element={<FolderView />}></Route>
             </Route>
          
         </Route>
-
+      
         <Route path='/view/public/error' element={<AccessErrorPage />} />
+        <Route path='*' element={<ErrorPage error={'Page Not Found.'} />} />
+
       </Routes>
     </>
   )
