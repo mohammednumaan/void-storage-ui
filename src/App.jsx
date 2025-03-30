@@ -43,6 +43,7 @@ export default function App() {
       const data = await response.json();
       if (data.authenticated){
         setUser(data.username)
+        navigate('/tree')
       } else{
         setUser(null)
       }

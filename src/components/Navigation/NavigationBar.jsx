@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import styles from "./NavigationBar.module.css"
 
 // navigation bar component
-export default function NavigationBar({handleProfileOpen}){
+export default function NavigationBar({isHome, handleProfileOpen}){
 
     const navigate = useNavigate();
     const handleLogout = async () => {
@@ -20,7 +20,8 @@ export default function NavigationBar({handleProfileOpen}){
         }
     }
     return (
-        <>
+        <>  
+        
             <div className={styles["navbar-container"]}>
                 <div className={styles["navbar-header"]}>
                     <h4>Void</h4>
@@ -28,8 +29,17 @@ export default function NavigationBar({handleProfileOpen}){
                 </div>
 
                 <div className={styles["navbar-links"]}>
-                <img onClick={handleProfileOpen} src="/public/account_icon.svg" alt="account button icon" title="Account" />
-                <img onClick={handleLogout} src="/public/logout_icon.svg" alt="logout button icon" title="Logout" />
+                {!isHome ? (
+                    <>
+                        <img onClick={handleProfileOpen} src="/public/account_icon.svg" alt="account button icon" title="Account" />
+                        <img onClick={handleLogout} src="/public/logout_icon.svg" alt="logout button icon" title="Logout" />
+                    </>
+                ) : (
+                    <>
+                        <Link to={'/register'}>Register</Link>
+                        <Link to={'/login'}>Login</Link>
+                    </>
+                )}
                 </div>
             </div>
         </>

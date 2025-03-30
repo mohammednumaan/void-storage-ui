@@ -33,11 +33,11 @@ export default function ProtectedRoute(){
         }
       })();
   
-  }, [folderId])
+  }, [folderId, username])
 
   return (
     <div style={loading ? {height: "95vh", display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#ff5a30'} : {}}>
-      {loading ? <h1>Unauthorized, Redirecting To Home Page...</h1> : <Outlet context={username} />}
+      {loading ? <h1>Redirecting To Home Page...</h1> : <Outlet context={{username, setUsername}} />}
     </div>
   )
 }

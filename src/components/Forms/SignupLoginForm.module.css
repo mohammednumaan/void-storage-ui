@@ -1,3 +1,11 @@
+/* SIGNUP/LOGIN FORM STYLES */
+.signup-login-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
 /* INPUT and LABEL ELEMENTS STYLING */
 label {
     font-weight: bold;

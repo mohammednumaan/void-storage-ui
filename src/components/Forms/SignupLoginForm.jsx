@@ -18,6 +18,7 @@ export default function SignupLoginForm({formOptions}){
         confirm_password: ""
     })
     const [errors, setErrors] = useState(null)
+    const [status, setStatus] = useState(null);
 
     // a simple function to handle input changes
     // and render them correctly
@@ -32,6 +33,7 @@ export default function SignupLoginForm({formOptions}){
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
+        setStatus(formType === "Register" ? "Registering..." : "Logging In...");
         const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/${formType.toLowerCase()}`, {
             method: "POST",
             body: formType.toLowerCase() === "login" ? JSON.stringify({username: formData.username, password: formData.password}): JSON.stringify(formData),
@@ -44,14 +46,15 @@ export default function SignupLoginForm({formOptions}){
         if (data.status){
             formType === 'Login' ? navigate('/tree') : navigate('/login');
         } else{
-            if (formType === "Login") setErrors(data.message);
-            else setErrors(data.errors[0].msg);
             
+            if (formType === "Login") setErrors(data.message || "Invalid Username or Password");
+            else setErrors(data.errors[0].msg);
         }
+        setStatus(null);
     }
     
     return (
-        <>
+        <div className={styles["signup-login-form"]}>
             <div className={styles["form-background"]}>
                 <div className={styles["form-background-dot-top"]}></div>
                 <div className={styles["form-background-dot-bottom"]}></div>
@@ -82,7 +85,7 @@ export default function SignupLoginForm({formOptions}){
                             <input placeholder="Confirm Password" name="confirm_password" id="confirm-password-input" onChange={handleFormInput}></input>
                         </div>}
 
-                        <button className={styles["submit-button"]} type="submit">{formType}</button>
+                        <button className={styles["submit-button"]} type="submit">{!status ? formType : status}</button>
                         {errors && <p style={{color: 'red'}}>{errors}</p>} 
                     </form>
                     
@@ -98,6 +101,6 @@ export default function SignupLoginForm({formOptions}){
                     <img src="/src/assets/art.jpg"  height={"85%"} width={"100%"} style={{borderRadius: "20px"}}></img>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

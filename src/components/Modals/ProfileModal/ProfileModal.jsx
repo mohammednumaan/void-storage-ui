@@ -3,13 +3,19 @@ import { useState } from "react";
 import styles from "./ProfileModal.module.css"
 import { useNavigate } from "react-router-dom";
 
-export default function ProfileModal({user, setNotifications, setUser, handleProfileOpen}){
-    const [username, setUsername] = useState(user)
+export default function ProfileModal({user, setNotification, setUser, handleProfileOpen}){
+    const [username, setUsername] = useState(user);
+    const [password, setPassword] = useState("");
+
+    const [deleteStatus, setDeleteStatus] = useState(false);
     const navigate = useNavigate();
 
     const handleUsernameChange = (e) => {
-        console.log(username)
         setUsername(e.target.value);
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
     }
 
     const handleUpdate = async (e) => {
@@ -27,22 +33,32 @@ export default function ProfileModal({user, setNotifications, setUser, handlePro
             setUsername(data.username)
             setUser(data.username)
         } else{
-            setNotifications({message: data.message || data.errors[0].msg, timestamp: new Date()})
+            setNotification({message: data.message || data.errors[0].msg, time: Date.now()})
         }
+    }
+
+    const handleDeleteConfirmation = () => {
+        setDeleteStatus("Confirm Deletion");
     }
 
     const handleDeleteAccount = async (e) => {
         e.preventDefault()
+        setDeleteStatus("Deleting...")
         const res = await fetch(`http://localhost:3000/users/profile/delete/`, {
+            method: 'POST',
             mode: 'cors',
             credentials: 'include',
+            headers: {'Content-Type': 'application/json'},  
+            body: JSON.stringify({password})
         });
 
         const data = await res.json();
         if (res.ok){
-            navigate('/')
+            setUser(null)
+            setTimeout(() => navigate('/'), 2000)
         } else{
-            setNotifications({message: data.message || data.errors[0].msg, timestamp: new Date()})
+            setDeleteStatus("Confirm Deletion")
+            setNotification({message: data.message || data.errors[0].msg, time: Date.now()})
         }
     }
     return (
@@ -57,15 +73,28 @@ export default function ProfileModal({user, setNotifications, setUser, handlePro
                     }} 
                         method="POST"
                     >
-                        <label id={styles["profile-username-label"]} htmlFor="username">Username</label>
-                        <input value={username} onChange={handleUsernameChange} name="username" id={styles["profile-username-input"]}></input>
+                        <label id={styles["profile-label"]} htmlFor="username">Change username</label>
+                        <input value={username} onChange={handleUsernameChange} name="username" id={styles["profile-input"]}></input>
+
+                        {deleteStatus && (
+                            <>
+                            <label id={styles["profile-label"]} htmlFor="delete">Enter Your Password To Confirm Deletion</label>
+                            <input value={password} placeholder="Your Password..." onChange={handlePasswordChange} name="delete" id={styles["profile-input"]}></input> 
+                            </>
+                        )}
 
                         <div className={styles["profile-form-btns"]}>
                             <button disabled={username === user} type="submit">Update</button>
                             <button onClick={() => handleProfileOpen(false)}>Close</button>
                         </div>
                     </form>
-                    <button onClick={handleDeleteAccount} id={styles["delete-account-btn"]}>Delete Account</button>
+                    {<button 
+                        onClick={!deleteStatus ? handleDeleteConfirmation : handleDeleteAccount} 
+                        id={styles["delete-account-btn"]}>
+                            {!deleteStatus ? 'Delete Account' : deleteStatus}
+                            </button>
+                    }
+
                 </div>
 
             </div>

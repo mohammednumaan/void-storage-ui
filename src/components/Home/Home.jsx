@@ -1,5 +1,5 @@
 // imports
-import { useParams } from "react-router-dom"
+import { useOutletContext, useParams } from "react-router-dom"
 import { useEffect } from "react";
 import { useState } from "react";
 import FolderView from "../FolderView/FolderView";
@@ -12,8 +12,9 @@ import ProfileModal from "../Modals/ProfileModal/ProfileModal";
 import NavigationBar from "../Navigation/NavigationBar";
 
 // file system component
-export default function Home({username, setUsername}){
+export default function Home({}){
 
+    const {username, setUsername} = useOutletContext();
     // a folders and files state that stores a list of
     // folders and files created by the user
     const [folders, setFolders] = useState([]);
@@ -122,7 +123,7 @@ export default function Home({username, setUsername}){
         <>  
             <Loader loading={loading} />
             <div>
-                <NavigationBar handleProfileOpen={setIsProfileModalOpen} />
+                <NavigationBar isHome={false} handleProfileOpen={setIsProfileModalOpen} />
             </div>
             <div className={styles["file-system-tree"]}>
                 <div className={styles["file-system-container"]}>
@@ -161,7 +162,7 @@ export default function Home({username, setUsername}){
                     />
                 }
 
-                {isProfileModalOpen && <ProfileModal handleProfileOpen={setIsProfileModalOpen} user={username} setNotifications={setNotification} setUser={setUsername}/>}
+                {isProfileModalOpen && <ProfileModal handleProfileOpen={setIsProfileModalOpen} user={username} setNotification={setNotification} setUser={setUsername}/>}
                 {<Notification notification={notification} setNotifications={setNotification} />}
             </div>
         </>

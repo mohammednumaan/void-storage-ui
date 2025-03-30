@@ -29,9 +29,16 @@
     font-size: 40px;
 }
 
-#profile-username-input{
+#profile-label{
+    display: flex;
+    color: #f1a38f;
+    font-size: small;
+}
+
+#profile-input{
     width: 95%;
     flex: 1 1 auto;
+    margin-bottom: 10px;
 }
 
 .profile-form-btns{
