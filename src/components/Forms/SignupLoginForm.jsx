@@ -17,12 +17,14 @@ export default function SignupLoginForm({formOptions}){
         password: "",
         confirm_password: ""
     })
+    const [errors, setErrors] = useState(null)
 
     // a simple function to handle input changes
     // and render them correctly
     const handleFormInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
+        setErrors(null)
         setFormData((prev) => ({...prev, [name]: value}));
     }
 
@@ -42,7 +44,9 @@ export default function SignupLoginForm({formOptions}){
         if (data.status){
             formType === 'Login' ? navigate('/tree') : navigate('/login');
         } else{
-            alert("Error")
+            if (formType === "Login") setErrors(data.message);
+            else setErrors(data.errors[0].msg);
+            
         }
     }
     
@@ -79,8 +83,9 @@ export default function SignupLoginForm({formOptions}){
                         </div>}
 
                         <button className={styles["submit-button"]} type="submit">{formType}</button>
+                        {errors && <p style={{color: 'red'}}>{errors}</p>} 
                     </form>
-
+                    
                     <div className="form-links">
                         <p>
                             {formType === "Register" ? "Already Have An Account?" : "Don't Have An Account?"} 

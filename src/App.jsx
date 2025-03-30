@@ -30,10 +30,11 @@ const MemoizedProtectedRoute = memo(ProtectedRoute)
 
 
 // app component
-function App() {
+export default function App() {
 
   const navigate = useNavigate();
-  const [isAuth, setIsAuth] = useState(false)
+  const [user, setUser] = useState(null)
+
 
   // once the component is mounted, we check if the user's session is still authenticated (logged in)
   // if true, we re-direct the user to /tree, else, we render the home page with login and register component
@@ -47,12 +48,12 @@ function App() {
 
       const data = await response.json();
       if (data.authenticated){
-        setIsAuth(true)
+        setUser(data.username)
       } else{
-        setIsAuth(false)
+        setUser(null)
       }
     })();
-  },[isAuth])
+  },[user])
   return (
     <>
       <Routes>
@@ -64,8 +65,8 @@ function App() {
           <Route path=':parentFolder/:folderId' element={<PublicView />} />
         </Route>
 
-        <Route element={<MemoizedProtectedRoute isAuth={isAuth} setIsAuth={setIsAuth} />}>
-            <Route path='/tree' element={<Home />} >
+        <Route element={<MemoizedProtectedRoute isAuth={user} setIsAuth={setUser} />}>
+            <Route path='/tree' element={<Home username={user} setUsername={setUser}/>} >
               <Route path=':parentFolder/:folderId' element={<FolderView />}></Route>
               <Route path='file/:folderId/:fileId' element={<FolderView />}></Route>
             </Route>
@@ -78,4 +79,3 @@ function App() {
   )
 }
 
-export default App

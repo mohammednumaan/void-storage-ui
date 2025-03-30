@@ -25,6 +25,7 @@
     background-color: transparent;
 }
 
+/* MEDIA QUERIES FOR MOBILE MENU CONTAINER */
 @media (max-width: 610px) {
     .mobile-menu-container{
         width: 85%;

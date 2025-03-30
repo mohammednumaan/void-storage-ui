@@ -7,6 +7,7 @@ import DeleteModal from "../Modals/DeleteModal/DeleteModal";
 import MoveFolder from "../MoveFolder/MoveFolder";
 import RenameModal from "../Modals/RenameModal/RenameModal";
 import { ShareModal } from "../Modals/ShareModal/ShareModal";
+import ProfileModal from "../Modals/ProfileModal/ProfileModal";
 
 // a folder/file view component
 export default function FolderView({folders, files, setFolders, setFiles, rootFolderId, setLoading, setNotification}){
@@ -184,7 +185,6 @@ export default function FolderView({folders, files, setFolders, setFiles, rootFo
                     setNotification={setNotification}
                 />
             }
-
 
             
             {((folders.length == 0 && files.length == 0)) && 

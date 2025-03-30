@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import NavigationBar from "./Navigation/NavigationBar";
-import Cookies from 'js-cookie';
 
 // protected route component
 export default function ProtectedRoute({isAuth, setIsAuth}){
@@ -34,13 +33,9 @@ export default function ProtectedRoute({isAuth, setIsAuth}){
   //   else setLoading(true);
     
   // }, [isAuth, loading])
-  console.log(isAuth)
   if (isAuth && loading){
     return (
       <> 
-        <div>
-          <NavigationBar />
-        </div>
         <Outlet context={isAuth} />
       </>
     )

@@ -8,9 +8,11 @@ import styles from "./Home.module.css"
 import Loader from "../Loader/Loader";
 import HomeSidebar from "../Sidebars/HomeSidebar/HomeSidebar";
 import Notification from "../Notification/Notification";
+import ProfileModal from "../Modals/ProfileModal/ProfileModal";
+import NavigationBar from "../Navigation/NavigationBar";
 
 // file system component
-export default function Home(){
+export default function Home({username, setUsername}){
 
     // a folders and files state that stores a list of
     // folders and files created by the user
@@ -18,6 +20,7 @@ export default function Home(){
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(false);
     const [notification, setNotification] = useState({time: null, message: null});
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
     // a rootFolderId state to store the current user's root folder's id
     // to help display the home/root sub-folders
@@ -119,6 +122,9 @@ export default function Home(){
         
         <>  
             <Loader loading={loading} />
+            <div>
+                <NavigationBar handleProfileOpen={setIsProfileModalOpen} />
+            </div>
             <div className={styles["file-system-tree"]}>
                 <div className={styles["file-system-container"]}>
 
@@ -156,6 +162,7 @@ export default function Home(){
                     />
                 }
 
+                {isProfileModalOpen && <ProfileModal handleProfileOpen={setIsProfileModalOpen} user={username} setNotifications={setNotification} setUser={setUsername}/>}
                 {<Notification notification={notification} setNotifications={setNotification} />}
             </div>
         </>
