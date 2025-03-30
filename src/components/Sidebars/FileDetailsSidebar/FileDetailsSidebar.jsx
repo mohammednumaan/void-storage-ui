@@ -69,8 +69,15 @@ export default function FileDetailsSidebar({selectedFile, setIsOpenDetails, getF
                         title={"Close File Details"} />
                 </div>
                 <div className={styles["file-preview"]}>
-                    <img style={{borderRadius: "10px"}} src={file?.fileUrl} alt={`${file?.fileName} image`} />
+                    {file?.fileType.includes("pdf") ? (
+                        <embed style={{ borderRadius: "10px" }} src={file?.fileUrl} height={"100%"} width={"100%"} />
+                    ) : file?.fileType.includes("text") ? (
+                        <p>Text File, Download This File To View</p>
+                    ) : (
+                        <img style={{ borderRadius: "10px" }} src={file?.fileUrl} alt={`${file?.fileName} image`} />
+                    )}
                 </div>
+
 
                 <div className={styles["file-info"]}>
                     <h3 id={styles["file-info-header"]}>File Details</h3>

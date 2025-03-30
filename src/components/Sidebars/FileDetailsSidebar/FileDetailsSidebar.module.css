@@ -13,6 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-left: 10px;
     transition: all 800ms ease-in-out;
 
 }
@@ -42,9 +43,9 @@
     
     position: absolute;
     right: -100vw;
-    width: auto;
+    width: 35%;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: #0e0d0d;
     color: #ff5a30;
     border-radius: 10px;
@@ -55,7 +56,7 @@
 /* FILE INFO SIDEBAR HEADER STYLES */
 .file-details-header{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     gap: 20%;
     padding-left: 14px;
@@ -71,13 +72,13 @@
 /* FILE PREVIEW/DISPLAY CONTAINER STYLES */
 .file-preview{
     background-color: #1a1a1a;
-    width: 100%;
+    width: 90%;
     height: 300px;
     padding: 10px;
     margin: 0 auto;
     border-radius: 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -203,11 +204,6 @@ hr{
     }
 
 
-    .file-preview{
-        width: 90vw;
-        height: auto;
-    }
-
     .slidein-animation{
         animation: slideIn 1s ease-in-out;
         right: 0;
@@ -252,5 +248,11 @@ hr{
 
     .file-preview{
         margin-left: 10px;
+    }
+}
+
+@media (max-height: 740px) {
+    .file-details-header{
+        margin-top: 100px;
     }
 }
