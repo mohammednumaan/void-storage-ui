@@ -101,7 +101,7 @@ export default function Home(){
     // render components based on screen size
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 1300){
+            if (window.innerWidth <= 1450){
                 setIsMobile(true);
             } else{
                 setIsMobile(false);

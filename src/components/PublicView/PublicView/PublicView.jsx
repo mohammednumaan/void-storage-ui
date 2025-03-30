@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import PublicFileFolderContainer from "../FileFolderContainers/PublicFileFolderContainer";
 import styles from "../../FolderView/FolderView.module.css"
 
-export default function PublicView({resource, linkId, isOpenDetails, setIsOpenDetails}){
+export default function PublicView({resource, linkId, isOpenDetails, setIsOpenDetails, getFileSize}){
     const {parentFolder, folderId} = useParams();
 
     const [folders, setFolders] = useState([])
@@ -48,31 +48,42 @@ export default function PublicView({resource, linkId, isOpenDetails, setIsOpenDe
     return (
         <>  
             
-            <div className={styles["folder-list"]}>
-                {folders.length !== 0 && folders.map((folder) => (
-                    <PublicFileFolderContainer key={folder.id}
-                        fileFolderData={{dataType: "Folder", data: folder}}
-                        parentFolder={resource.id || parentFolder}
-                        linkId={linkId}
-                        isOpenDetails={isOpenDetails}
-                        setIsOpenDetails={setIsOpenDetails}
+            {folders.length !== 0 && (
+                <div className={styles["folder-list"]} style={{marginTop: "-30px"}}>
+                    {folders.map((folder) => (
+                        <PublicFileFolderContainer key={folder.id}
+                            fileFolderData={{dataType: "Folder", data: folder}}
+                            parentFolder={resource.id || parentFolder}
+                            linkId={linkId}
+                            isOpenDetails={isOpenDetails}
+                            setIsOpenDetails={setIsOpenDetails}
+                            getFileSize={getFileSize}
 
-                    />
-                ))}
-            </div>
+                        />
+                    ))}
+                </div>
+            )}
 
-            <div className={styles["file-list"]}>
-                {files.length !== 0 && files.map((file) => (
-                    <PublicFileFolderContainer key={file.id}
-                        fileFolderData={{dataType: "File", data: file}}
-                        parentFolder={resource.id || parentFolder}
-                        linkId={linkId}
-                        isOpenDetails={isOpenDetails}
-                        setIsOpenDetails={setIsOpenDetails}
+            {files.length !== 0 && (
+                <div className={styles["file-list"]} style={{marginTop: "-60px"}}>
+                    {files.map((file) => (
+                        <PublicFileFolderContainer key={file.id}
+                            fileFolderData={{dataType: "File", data: file}}
+                            parentFolder={resource.id || parentFolder}
+                            linkId={linkId}
+                            isOpenDetails={isOpenDetails}
+                            setIsOpenDetails={setIsOpenDetails}
+                            getFileSize={getFileSize}
+                        />
+                    ))}
+                </div>
+            )}
 
-                    />
-                ))}
-            </div>
+            {(!files.length && !folders.length) && 
+                <h3 className={styles["no-file-folders-message"]}>
+                    No Files Or Folders Found In This Directory
+                </h3>
+            }
         </>
     )
 

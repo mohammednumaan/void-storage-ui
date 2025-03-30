@@ -34,7 +34,7 @@ export default function MoveFolder({moveFolderData, setMoveFolderData, rootFolde
 
     useEffect(() => {
         async function getFolderPathSegements(){
-            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${currentFolder}`, {
+            const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${null}/${currentFolder}`, {
                 credentials: 'include',
                 mode: 'cors'
             });

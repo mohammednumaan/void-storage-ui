@@ -89,7 +89,6 @@
 
 .breadcrumbs{
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 10px;
     margin-right: auto;
@@ -97,8 +96,10 @@
     transition: all 500ms ease-in-out;
     gap: 10px;
     bottom: 10px;
-    width: 80%;
-    overflow-x: scroll;
+    width: 80vw;
+    margin-right: 10px;
+
+    overflow-x: auto;
 }
 
 .breadcrumbs .breadcrumb-segment:last-child >a{
@@ -106,6 +107,7 @@
 }
 
 .breadcrumb-segment{
+    margin-left: 5px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -140,7 +142,7 @@ hr{
 }
 
 .folders-list{
-    overflow-y: scroll;
+    overflow-y: auto;
     flex: 1;    
     
 }
@@ -182,6 +184,7 @@ hr{
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        gap: 10px;
     }
 
     .options{

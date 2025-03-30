@@ -8,12 +8,15 @@
 /* BREADCRUMBS STYLES */
 .breadcrumbs{
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 10px;
     margin-right: auto;
     padding-left: 4px;
     transition: all 500ms ease-in-out;
+    
+    overflow-x: auto;
+    margin-left: 12px;
+    width: 80vw;
 }
 
 .breadcrumbs .breadcrumb-segment:last-child >a{
@@ -21,9 +24,11 @@
 }
 
 .breadcrumb-segment{
+    margin-left: 5px;
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 14px;
 }
 
 /* FILE/FOLDER HEADER STYLES */
@@ -75,5 +80,11 @@ hr{
 @media (max-width: 550px) {
     .file-folder-header{
         font-size: small;
+    }
+
+    .breadcrumbs{
+
+
+        width: 85vw;
     }
 }

@@ -1,3 +1,37 @@
+.public-folder-view{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    height: 90vh;
+    margin-right:auto;
+}
+
+.breadcrumbs{
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
+    padding-left: 4px;
+    transition: all 500ms ease-in-out;
+
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.breadcrumbs .breadcrumb-segment:last-child >a{
+    color: gray;
+}
+
+.breadcrumb-segment{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+
 .shared-file{
     display: flex;
     justify-content: center;

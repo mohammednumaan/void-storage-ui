@@ -8,7 +8,7 @@ export default function Loader({ loading }) {
   return (
     <div
       style={{
-        position: "absolute",
+        position: "fixed",
         width: "99.5%",
         height: "5px",
         zIndex: 5,

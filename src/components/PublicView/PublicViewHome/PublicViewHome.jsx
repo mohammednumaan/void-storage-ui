@@ -44,7 +44,7 @@ export default function PublicViewHome(){
             const data = await res.json();
             console.log(data)
             if (res.ok){
-                setResource({type: data.type, id: data.id, fileInfo: data.fileInfo});
+                setResource({type: data.type, id: data.id, fileInfo: data.fileInfo, name: data.name});
             } else{
                 navigate('/view/public/error', {state: {error: data.message}})
             }
@@ -54,6 +54,7 @@ export default function PublicViewHome(){
     }, [isOpenDetails, breadcrumbs])  
 
     useEffect(() => {
+        console.log("Folder")
         async function getFolderPathSegements(){
             const response = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${resource.id}/${folderId}`, {
                 mode: 'cors'
@@ -90,22 +91,23 @@ export default function PublicViewHome(){
         document.body.removeChild(temporaryLinkEl);
         URL.revokeObjectURL(url);
     } 
-
+    console.log(breadcrumbs.length, resource)
     return (
-        <>
+        <div className={styles["public-folder-view"]}>
 
             {type === "folder" && (
                 <>
                     <NavigationBar />
-                    <nav className={folderViewStyles["breadcrumbs"]}>
-                        <small className={folderViewStyles["breadcrumb-segment"]}>
-                            <Link to={`/view/public/folder/${linkId}`}>
+                    <nav className={styles["breadcrumbs"]}>
+                        <small key={resource.id} className={styles["breadcrumb-segment"]}>
+                            <Link to={`/view/public/folder/${linkId}`} onClick={() => setBreadcrumbs([])}>
                                 {resource.name}
                             </Link>  
+                            <img alt="chevron right icon" src="/public/chevron_right_icon.svg" />
                         </small>                    
                         {breadcrumbs.length !== 0 && breadcrumbs.map(breadcrumb => (
                             <>
-                                <small key={breadcrumb.id} className={folderViewStyles["breadcrumb-segment"]}>
+                                <small key={breadcrumb.id} className={styles["breadcrumb-segment"]}>
                                     <Link to={`/view/public/folder/${linkId}/${folderId}/${breadcrumb.id}`}>
                                         {breadcrumb.name}
                                     </Link>                      
@@ -142,6 +144,6 @@ export default function PublicViewHome(){
                     </div>
                 </>
             )}
-        </>
+        </div>
     )   
 }
