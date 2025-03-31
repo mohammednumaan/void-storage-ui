@@ -3,6 +3,6 @@
 
     // https://vitejs.dev/config/
     export default defineConfig({
-      base: 'https://void-storage-frontend-bgr2qnilw-mohammednumaans-projects.vercel.app/',
+      base: '/',
       plugins: [react()],
     })
