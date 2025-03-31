@@ -35,7 +35,7 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
     const data = await res.json();
     console.log(data);
     if (res.ok) {
-      setLink(`${import.meta.env.BASE_URL}/${data.link}`);
+      setLink(`https://void-storage-frontend.vercel.app/${data.link}`);
       setDisabled(true);
     }
     setStatus(null);
