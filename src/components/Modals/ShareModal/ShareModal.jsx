@@ -26,9 +26,9 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          duration: duration.duration,
-          unit: duration.unit,
-          resourceId: fileFolderData.id,
+          duration: duration?.duration,
+          unit: duration?.unit,
+          resourceId: fileFolderData?.id,
         }),
       },
     );
