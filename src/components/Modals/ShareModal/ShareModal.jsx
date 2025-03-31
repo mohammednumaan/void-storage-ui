@@ -58,7 +58,7 @@ export function ShareModal({fileFolderData, setShareForm, setNotification}){
                         {link && 
                             <div className={styles["generated-link-container"]}>
                                 <div className={styles["generated-link"]}>
-                                    <p>{link}</p>
+                                    <small style={{fontSize: '10px', marginLeft: '22px'}}>{link}</small>
                                 </div>
                                 <img
                                     onClick={handleCopy}

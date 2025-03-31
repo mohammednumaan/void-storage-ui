@@ -1,4 +1,4 @@
-/* rename STYLING */
+/* SHARE FORM CONTAINER STYLING */
 .share-form-container{
     position: fixed;
     width: 100%;
@@ -53,20 +53,23 @@
     color: grey;
 }
 
+/* GENERATED LINK COMPONENT STYLING */
 .generated-link  {
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: flex-start; /* Align text to start */
+    
     background-color: #1a1a1a;
     height: 50px;
+    width: 100%; /* Allow it to expand */
+    max-width: 500px; /* Adjust as needed */
     
- 
-    border-radius: 5px;;
+    border-radius: 5px;
     margin-top: 10px;
-    white-space: nowrap;
-    overflow-y: hidden;
-    overflow-x: scroll;
+    
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: nowrap; /* Prevent text from wrapping */
+    padding: 5px; /* Add some padding */
 }
 
 .generated-link-container{
@@ -86,34 +89,40 @@
     padding: 0px 5px;
 }
 
-.day{
+/* SHARE FORM DAY LIST STYLING */
+.share-form-days {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; 
+    
+    background-color: #1a1a1a;
+    border: 1px solid #272727;
+    border-radius: 10px;
+    padding: 5px;
+    width: 95%; 
+
+}
+
+.day {
     color: #ff5a30;
-    padding: 10px;
-    border-right: 1px solid #272727;
+    padding: 10px 15px;
+    border: 1px solid transparent;
     cursor: pointer;
+    text-align: center;
+    min-width: 60px;
+    border-radius: 5px; 
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.selected-day{
+.day:hover,
+.selected-day {
     background-color: #ff5a30;
     color: #1a1a1a;
+    border-color: #ff5a30;
 }
 
-.day:hover{
-    background-color: #ff5a30;
-    color: #1a1a1a;
-}
-
-.share-form-days > :last-child{
-    border-right: none;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.share-form-days > :first-child{
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
+/* SHARE FORM BUTTONS STYLING */
 .share-form-btns{
     display: flex;
     justify-content: center;
@@ -161,3 +170,4 @@
     }
 
 }
+
