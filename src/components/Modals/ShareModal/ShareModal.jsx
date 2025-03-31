@@ -33,7 +33,7 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
     const data = await res.json();
     console.log(data);
     if (res.ok) {
-      setLink(`http://localhost:5173/${data.link}`);
+      setLink(`${import.meta.env.BASE_URL}/${data.link}`);
       setDisabled(true);
     }
   };
