@@ -11,7 +11,7 @@ export default function Notification({ notification, setNotifications }) {
       setTimeout(() => {
         setIsClosed(false);
         setLastUpdated(notification.time);
-      }, 100);
+      }, 0);
     }
   }, [notification.time, lastUpdated]);
   console.log(lastUpdated, notification.time);

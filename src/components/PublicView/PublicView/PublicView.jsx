@@ -72,7 +72,7 @@ export default function PublicView({
       )}
 
       {files.length !== 0 && (
-        <div className={styles["file-list"]} style={{ marginTop: "-60px" }}>
+        <div className={styles["file-list"]} style={{ marginTop: "-30px" }}>
           {files.map((file) => (
             <PublicFileFolderContainer
               key={file.id}

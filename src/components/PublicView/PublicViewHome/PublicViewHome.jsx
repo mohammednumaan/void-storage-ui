@@ -66,7 +66,6 @@ export default function PublicViewHome() {
   }, [isOpenDetails, breadcrumbs]);
 
   useEffect(() => {
-    console.log("Folder");
     async function getFolderPathSegements() {
       const response = await fetch(
         `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${resource.id}/${folderId}`,
@@ -76,7 +75,6 @@ export default function PublicViewHome() {
       );
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
         const segments = data.folderSegments;
         setBreadcrumbs([...segments]);
       } else {
@@ -108,7 +106,6 @@ export default function PublicViewHome() {
     document.body.removeChild(temporaryLinkEl);
     URL.revokeObjectURL(url);
   };
-  console.log(breadcrumbs.length, resource);
   return (
     <div className={styles["public-folder-view"]}>
       {type === "folder" && (
