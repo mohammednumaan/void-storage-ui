@@ -143,7 +143,7 @@ export default function SignupLoginForm({ formOptions }) {
         </div>
 
         <div className={styles["form-ui-image"]}>
-          <img src="/src/assets/art.jpg" alt="art" />
+          <img src="/art.jpg" alt="art" />
         </div>
       </div>
     </div>
