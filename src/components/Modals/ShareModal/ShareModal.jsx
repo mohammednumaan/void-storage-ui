@@ -37,6 +37,8 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
     if (res.ok) {
       setLink(`https://void-storage-frontend.vercel.app/${data.link}`);
       setDisabled(true);
+    } else{
+      setNotification({ message: data.message, time: Date.now() });
     }
     setStatus(null);
   };
