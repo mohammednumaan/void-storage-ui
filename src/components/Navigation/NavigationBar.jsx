@@ -7,7 +7,7 @@ export default function NavigationBar({ isHome, handleProfileOpen }) {
   const navigate = useNavigate();
   const handleLogout = async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/logout`,
+      `${import.meta.env.VITE_PROD_SERVER }/users/logout`,
       {
         method: "POST",
         mode: "cors",

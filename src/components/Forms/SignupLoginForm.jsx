@@ -34,7 +34,7 @@ export default function SignupLoginForm({ formOptions }) {
 
     setStatus(formType === "Register" ? "Registering..." : "Logging In...");
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/${formType.toLowerCase()}`,
+      `${import.meta.env.VITE_PROD_SERVER }/users/${formType.toLowerCase()}`,
       {
         method: "POST",
         body:

@@ -18,7 +18,7 @@ export default function PublicView({
   useEffect(() => {
     async function getFolders() {
       const res = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/${folderId || resource.id}/`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/${folderId || resource.id}/`,
         {
           mode: "cors",
         },
@@ -36,7 +36,7 @@ export default function PublicView({
   useEffect(() => {
     async function getFiles() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/${folderId || resource.id}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/files/${folderId || resource.id}`,
         {
           mode: "cors",
         },

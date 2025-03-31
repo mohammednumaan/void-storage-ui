@@ -17,7 +17,7 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
 
   const handleShare = async () => {
     const res = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${fileFolderData.dataType === "Folder" ? "folders" : "files"}/generate/`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/${fileFolderData.dataType === "Folder" ? "folders" : "files"}/generate/`,
       {
         method: "POST",
         mode: "cors",

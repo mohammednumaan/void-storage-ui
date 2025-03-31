@@ -36,7 +36,7 @@ export default function PublicViewHome() {
   useEffect(() => {
     async function getSharedResource() {
       const res = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${type}s/view/public/${linkId}/`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/${type}s/view/public/${linkId}/`,
         {
           method: "POST",
           mode: "cors",
@@ -68,7 +68,7 @@ export default function PublicViewHome() {
   useEffect(() => {
     async function getFolderPathSegements() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${resource.id}/${folderId}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/segments/${resource.id}/${folderId}`,
         {
           mode: "cors",
         },
@@ -88,7 +88,7 @@ export default function PublicViewHome() {
 
   const handleDownload = async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/download/${resource.id}`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/files/asset/download/${resource.id}`,
       {
         method: "GET",
         mode: "cors",

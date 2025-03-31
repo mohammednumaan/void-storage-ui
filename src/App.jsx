@@ -33,7 +33,7 @@ export default function App() {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/authenticate`,
+        `${import.meta.env.VITE_PROD_SERVER }/users/authenticate`,
         {
           mode: "cors",
           credentials: "include",

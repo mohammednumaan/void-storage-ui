@@ -46,7 +46,7 @@ export default function FolderView({
   useEffect(() => {
     async function getFolderPathSegements() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${null}/${folderId || rootFolderId}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/segments/${null}/${folderId || rootFolderId}`,
         {
           credentials: "include",
           mode: "cors",
@@ -68,7 +68,7 @@ export default function FolderView({
     setLoading(true);
 
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? "folders" : "files"}`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/${dataType === "Folder" ? "folders" : "files"}`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -101,7 +101,7 @@ export default function FolderView({
     setLoading(true);
 
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${dataType === "Folder" ? "folders" : "files"}`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/${dataType === "Folder" ? "folders" : "files"}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

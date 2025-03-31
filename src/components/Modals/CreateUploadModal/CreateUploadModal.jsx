@@ -44,7 +44,7 @@ export default function CreateUploadModal({
     formData.append("file", file);
     formData.append("parentFolderId", folder.parentFolderId);
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/files`,
       {
         method: "POST",
         body: formData,
@@ -84,7 +84,7 @@ export default function CreateUploadModal({
     setDisabled(true);
 
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/folders`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

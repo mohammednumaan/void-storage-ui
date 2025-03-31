@@ -15,7 +15,7 @@ export default function FileDetailsSidebar({
   useEffect(() => {
     async function getFileInformation() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/${selectedFile?.fileId}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/files/asset/${selectedFile?.fileId}`,
         {
           method: "GET",
           credentials: "include",
@@ -39,7 +39,7 @@ export default function FileDetailsSidebar({
 
   const handleDownload = async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/asset/download/${selectedFile.fileId}`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/files/asset/download/${selectedFile.fileId}`,
       {
         method: "GET",
         credentials: "include",

@@ -42,7 +42,7 @@ export default function Home({}) {
   useEffect(() => {
     async function getRootFolder() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/root`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/root`,
         {
           mode: "cors",
           credentials: "include",
@@ -65,7 +65,7 @@ export default function Home({}) {
   useEffect(() => {
     async function getFolders() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/${folderId || rootFolderId}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/${folderId || rootFolderId}`,
         {
           mode: "cors",
           credentials: "include",
@@ -88,7 +88,7 @@ export default function Home({}) {
   useEffect(() => {
     async function getFiles() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/files/${folderId || rootFolderId}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/files/${folderId || rootFolderId}`,
         {
           mode: "cors",
           credentials: "include",

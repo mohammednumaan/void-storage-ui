@@ -25,7 +25,7 @@ export default function ProfileModal({
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/profile/`, {
+    const res = await fetch(`${import.meta.env.VITE_PROD_SERVER }/users/profile/`, {
       method: "POST",
       mode: "cors",
       credentials: "include",
@@ -52,7 +52,7 @@ export default function ProfileModal({
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
     setDeleteStatus("Deleting...");
-    const res = await fetch(`${import.meta.env.VITE_DEVELOPMENT_SERVER}/users/profile/delete/`, {
+    const res = await fetch(`${import.meta.env.VITE_PROD_SERVER }/users/profile/delete/`, {
       method: "POST",
       mode: "cors",
       credentials: "include",

@@ -25,7 +25,7 @@ export default function MoveFolder({
   useEffect(() => {
     async function getAvailableFolders() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/${rootFolderId}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/${rootFolderId}`,
         {
           credentials: "include",
           mode: "cors",
@@ -42,7 +42,7 @@ export default function MoveFolder({
   useEffect(() => {
     async function getFolderPathSegements() {
       const response = await fetch(
-        `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/segments/${null}/${currentFolder}`,
+        `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/segments/${null}/${currentFolder}`,
         {
           credentials: "include",
           mode: "cors",
@@ -58,7 +58,7 @@ export default function MoveFolder({
 
   const handleDoubleClick = async function getAvailableFolders(folderId) {
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/folders/${folderId}`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/folders/${folderId}`,
       {
         credentials: "include",
         mode: "cors",
@@ -78,7 +78,7 @@ export default function MoveFolder({
     setLoading(true);
     setDisabled(true);
     const response = await fetch(
-      `${import.meta.env.VITE_DEVELOPMENT_SERVER}/file-system/${moveFolderData.type === "Folder" ? "folders" : "files"}/move`,
+      `${import.meta.env.VITE_PROD_SERVER }/file-system/${moveFolderData.type === "Folder" ? "folders" : "files"}/move`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
