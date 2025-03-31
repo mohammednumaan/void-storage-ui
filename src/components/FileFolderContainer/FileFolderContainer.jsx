@@ -97,12 +97,12 @@ export default function FileFolderContainer({
             {fileFolderData.dataType === "Folder" ? (
               <img
                 className={styles["folder-icon"]}
-                src="/public/folder_open_icon.svg"
+                src="/folder_open_icon.svg"
                 alt="folder icon"
               />
             ) : (
               <img
-                src="/public/file_icon.svg"
+                src="/file_icon.svg"
                 className={styles["file-icon"]}
                 alt="file icon"
               />
@@ -135,7 +135,7 @@ export default function FileFolderContainer({
               ref={(el) => menuRef.current.push(el)}
               onClick={(e) => handleMenuClick(e, fileFolderData.data.id)}
               title="More Options"
-              src="/public/more_options_icon.svg"
+              src="/more_options_icon.svg"
               alt="more options icon"
             />
             <DropdownMenu

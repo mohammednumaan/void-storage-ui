@@ -124,7 +124,7 @@ export default function MoveFolder({
               placeholder="Search..."
             ></input>
             <button className={styles["search-btn"]}>
-              <img src="/public/search_icon.svg" alt="search icon"></img>
+              <img src="/search_icon.svg" alt="search icon"></img>
             </button>
           </div>
 
@@ -150,7 +150,7 @@ export default function MoveFolder({
                   >
                     <small className={`${styles["folder-left"]}`}>
                       <img
-                        src="/public/folder_open_icon.svg"
+                        src="/folder_open_icon.svg"
                         alt="folder icon"
                       ></img>
                       <p
@@ -187,7 +187,7 @@ export default function MoveFolder({
                       </Link>
                       <img
                         alt="chevron right icon"
-                        src="/public/chevron_right_icon.svg"
+                        src="/chevron_right_icon.svg"
                       />
                     </small>
                   ))}

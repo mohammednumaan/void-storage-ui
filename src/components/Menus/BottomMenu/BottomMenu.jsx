@@ -24,7 +24,7 @@ export default function BottomMenu({
         >
           <img
             alt="create new file icon"
-            src="/public/new_folder_icon.svg"
+            src="/new_folder_icon.svg"
             title="Create Folder"
           />
         </button>
@@ -33,7 +33,7 @@ export default function BottomMenu({
           <button id={styles["home-folder-btn"]}>
             <img
               alt="home icon"
-              src="/public/home_icon.svg"
+              src="/home_icon.svg"
               title="Root Folder"
             />
           </button>
@@ -42,7 +42,7 @@ export default function BottomMenu({
         <button id={styles["add-file-btn"]} onClick={() => setFileForm(true)}>
           <img
             alt="create new file icon"
-            src="/public/new_file_icon.svg"
+            src="/new_file_icon.svg"
             title="Upload File"
           />
         </button>

@@ -31,7 +31,7 @@ export default function DropdownMenu({
           >
             <img
               alt="delete icon"
-              src="/public/folder_delete_icon.svg"
+              src="/folder_delete_icon.svg"
               title={`Delete ${fileFolderData.dataType}`}
             />
             Delete
@@ -55,7 +55,7 @@ export default function DropdownMenu({
           >
             <img
               alt="rename icon"
-              src="/public/folder_edit_icon.svg"
+              src="/folder_edit_icon.svg"
               title={`Delete ${fileFolderData.dataType}`}
             />
             Edit
@@ -83,7 +83,7 @@ export default function DropdownMenu({
           >
             <img
               alt="move icon"
-              src="/public/move_icon.svg"
+              src="/move_icon.svg"
               title={`Move ${fileFolderData.dataType}`}
             />
             Move
@@ -115,7 +115,7 @@ export default function DropdownMenu({
               >
                 <img
                   alt="share icon"
-                  src="/public/share_icon.svg"
+                  src="/share_icon.svg"
                   title={`Move ${fileFolderData.dataType}`}
                 />
                 Share
@@ -144,7 +144,7 @@ export default function DropdownMenu({
               >
                 <img
                   alt="info icon"
-                  src="/public/info_icon.svg"
+                  src="/info_icon.svg"
                   title={"View File Details"}
                 />
                 Details

@@ -76,7 +76,7 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
               <img
                 onClick={handleCopy}
                 alt="copy icon"
-                src="/public/copy_icon.svg"
+                src="/copy_icon.svg"
                 id={styles["copy"]}
               />
               <span id={styles["copy-tooltip"]}></span>

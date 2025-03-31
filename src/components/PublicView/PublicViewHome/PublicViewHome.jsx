@@ -121,7 +121,7 @@ export default function PublicViewHome() {
               </Link>
               <img
                 alt="chevron right icon"
-                src="/public/chevron_right_icon.svg"
+                src="/chevron_right_icon.svg"
               />
             </small>
             {breadcrumbs.length !== 0 &&
@@ -138,7 +138,7 @@ export default function PublicViewHome() {
                     </Link>
                     <img
                       alt="chevron right icon"
-                      src="/public/chevron_right_icon.svg"
+                      src="/chevron_right_icon.svg"
                     />
                   </small>
                 </>

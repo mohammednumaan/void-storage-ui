@@ -87,7 +87,7 @@ export default function FileDetailsSidebar({
             }}
             style={{ padding: "20px", cursor: "pointer", marginRight: "-10px" }}
             alt="close icon"
-            src="/public/close_icon.svg"
+            src="/close_icon.svg"
             title={"Close File Details"}
           />
         </div>

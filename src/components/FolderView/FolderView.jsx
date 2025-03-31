@@ -151,7 +151,7 @@ export default function FolderView({
               </Link>
               <img
                 alt="chevron right icon"
-                src="/public/chevron_right_icon.svg"
+                src="/chevron_right_icon.svg"
               />
             </small>
           ))}

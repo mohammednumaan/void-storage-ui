@@ -29,7 +29,7 @@ export default function Notification({ notification, setNotifications }) {
         }}
         style={{ color: "#0e0d0d", cursor: "pointer" }}
         alt="close icon"
-        src="/public/close_icon_black.svg"
+        src="/close_icon_black.svg"
         title={"Close Notification"}
       />
     </div>

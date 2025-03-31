@@ -33,13 +33,13 @@ export default function NavigationBar({ isHome, handleProfileOpen }) {
             <>
               <img
                 onClick={handleProfileOpen}
-                src="/public/account_icon.svg"
+                src="/account_icon.svg"
                 alt="account button icon"
                 title="Account"
               />
               <img
                 onClick={handleLogout}
-                src="/public/logout_icon.svg"
+                src="/logout_icon.svg"
                 alt="logout button icon"
                 title="Logout"
               />

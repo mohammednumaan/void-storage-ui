@@ -1,7 +1,7 @@
 /* PRIMARY STYLES */
 @font-face {
   font-family: sohne;
-  src: url("./assets/sohne.otf");
+  src: url("/sohne.otf");
 }
 
 :root {

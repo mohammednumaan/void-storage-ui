@@ -27,7 +27,7 @@ export default function HomeSidebar({
             Add Folders
             <img
               alt="create new file icon"
-              src="/public/new_folder_icon.svg"
+              src="/new_folder_icon.svg"
               title="Create Folder"
             />
           </button>
@@ -36,7 +36,7 @@ export default function HomeSidebar({
             Add File
             <img
               alt="create new file icon"
-              src="/public/new_file_icon.svg"
+              src="/new_file_icon.svg"
               title="Upload File"
             />
           </button>

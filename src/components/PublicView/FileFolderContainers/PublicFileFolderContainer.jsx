@@ -40,12 +40,12 @@ export default function PublicFileFolderContainer({
             {fileFolderData.dataType === "Folder" ? (
               <img
                 className={styles["folder-icon"]}
-                src="/public/folder_open_icon.svg"
+                src="/folder_open_icon.svg"
                 alt="folder icon"
               />
             ) : (
               <img
-                src="/public/file_icon.svg"
+                src="/file_icon.svg"
                 className={styles["file-icon"]}
                 alt="file icon"
               />
