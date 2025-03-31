@@ -14,8 +14,10 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
   const [link, setLink] = useState(null);
   const [duration, setDuration] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [status, setStatus] = useState(null);
 
   const handleShare = async () => {
+    setStatus("Generating...")
     const res = await fetch(
       `${import.meta.env.VITE_PROD_SERVER }/file-system/${fileFolderData.dataType === "Folder" ? "folders" : "files"}/generate/`,
       {
@@ -36,11 +38,13 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
       setLink(`${import.meta.env.BASE_URL}/${data.link}`);
       setDisabled(true);
     }
+    setStatus(null);
   };
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(link);
     setNotification({ message: "Copied To Clipboard!", time: Date.now() });
+
   };
   return (
     <>
@@ -84,10 +88,13 @@ export function ShareModal({ fileFolderData, setShareForm, setNotification }) {
           )}
           <div className={styles["share-form-btns"]}>
             <button disabled={disabled} type="submit" onClick={handleShare}>
-              Share
+              {!status ? 'Generate' : status}
             </button>
             <button
-              onClick={() => setShareForm({ isOpen: false, fileFolder: null })}
+              onClick={() => {
+                setStatus(null);
+                setShareForm({ isOpen: false, fileFolder: null })
+              }}
             >
               Close
             </button>
