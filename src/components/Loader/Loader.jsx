@@ -1,8 +1,8 @@
 // imports
 import React from "react";
-import styles from "./Loader.module.css"
+import styles from "./Loader.module.css";
 
-// a simple "indeterminate" loader component that runs 
+// a simple "indeterminate" loader component that runs
 // at the top of the screen
 export default function Loader({ loading }) {
   return (
@@ -13,7 +13,7 @@ export default function Loader({ loading }) {
         height: "5px",
         zIndex: 5,
         top: "0px",
-        overflowX: "hidden"
+        overflowX: "hidden",
       }}
     >
       <div className={loading ? `${styles["animated-div"]}` : ""} />

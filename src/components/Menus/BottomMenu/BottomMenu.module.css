@@ -1,39 +1,41 @@
 /* MOBILE MENU CONTAINER STYLES */
-.mobile-menu-container{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.mobile-menu-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 
-    position: fixed;
-    bottom: 10px;
-    width: 95%;
-    margin: 15px;
-    padding: 5px;
+  position: fixed;
+  bottom: 10px;
+  width: 95%;
+  margin: 15px;
+  padding: 5px;
 
-    border-radius: 10px;
-    background-color: #0e0d0d;
-    box-shadow: rgba(255, 90, 48, 0.15) 0px 4px 8px, rgba(255, 90, 48, 0.1) 0px 2px 4px;
+  border-radius: 10px;
+  background-color: #0e0d0d;
+  box-shadow:
+    rgba(255, 90, 48, 0.15) 0px 4px 8px,
+    rgba(255, 90, 48, 0.1) 0px 2px 4px;
 }
 
-.mobile-menu-container > button{
-    border-radius: 10%;
-    background-color: transparent;
+.mobile-menu-container > button {
+  border-radius: 10%;
+  background-color: transparent;
 }
 
-#home-folder-btn{
-    border-radius: 10%;
-    background-color: transparent;
+#home-folder-btn {
+  border-radius: 10%;
+  background-color: transparent;
 }
 
 /* MEDIA QUERIES FOR MOBILE MENU CONTAINER */
 @media (max-width: 610px) {
-    .mobile-menu-container{
-        width: 85%;
-    }
+  .mobile-menu-container {
+    width: 85%;
+  }
 }
 
-@media (min-width: 620px ) and (max-width: 800px) {
-    .mobile-menu-container{
-        width: 92%;
-    }
+@media (min-width: 620px) and (max-width: 800px) {
+  .mobile-menu-container {
+    width: 92%;
+  }
 }

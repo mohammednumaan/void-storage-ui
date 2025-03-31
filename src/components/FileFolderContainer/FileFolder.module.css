@@ -1,71 +1,69 @@
 /* FILE FOLDER CONTAINER STYLES */
-.file-folder-container{
-    padding:100px;
-    border: 2px solid #1a1a1a;
-    border-radius: 10px;
-    padding: 5px 10px;
-    color: #ff5a30;
-    transition: 0.5s;
-    background-color: #0e0d0d;
-    margin-bottom: 10px;
+.file-folder-container {
+  padding: 100px;
+  border: 2px solid #1a1a1a;
+  border-radius: 10px;
+  padding: 5px 10px;
+  color: #ff5a30;
+  transition: 0.5s;
+  background-color: #0e0d0d;
+  margin-bottom: 10px;
 }
 
-.file-folder-container:hover{
-    background-color: #1a1a1a;
+.file-folder-container:hover {
+  background-color: #1a1a1a;
 }
 
 /* FILE FOLDER STYLES */
-.file-folder{
-    display: grid;
-    grid-template-columns: minmax(0, 3fr) 4.2fr;
-    padding: 5px;
+.file-folder {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) 4.2fr;
+  padding: 5px;
 }
 
-.file-folder-left{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    line-height: 1rem;
-        
+.file-folder-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1rem;
 }
 
-.file-folder-right{
-    display: grid;
-    grid-template-columns: 1fr 2fr 1.1fr;
-    align-items: center;
+.file-folder-right {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.1fr;
+  align-items: center;
 }
 
-.file-folder-name{
-    max-width: 3fr;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: left;
+.file-folder-name {
+  max-width: 3fr;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
 }
 
-.file-extension{
-    padding-right: 5px;
-    color: #EDF4C2;
+.file-extension {
+  padding-right: 5px;
+  color: #edf4c2;
 }
 
-.file-folder-created{
-    width: 2fr;
-    word-wrap: break-word;
-    overflow: hidden;
+.file-folder-created {
+  width: 2fr;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 /* FILE FOLDER OPTIONS STYLES */
-.file-folder-options{
-    /* padding: 20px; */
-    margin: auto;
+.file-folder-options {
+  /* padding: 20px; */
+  margin: auto;
 }
 
 /* MEDIA QUERTIES FOR THE FILE/FOLDER CONTAINER */
 @media (max-width: 550px) {
-
-    .folder-icon,
-    .file-icon{
-        width: 12px;
-        height: 12px;
-    }
+  .folder-icon,
+  .file-icon {
+    width: 12px;
+    height: 12px;
+  }
 }

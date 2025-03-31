@@ -1,83 +1,80 @@
 /* rename STYLING */
-.delete-form-container{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.3);
-    backdrop-filter: blur(5px);
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.delete-form-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.delete-form{
-
-    width: 20em;
-    border: 2px solid #1a1a1a;
-    border-radius: 20px;
-    background-color: #0e0d0d;
-    padding: 50px;
+.delete-form {
+  width: 20em;
+  border: 2px solid #1a1a1a;
+  border-radius: 20px;
+  background-color: #0e0d0d;
+  padding: 50px;
 }
 
 /* delete FORM'S TITLE AND BUTTON STYLING */
-#delete-title{
-    color:  #ff5a30;
-    font-size: 40px;
+#delete-title {
+  color: #ff5a30;
+  font-size: 40px;
 }
 
-#delete-input{
-    width: 95%;
-    flex: 1 1 auto;
+#delete-input {
+  width: 95%;
+  flex: 1 1 auto;
 }
 
-.delete-form-btns{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+.delete-form-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.delete-form-btns > button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    flex: 1;
+.delete-form-btns > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex: 1;
 }
 
-.delete-form-btns > button:disabled{
-    pointer-events: none;
+.delete-form-btns > button:disabled {
+  pointer-events: none;
 }
 
 /* MEDIA QUERIES FOR THE MODAL COMPONENT */
 @media (max-width: 470px) {
+  .delete-form {
+    width: 60%;
+    padding: 20px;
+    margin: 0 10px;
+  }
 
-    .delete-form{
-        width: 60%;
-        padding: 20px;
-        margin: 0 10px;
-    }
-    
-    #delete-input{
-        width: 90%;
-    }
-    #delete-title {
-        font-size: 30px;
-    }
-    
-    .delete-form-btns {
-        flex-direction: column;
-        gap: 0px;
-    }
-    
-    .delete-form-btns > button {
-        width: 100%;
-    }
+  #delete-input {
+    width: 90%;
+  }
+  #delete-title {
+    font-size: 30px;
+  }
 
+  .delete-form-btns {
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .delete-form-btns > button {
+    width: 100%;
+  }
 }

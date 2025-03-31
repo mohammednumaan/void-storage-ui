@@ -1,173 +1,170 @@
 /* SHARE FORM CONTAINER STYLING */
-.share-form-container{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.3);
-    backdrop-filter: blur(5px);
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.share-form-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.share-form{
-    width: 30em;
-    border: 2px solid #1a1a1a;
-    border-radius: 20px;
-    background-color: #0e0d0d;
-    padding: 50px;
+.share-form {
+  width: 30em;
+  border: 2px solid #1a1a1a;
+  border-radius: 20px;
+  background-color: #0e0d0d;
+  padding: 50px;
 }
 
 /* SHARE FORM'S TITLE AND BUTTON STYLING */
-#share-title{
-    color:  #ff5a30;
-    font-size: 40px;
+#share-title {
+  color: #ff5a30;
+  font-size: 40px;
 }
 
-#share-input{
-    width: 95%;
-    flex: 1 1 auto;
+#share-input {
+  width: 95%;
+  flex: 1 1 auto;
 }
 
-.share-form-days{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ff5a30;
-    flex-wrap: wrap;
+.share-form-days {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff5a30;
+  flex-wrap: wrap;
 
-    width: fit-content;
-    border: 1px solid #272727;
-    height: fit-content;
+  width: fit-content;
+  border: 1px solid #272727;
+  height: fit-content;
 
-    background-color: #1a1a1a;
-    border-radius: 10px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
 }
 
-.share-duration-title{
-    color: grey;
+.share-duration-title {
+  color: grey;
 }
 
 /* GENERATED LINK COMPONENT STYLING */
-.generated-link  {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Align text to start */
-    
-    background-color: #1a1a1a;
-    height: 50px;
-    width: 100%; /* Allow it to expand */
-    max-width: 500px; /* Adjust as needed */
-    
-    border-radius: 5px;
-    margin-top: 10px;
-    
-    overflow-x: auto; /* Allow horizontal scrolling */
-    white-space: nowrap; /* Prevent text from wrapping */
-    padding: 5px; /* Add some padding */
+.generated-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align text to start */
+
+  background-color: #1a1a1a;
+  height: 50px;
+  width: 100%; /* Allow it to expand */
+  max-width: 500px; /* Adjust as needed */
+
+  border-radius: 5px;
+  margin-top: 10px;
+
+  overflow-x: auto; /* Allow horizontal scrolling */
+  white-space: nowrap; /* Prevent text from wrapping */
+  padding: 5px; /* Add some padding */
 }
 
-.generated-link-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+.generated-link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.generated-link-container > img{
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+.generated-link-container > img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }
 
-.generated-link > p{
-    padding: 0px 5px;
+.generated-link > p {
+  padding: 0px 5px;
 }
 
 /* SHARE FORM DAY LIST STYLING */
 .share-form-days {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px; 
-    
-    background-color: #1a1a1a;
-    border: 1px solid #272727;
-    border-radius: 10px;
-    padding: 5px;
-    width: 95%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 
+  background-color: #1a1a1a;
+  border: 1px solid #272727;
+  border-radius: 10px;
+  padding: 5px;
+  width: 95%;
 }
 
 .day {
-    color: #ff5a30;
-    padding: 10px 15px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    text-align: center;
-    min-width: 60px;
-    border-radius: 5px; 
-    transition: background-color 0.3s ease, color 0.3s ease;
+  color: #ff5a30;
+  padding: 10px 15px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  min-width: 60px;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .day:hover,
 .selected-day {
-    background-color: #ff5a30;
-    color: #1a1a1a;
-    border-color: #ff5a30;
+  background-color: #ff5a30;
+  color: #1a1a1a;
+  border-color: #ff5a30;
 }
 
 /* SHARE FORM BUTTONS STYLING */
-.share-form-btns{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+.share-form-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.share-form-btns > button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    flex: 1;
+.share-form-btns > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex: 1;
 }
 
-.share-form-btns > button:disabled{
-    pointer-events: none;
+.share-form-btns > button:disabled {
+  pointer-events: none;
 }
-
 
 /* MEDIA QUERIES FOR THE MODAL COMPONENT */
 @media (max-width: 470px) {
+  .share-form {
+    width: 60%;
+    padding: 20px;
+    margin: 0 10px;
+  }
 
-    .share-form{
-        width: 60%;
-        padding: 20px;
-        margin: 0 10px;
-    }
-    
-    #share-input{
-        width: 90%;
-    }
-    #share-title {
-        font-size: 30px;
-    }
-    
-    .share-form-btns {
-        flex-direction: column;
-        gap: 0px;
-    }
-    
-    .share-form-btns > button {
-        width: 100%;
-    }
+  #share-input {
+    width: 90%;
+  }
+  #share-title {
+    font-size: 30px;
+  }
 
+  .share-form-btns {
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .share-form-btns > button {
+    width: 100%;
+  }
 }
-

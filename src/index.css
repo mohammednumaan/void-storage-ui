@@ -17,7 +17,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 
 a {
@@ -76,7 +75,6 @@ button:focus-visible {
   background: white;
   border-radius: 10px;
 }
-
 
 @media (prefers-color-scheme: light) {
   :root {

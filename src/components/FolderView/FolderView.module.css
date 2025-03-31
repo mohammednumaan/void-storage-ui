@@ -1,90 +1,88 @@
 /* FOLDER AND FILE LIST STYLES */
 .folder-list,
-.file-list{
-    width: 98%;
-    display: grid;
+.file-list {
+  width: 98%;
+  display: grid;
 }
 
 /* BREADCRUMBS STYLES */
-.breadcrumbs{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-right: auto;
-    padding-left: 4px;
-    transition: all 500ms ease-in-out;
-    
-    overflow-x: auto;
-    margin-left: 12px;
-    width: 80vw;
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+  padding-left: 4px;
+  transition: all 500ms ease-in-out;
+
+  overflow-x: auto;
+  margin-left: 12px;
+  width: 80vw;
 }
 
-.breadcrumbs .breadcrumb-segment:last-child >a{
-    color: gray;
+.breadcrumbs .breadcrumb-segment:last-child > a {
+  color: gray;
 }
 
-.breadcrumb-segment{
-    margin-left: 5px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
+.breadcrumb-segment {
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
 }
 
 /* FILE/FOLDER HEADER STYLES */
-.file-folder-header{
-    width: 98%; 
-    color: #494848;
+.file-folder-header {
+  width: 98%;
+  color: #494848;
 }
 
-.file-folder-header-right{
-    display: grid;
-    grid-template-columns: 3fr 1fr 2fr 1.2fr;
+.file-folder-header-right {
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr 1.2fr;
 }
 
 /* HR STYLES */
 
-hr{
-    border: 1px solid #0e0d0d;
-    margin-top: -10px;
-    width: 98%;
+hr {
+  border: 1px solid #0e0d0d;
+  margin-top: -10px;
+  width: 98%;
 }
 
 /* EMPTY FOLDER MESSAGE */
-.no-file-folders-message{
-    color: #494848;
-    position: relative;
-    top: 35%;
+.no-file-folders-message {
+  color: #494848;
+  position: relative;
+  top: 35%;
 }
 
 /* EDIT CONTAINER */
-#edit-input{
-    border: none;
-    font-size: 18px;
+#edit-input {
+  border: none;
+  font-size: 18px;
 
-    background-color: transparent;
-    color: #ff5a30;
-    width: 200px;
+  background-color: transparent;
+  color: #ff5a30;
+  width: 200px;
 }
 
 .edit-input-container,
-.edit-options{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    height: fit-content;
+.edit-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: fit-content;
 }
 
 /* MEDIA QUERIES FOR THE FILE/FOLDER HEADER CONTAINER */
 @media (max-width: 550px) {
-    .file-folder-header{
-        font-size: small;
-    }
+  .file-folder-header {
+    font-size: small;
+  }
 
-    .breadcrumbs{
-
-
-        width: 85vw;
-    }
+  .breadcrumbs {
+    width: 85vw;
+  }
 }

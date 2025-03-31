@@ -13,8 +13,8 @@
     width: 5%;
   }
 
-  40%{
-      width: 20%;
+  40% {
+    width: 20%;
   }
   100% {
     width: 2%;
@@ -28,5 +28,7 @@
   background-color: #ff5a30;
   z-index: 6;
   overflow-x: hidden;
-  animation: leftAnimation 1s infinite, widthAnimation 1s infinite;
+  animation:
+    leftAnimation 1s infinite,
+    widthAnimation 1s infinite;
 }
