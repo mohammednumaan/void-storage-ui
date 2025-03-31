@@ -18,7 +18,6 @@ export default function LandingPage(){
 
                 <div className={styles["home-background"]}>
                     <div className={styles["home-background-dot-top"]}></div>
-                    <div className={styles["home-background-dot-bottom"]}></div>
                 </div>
 
                 <div className={styles["get-started-container"]}>

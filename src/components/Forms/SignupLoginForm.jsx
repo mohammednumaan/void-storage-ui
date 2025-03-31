@@ -86,19 +86,22 @@ export default function SignupLoginForm({formOptions}){
                         </div>}
 
                         <button className={styles["submit-button"]} type="submit">{!status ? formType : status}</button>
-                        {errors && <p style={{color: 'red'}}>{errors}</p>} 
+                        {errors && <small style={{color: 'red', fontSize: '12px'}}>{errors}</small>} 
                     </form>
                     
                     <div className="form-links">
                         <p>
                             {formType === "Register" ? "Already Have An Account?" : "Don't Have An Account?"} 
-                            <Link to={`/${linkTo}`}> {linkTo.charAt(0).toUpperCase() + linkTo.slice(1)} </Link>
+                            <Link onClick={() => setErrors(null)} to={`/${linkTo}`}> {linkTo.charAt(0).toUpperCase() + linkTo.slice(1)} </Link>
                         </p>
                     </div>
                 </div>
 
                 <div className={styles["form-ui-image"]}>
-                    <img src="/src/assets/art.jpg"  height={"85%"} width={"100%"} style={{borderRadius: "20px"}}></img>
+                    <img 
+                        src="/src/assets/art.jpg" 
+                        alt="art"
+                    />
                 </div>
             </div>
         </div>
