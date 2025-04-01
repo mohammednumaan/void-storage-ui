@@ -93,9 +93,10 @@ export default function FileDetailsSidebar({
         </div>
         <div className={styles["file-preview"]}>
           {file?.fileType.includes("pdf") ? (
-            <embed
+            <object
               style={{ borderRadius: "10px" }}
-              src={file?.fileUrl}
+              data={file?.fileUrl}
+              type="application/pdf"
               height={"100%"}
               width={"100%"}
             />
