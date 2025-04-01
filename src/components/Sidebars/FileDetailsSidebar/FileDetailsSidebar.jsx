@@ -92,7 +92,7 @@ export default function FileDetailsSidebar({
           />
         </div>
         <div className={styles["file-preview"]}>
-          {(file?.fileType.includes("pdf") && file?.fileName.includes(".pdf")) ? (
+          {(file?.fileType.includes("pdf") && file?.fileUrl.includes(".pdf")) ? (
             <object
               style={{ borderRadius: "10px" }}
               data={file?.fileUrl}
@@ -101,7 +101,7 @@ export default function FileDetailsSidebar({
               width={"100%"}
             />
           ) : file?.fileType.includes("text") ||
-            file?.fileType.includes("msword") || !file?.fileName.includes(".pdf") ? (
+            file?.fileType.includes("msword") || !file?.fileUrl.includes(".pdf") ? (
             <p>Text/Document File, Download This File To View</p>
           ) : (
             <img
